@@ -9,10 +9,11 @@ class main_menu{
     private:
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
+        button buttons[2];
 
     public:
         void mainMenuDraw(sf::RenderWindow& window);
         main_menu();
-        ~main_menu();
+        //~main_menu();
 };
 #endif

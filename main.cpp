@@ -26,6 +26,12 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        if (event.type == sf::Event::MouseButtonPressed) {
+                if (mainMenu.startButton.isClicked(window)) {
+                    std::cout << "Start button clicked!\n";
+                    // Add code to handle button click action
+                }
+            }
         window.clear();
         main1.mainMenuDraw(window);
         window.display();
