@@ -27,9 +27,8 @@ int main()
                 window.close();
         }
         window.clear();
-        main1.mainMenuDraw(window);
-        window.display();
         main1.mainButtons(event, window);
+        window.display();
         //if (main1)
         //
         //window.draw(sprite);
