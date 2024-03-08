@@ -1,21 +1,15 @@
 #include "mainMenu.hpp"
-#include <SFML/Graphics.hpp>
-int main_menu::mainMenuDraw(sf::RenderWindow& window){
-    std::cerr<<"GAY\n";
-    if (!backgroundTexture.loadFromFile("Sprites/main_menu.png")){
-        std::clog<<"Missing file: Sprites/main_menu.png\n";
-        return EXIT_FAILURE;
+
+main_menu::main_menu() {
+    if (!backgroundTexture.loadFromFile("Sprites/main_menu.png")) {
+        std::cerr << "Missing file: Sprites/main_menu.png\n";
     }
-    backgroundSprite.setTexture(backgroundTexture);
-    //window.clear();
-    //window.draw(backgroundSprite);
-    //internWindow.display();
+    backgroundShape.setTexture(backgroundTexture);
 }
 
-main_menu::main_menu(sf::RenderWindow& window) {
-    std::cerr<<"GAY\n";
-    if (!backgroundTexture.loadFromFile("Sprites/main_menu.png")){
-        std::clog<<"Missing file: Sprites/main_menu.png\n";
-        //return EXIT_FAILURE;
-    }
+void main_menu::mainMenuDraw(sf::RenderWindow& window){
+    backgroundShape.setTexture(backgroundTexture);
+    //window.clear();
+    window.draw(backgroundShape);
+    //internWindow.display();
 }

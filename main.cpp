@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "mainMenu.hpp"
 
 int main()
@@ -15,7 +16,7 @@ int main()
     }
     sf::Sprite sprite(texture);
     //shape.setFillColor(sf::Color::Green);
-    main_menu main1(window);
+    main_menu main1;
     while (window.isOpen())
     {
 
@@ -25,13 +26,15 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        window.clear();
         main1.mainMenuDraw(window);
+        window.display();
         //if (main1)
-        //window.clear();
+        //
         //window.draw(sprite);
         //window.draw(texture);
         //window.draw(shape);
-        //window.display();
+        //
     }
 
     return 0;
