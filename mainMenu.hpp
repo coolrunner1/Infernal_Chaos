@@ -13,6 +13,7 @@ class main_menu{
 
     public:
         void mainMenuDraw(sf::RenderWindow& window);
+        int mainButtons(sf::Event& event, sf::RenderWindow& window);
         main_menu();
         //~main_menu();
 };

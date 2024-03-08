@@ -9,3 +9,10 @@ void button::buttonDraw(float xpos, float ypos, float height, float width, std::
     buttonShape.setScale(sf::Vector2f(width, height));
     window.draw(buttonShape);
 }
+
+bool button::isClicked(sf::RenderWindow& window){
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+    sf::FloatRect buttonBounds = buttonShape.getGlobalBounds();
+
+    return buttonBounds.contains(static_cast<sf::Vector2f>(mousePosition));
+}
