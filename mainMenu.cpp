@@ -28,7 +28,7 @@ void main_menu::mainMenuDraw(sf::RenderWindow& window){
 
 void main_menu::secondMenuDraw(sf::RenderWindow& window){
     window.clear();
-    //window.draw(backgroundShape);
+    window.draw(backgroundShape);
     //std::string pathQuit="Sprites/quit.png";
     buttons[2]->buttonDraw(350, 50, 10, 10, window);
     //buttons[3].buttonDraw(350, 500, 10, 10, pathQuit, window);

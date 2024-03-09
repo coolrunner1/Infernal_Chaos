@@ -33,6 +33,7 @@ int main()
             case 0:
                 std::cout<<"THIS IS GAY\n";
                 menuChoice=main1->mainButtons(event, window);
+                //std::cout<<menuChoice<<std::endl;
                 break;
             case 1:
                 main1->secButtons(event, window);
