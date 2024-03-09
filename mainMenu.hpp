@@ -8,7 +8,7 @@
 
 class main_menu{
     private:
-        sf::Texture backgroundTexture;
+        sf::Texture backgroundTexture[4];
         sf::Sprite backgroundShape;
         //button butPlay;
         std::string path[numOfButtons];

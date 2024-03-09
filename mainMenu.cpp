@@ -1,15 +1,20 @@
 #include "mainMenu.hpp"
 
 main_menu::main_menu() {
-    if (!backgroundTexture.loadFromFile("Sprites/main_menu.png")) {
+    if (!backgroundTexture[0].loadFromFile("Sprites/main_menu.png")) {
         std::cerr << "Missing file: Sprites/main_menu.png\n";
+    }
+    if (!backgroundTexture[1].loadFromFile("Sprites/menu1.png")) {
+        std::cerr << "Missing file: Sprites/menu1.png\n";
+    }
+    if (!backgroundTexture[2].loadFromFile("Sprites/menu2.png")) {
+        std::cerr << "Missing file: Sprites/menu2.png\n";
     }
     path[0]="Sprites/Play.png";
     path[1]="Sprites/quit.png";
     path[2]="Sprites/infernal_campaign.png";
     path[3]="Sprites/perpetual_suffering.png";
     path[4]="Sprites/back.png";
-    backgroundShape.setTexture(backgroundTexture);
     //buttons[0]={button(path[0])};
     for (int i=0; i<numOfButtons; i++)
         buttons[i] = new button {button(path[i])};
@@ -44,6 +49,7 @@ void main_menu::menuButtons(int min, int max, sf::RenderWindow& window){
 
 void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
     window.clear();
+    backgroundShape.setTexture(backgroundTexture[screen]);
     window.draw(backgroundShape);
     if (screen==0)
         menuButtons(0, 1, window);
@@ -86,26 +92,6 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
     return screen;
 }
 
-/*int main_menu::secButtons(sf::Event& event, sf::RenderWindow& window){
-    std::cout<<"ENTERED SECBUTT\n";
-    mainMenuDraw(1, window);
-    while(window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed)
-                window.close();
-        if (event.type == sf::Event::MouseButtonPressed) {
-                if (buttons[3]->isClicked(window)) {
-                    //std::cout << "GAY!\n";
-                    
-                    window.display(); 
-                    std::cout<<path[0]<<std::endl;
-                }
-                /*if (buttons[1]->isClicked(window)) {
-                    window.close();
-                }*/
-        /*}
-    }
-    return 0;
-}*/
 /*int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window){
     mainMenuDraw(window);
 
