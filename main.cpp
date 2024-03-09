@@ -29,19 +29,21 @@ int main()
                 window.close();
         }
         window.clear();
-        switch(menuChoice){
+        menuChoice=main1->mainButtons(event, window, menuChoice);
+        /*switch(menuChoice){
             case 0:
-                menuChoice=main1->mainButtons(event, window);
+                menuChoice=main1->mainButtons(event, window, 0);
                 //std::cout<<menuChoice<<std::endl;
                 break;
             case 1:
-                main1->secButtons(event, window);
+                menuChoice=main1->mainButtons(event, window, 1);
+                //main1->secButtons(event, window);
                 break;
             default:
                 delete main1;
                 return 0;
                 break;
-        }
+        }*/
         //main1.mainButtons(event, window);
         window.display();
         //if (main1)

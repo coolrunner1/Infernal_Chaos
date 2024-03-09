@@ -15,10 +15,11 @@ class main_menu{
         //button buttons[numOfButtons];
         button* buttons[numOfButtons];
     public:
-        void mainMenuDraw(sf::RenderWindow& window);
-        void secondMenuDraw(sf::RenderWindow& window);
-        int mainButtons(sf::Event& event, sf::RenderWindow& window);
-        int secButtons(sf::Event& event, sf::RenderWindow& window);
+        void mainMenuDraw(int screen, sf::RenderWindow& window);
+        //void secondMenuDraw(sf::RenderWindow& window);
+        int mainButtons(sf::Event& event, sf::RenderWindow& window, int screen);
+        //int secButtons(sf::Event& event, sf::RenderWindow& window);
+        void menuButtons(int min, int max, sf::RenderWindow& window);
         main_menu();
         ~main_menu();
 };

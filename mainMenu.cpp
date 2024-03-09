@@ -18,31 +18,41 @@ main_menu::~main_menu(){
         delete buttons[i];
 }
 
-void main_menu::mainMenuDraw(sf::RenderWindow& window){
+void main_menu::menuButtons(int min, int max, sf::RenderWindow& window){
+    for (int i=min; i<=max; i++){
+        switch(i){
+            case 0:
+                buttons[0]->buttonDraw(350, 50, 10, 10, window);
+                break;
+            case 1:
+                buttons[1]->buttonDraw(350, 500, 10, 10, window);
+                break;
+            case 2:
+                buttons[2]->buttonDraw(350, 50, 3, 3, window);
+                break;
+        }
+    }
+}
+
+void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
     window.clear();
     window.draw(backgroundShape);
-    buttons[0]->buttonDraw(350, 50, 10, 10, window);
-    buttons[1]->buttonDraw(350, 500, 10, 10, window);
+    if (screen==0)
+        menuButtons(0, 1, window);
+    else
+        menuButtons(2, 2, window);
     //window.display();
 }
 
-void main_menu::secondMenuDraw(sf::RenderWindow& window){
-    window.clear();
-    window.draw(backgroundShape);
-    //std::string pathQuit="Sprites/quit.png";
-    buttons[2]->buttonDraw(350, 50, 3, 3, window);
-    //buttons[3].buttonDraw(350, 500, 10, 10, pathQuit, window);
-    //window.display();
-    std::cerr<<"entered\n";
-}
 
-int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window){
-    std::cout<<"ENTERED MAINBUTT\n";
-    mainMenuDraw(window);
+int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int screen){
+    std::cout<<screen<<std::endl;
+    mainMenuDraw(screen, window);
     while(window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
                 window.close();
         if (event.type == sf::Event::MouseButtonPressed) {
+            if (screen==0){
                 if (buttons[0]->isClicked(window)) {
                     std::cout << "Start button clicked!\n";
                     /*secondMenuDraw(window);
@@ -54,20 +64,29 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window){
                 if (buttons[1]->isClicked(window)) {
                     window.close();
                 }
+            }
+            else if (screen==1){
+                if (buttons[3]->isClicked(window)) {
+                    //std::cout << "GAY!\n";
+                    
+                    window.display(); 
+                    std::cout<<path[0]<<std::endl;
+                }
+            }
         }
     }
-    return 0;
+    return screen;
 }
 
-int main_menu::secButtons(sf::Event& event, sf::RenderWindow& window){
+/*int main_menu::secButtons(sf::Event& event, sf::RenderWindow& window){
     std::cout<<"ENTERED SECBUTT\n";
-    secondMenuDraw(window);
+    mainMenuDraw(1, window);
     while(window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
                 window.close();
         if (event.type == sf::Event::MouseButtonPressed) {
                 if (buttons[3]->isClicked(window)) {
-                    std::cout << "GAY!\n";
+                    //std::cout << "GAY!\n";
                     
                     window.display(); 
                     std::cout<<path[0]<<std::endl;
@@ -75,10 +94,10 @@ int main_menu::secButtons(sf::Event& event, sf::RenderWindow& window){
                 /*if (buttons[1]->isClicked(window)) {
                     window.close();
                 }*/
-        }
+        /*}
     }
     return 0;
-}
+}*/
 /*int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window){
     mainMenuDraw(window);
 
