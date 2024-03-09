@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Infernal Chaos
+Comment=My game
+Exec=/home/igor/Projects/Infernal_Chaos/sfml-app
+Icon=/home/igor/Projects/Infernal_Chaos/Sprites/logo.png
+Terminal=True
+Type=Application
+Categories=Game;

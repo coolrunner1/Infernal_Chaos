@@ -7,6 +7,8 @@ main_menu::main_menu() {
     path[0]="Sprites/Play.png";
     path[1]="Sprites/quit.png";
     path[2]="Sprites/infernal_campaign.png";
+    path[3]="Sprites/perpetual_suffering.png";
+    path[4]="Sprites/back.png";
     backgroundShape.setTexture(backgroundTexture);
     //buttons[0]={button(path[0])};
     for (int i=0; i<numOfButtons; i++)
@@ -30,6 +32,12 @@ void main_menu::menuButtons(int min, int max, sf::RenderWindow& window){
             case 2:
                 buttons[2]->buttonDraw(350, 50, 3, 3, window);
                 break;
+            case 3:
+                buttons[3]->buttonDraw(350, 350, 3, 3, window);
+                break;
+            case 4:
+                buttons[4]->buttonDraw(350, 550, 3, 3, window);
+                break;
         }
     }
 }
@@ -40,7 +48,7 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
     if (screen==0)
         menuButtons(0, 1, window);
     else
-        menuButtons(2, 2, window);
+        menuButtons(2, 4, window);
     //window.display();
 }
 

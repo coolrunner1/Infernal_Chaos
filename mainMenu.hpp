@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include "button.hpp"
-#define numOfButtons 3
+#define numOfButtons 5
 
 class main_menu{
     private:
