@@ -30,7 +30,7 @@ void main_menu::secondMenuDraw(sf::RenderWindow& window){
     window.clear();
     window.draw(backgroundShape);
     //std::string pathQuit="Sprites/quit.png";
-    buttons[2]->buttonDraw(350, 50, 10, 10, window);
+    buttons[2]->buttonDraw(350, 50, 3, 3, window);
     //buttons[3].buttonDraw(350, 500, 10, 10, pathQuit, window);
     //window.display();
     std::cerr<<"entered\n";
@@ -48,8 +48,8 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window){
                     /*secondMenuDraw(window);
                     window.display();*/
                     return 1;
-                    secButtons(event, window);
-                    std::cout<<path[0]<<std::endl;
+                    /*secButtons(event, window);
+                    std::cout<<path[0]<<std::endl;*/
                 }
                 if (buttons[1]->isClicked(window)) {
                     window.close();
