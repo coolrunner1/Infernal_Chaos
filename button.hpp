@@ -9,12 +9,14 @@ class button{
         sf::Texture buttonTexture;
         sf::Sprite buttonShape;
         //sf::RectangleShape buttonArea;
+        std::string filePath;
 
     public:
-        void buttonDraw(float xpos, float ypos, float height, float width, std::string filePath, sf::RenderWindow& window);
+        void buttonDraw(float xpos, float ypos, float height, float width, sf::RenderWindow& window);
         void buttonDrawText(float xpos, float ypos, float height, float width, std::string filePath, sf::RenderWindow& window);
         bool isClicked(sf::RenderWindow& window);
-        //button();
+        button();
+        button(std::string filePath);
         //~button();
 };
 #endif

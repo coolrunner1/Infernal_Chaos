@@ -1,6 +1,6 @@
 #include "button.hpp"
 
-void button::buttonDraw(float xpos, float ypos, float height, float width, std::string filePath, sf::RenderWindow& window){
+void button::buttonDraw(float xpos, float ypos, float height, float width, sf::RenderWindow& window){
     if (!buttonTexture.loadFromFile(filePath)) {
         std::cerr << "Missing file: " << filePath << std::endl;
     }
@@ -15,4 +15,12 @@ bool button::isClicked(sf::RenderWindow& window){
     sf::FloatRect buttonBounds = buttonShape.getGlobalBounds();
 
     return buttonBounds.contains(static_cast<sf::Vector2f>(mousePosition));
+}
+
+button::button(){
+    std::cerr<<"Object initialized incorrectly\n";
+    std::string filePath="NO PATH";
+}
+button::button(std::string filePath){
+    this->filePath=filePath;
 }

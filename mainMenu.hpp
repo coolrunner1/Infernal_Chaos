@@ -4,21 +4,22 @@
 #include <iostream>
 #include <string>
 #include "button.hpp"
+#define numOfButtons 3
 
 class main_menu{
     private:
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
-        button buttons[4];
-        std::string pathPlay;
-        std::string pathQuit;
-        std::string pathInfCamp;
-
+        //button butPlay;
+        std::string path[numOfButtons];
+        //button buttons[numOfButtons];
+        button* buttons[numOfButtons];
     public:
         void mainMenuDraw(sf::RenderWindow& window);
         void secondMenuDraw(sf::RenderWindow& window);
         int mainButtons(sf::Event& event, sf::RenderWindow& window);
+        int secButtons(sf::Event& event, sf::RenderWindow& window);
         main_menu();
-        //~main_menu();
+        ~main_menu();
 };
 #endif

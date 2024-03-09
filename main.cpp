@@ -16,7 +16,9 @@ int main()
     }
     sf::Sprite sprite(texture);
     //shape.setFillColor(sf::Color::Green);
-    main_menu main1;
+    main_menu* main1 = new main_menu;
+    //main_menu main1;
+    int menuChoice=0;
     while (window.isOpen())
     {
 
@@ -27,7 +29,16 @@ int main()
                 window.close();
         }
         window.clear();
-        main1.mainButtons(event, window);
+        switch(menuChoice){
+            case 0:
+                std::cout<<"THIS IS GAY\n";
+                menuChoice=main1->mainButtons(event, window);
+                break;
+            case 1:
+                main1->secButtons(event, window);
+                break;
+        }
+        //main1.mainButtons(event, window);
         window.display();
         //if (main1)
         //
@@ -36,6 +47,6 @@ int main()
         //window.draw(shape);
         //
     }
-
+    delete main1;
     return 0;
 }
