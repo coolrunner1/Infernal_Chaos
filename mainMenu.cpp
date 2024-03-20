@@ -10,11 +10,12 @@ main_menu::main_menu() {
     if (!backgroundTexture[2].loadFromFile("Sprites/menu2.png")) {
         std::cerr << "Missing file: Sprites/menu2.png\n";
     }
-    path[0]="Sprites/Play.png";
-    path[1]="Sprites/quit.png";
-    path[2]="Sprites/infernal_campaign.png";
-    path[3]="Sprites/perpetual_suffering.png";
-    path[4]="Sprites/back.png";
+    path[0]="Sprites/infernal_chaos_title.png";
+    path[1]="Sprites/Play.png";
+    path[2]="Sprites/quit.png";
+    path[3]="Sprites/infernal_campaign.png";
+    path[4]="Sprites/perpetual_suffering.png";
+    path[5]="Sprites/back.png";
     //buttons[0]={button(path[0])};
     for (int i=0; i<numOfButtons; i++)
         buttons[i] = new button {button(path[i])};
@@ -25,36 +26,38 @@ main_menu::~main_menu(){
         delete buttons[i];
 }
 
-void main_menu::menuButtons(int min, int max, sf::RenderWindow& window){
-    for (int i=min; i<=max; i++){
-        switch(i){
-            case 0:
-                buttons[0]->buttonDraw(350, 50, 10, 10, window);
-                break;
-            case 1:
-                buttons[1]->buttonDraw(350, 500, 10, 10, window);
-                break;
-            case 2:
-                buttons[2]->buttonDraw(350, 50, 3, 3, window);
-                break;
-            case 3:
-                buttons[3]->buttonDraw(350, 350, 3, 3, window);
-                break;
-            case 4:
-                buttons[4]->buttonDraw(350, 550, 3, 3, window);
-                break;
-        }
-    }
+void main_menu::menuButtons(sf::RenderWindow& window){
+    buttons[0]->buttonDraw(350, 50, 10, 10, window);
+	buttons[1]->buttonDraw(350, 250, 10, 10, window);
+    buttons[2]->buttonDraw(350, 500, 10, 10, window);
+}
+
+void main_menu::secondScrButtons(sf::RenderWindow& window){
+    buttons[3]->buttonDraw(350, 50, 3, 3, window);
+    buttons[4]->buttonDraw(350, 350, 3, 3, window);
+    buttons[5]->buttonDraw(350, 550, 3, 3, window);
 }
 
 void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
+    printf("MenuDRAW");
     window.clear();
     backgroundShape.setTexture(backgroundTexture[screen]);
     window.draw(backgroundShape);
+    switch(screen){
+        case 0:
+            menuButtons(window);
+            break;
+        case 1:
+            secondScrButtons(window);
+            break;
+        case 2:
+            //thirdScrButtons(window);
+            break;
+    }
     if (screen==0)
-        menuButtons(0, 1, window);
+        menuButtons(window);
     else
-        menuButtons(2, 4, window);
+        menuButtons(window);
     //window.display();
 }
 
@@ -81,7 +84,7 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
             }
             else if (screen==1){
                 if (buttons[3]->isClicked(window)) {
-                    //std::cout << "GAY!\n";
+                    //std::cout << "!\n";
                     
                     window.display(); 
                     std::cout<<path[0]<<std::endl;

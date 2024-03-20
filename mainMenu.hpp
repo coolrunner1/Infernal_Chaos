@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include "button.hpp"
-#define numOfButtons 5
+#define numOfButtons 6
 
 class main_menu{
     private:
@@ -19,7 +19,8 @@ class main_menu{
         //void secondMenuDraw(sf::RenderWindow& window);
         int mainButtons(sf::Event& event, sf::RenderWindow& window, int screen);
         //int secButtons(sf::Event& event, sf::RenderWindow& window);
-        void menuButtons(int min, int max, sf::RenderWindow& window);
+        void menuButtons(sf::RenderWindow& window);
+        void secondScrButtons(sf::RenderWindow& window);
         main_menu();
         ~main_menu();
 };
