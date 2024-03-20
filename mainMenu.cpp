@@ -27,7 +27,7 @@ main_menu::~main_menu(){
 }
 
 void main_menu::menuButtons(sf::RenderWindow& window){
-    buttons[0]->buttonDraw(350, 50, 10, 10, window);
+    buttons[0]->buttonDraw(50, 50, 6, 6, window);
 	buttons[1]->buttonDraw(350, 250, 10, 10, window);
     buttons[2]->buttonDraw(350, 500, 10, 10, window);
 }
@@ -39,7 +39,6 @@ void main_menu::secondScrButtons(sf::RenderWindow& window){
 }
 
 void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
-    printf("MenuDRAW");
     window.clear();
     backgroundShape.setTexture(backgroundTexture[screen]);
     window.draw(backgroundShape);
@@ -54,10 +53,10 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
             //thirdScrButtons(window);
             break;
     }
-    if (screen==0)
+    /*if (screen==0)
         menuButtons(window);
     else
-        menuButtons(window);
+        menuButtons(window);*/
     //window.display();
 }
 
@@ -70,7 +69,7 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
                 window.close();
         if (event.type == sf::Event::MouseButtonPressed) {
             if (screen==0){
-                if (buttons[0]->isClicked(window)) {
+                if (buttons[1]->isClicked(window)) {
                     std::cout << "Start button clicked!\n";
                     /*secondMenuDraw(window);
                     window.display();*/
@@ -78,7 +77,7 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
                     /*secButtons(event, window);
                     std::cout<<path[0]<<std::endl;*/
                 }
-                if (buttons[1]->isClicked(window)) {
+                if (buttons[2]->isClicked(window)) {
                     window.close();
                 }
             }
@@ -89,6 +88,9 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
                     window.display(); 
                     std::cout<<path[0]<<std::endl;
                 }
+            }
+            else{
+                std::cout<<"Placeholder\n";
             }
         }
     }
