@@ -16,7 +16,11 @@ main_menu::main_menu() {
     path[3]="Sprites/infernal_campaign.png";
     path[4]="Sprites/perpetual_suffering.png";
     path[5]="Sprites/back.png";
-    //buttons[0]={button(path[0])};
+    path[6]="Sprites/level_1";
+    path[7]="Sprites/level_2";
+    path[8]="Sprites/level_3";
+    path[9]="Sprites/choose_game_mode";
+    path[10]="Sprites/choose_level";
     for (int i=0; i<numOfButtons; i++)
         buttons[i] = new button {button(path[i])};
 }
@@ -38,15 +42,22 @@ void main_menu::secondScrButtons(sf::RenderWindow& window){
     buttons[5]->buttonDraw(350, 550, 3, 3, window);
 }
 
+void main_menu::thirdScrButtons(sf::RenderWindow& window){
+    buttons[6]->buttonDraw(350, 50, 3, 3, window);
+    buttons[7]->buttonDraw(350, 350, 3, 3, window);
+    buttons[8]->buttonDraw(350, 350, 3, 3, window);
+    buttons[5]->buttonDraw(350, 550, 3, 3, window);
+}
+
 void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
     window.clear();
     backgroundShape.setTexture(backgroundTexture[screen]);
     window.draw(backgroundShape);
     switch(screen){
-        case 0:
+        case MAIN_MENU:
             menuButtons(window);
             break;
-        case 1:
+        case PLAY_MENU:
             secondScrButtons(window);
             break;
         case 2:
@@ -62,35 +73,42 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
 
 
 int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int screen){
-    std::cout<<screen<<std::endl;
     mainMenuDraw(screen, window);
     while(window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
                 window.close();
         if (event.type == sf::Event::MouseButtonPressed) {
-            if (screen==0){
-                if (buttons[1]->isClicked(window)) {
-                    std::cout << "Start button clicked!\n";
-                    /*secondMenuDraw(window);
-                    window.display();*/
-                    return 1;
-                    /*secButtons(event, window);
-                    std::cout<<path[0]<<std::endl;*/
-                }
-                if (buttons[2]->isClicked(window)) {
-                    window.close();
-                }
-            }
-            else if (screen==1){
-                if (buttons[3]->isClicked(window)) {
-                    //std::cout << "!\n";
-                    
-                    window.display(); 
-                    std::cout<<path[0]<<std::endl;
-                }
-            }
-            else{
-                std::cout<<"Placeholder\n";
+            switch (screen){
+                case MAIN_MENU:
+                    if (buttons[1]->isClicked(window)) {
+                        return PLAY_MENU;
+                    }
+                    if (buttons[2]->isClicked(window)) {
+                        window.close();
+                    }
+                    break;
+                case PLAY_MENU:
+                    if (buttons[3]->isClicked(window)) {
+                        return INFERNAL_CAMPAIGN;
+                    }
+                    if (buttons[5]->isClicked(window)) {
+                        return MAIN_MENU;
+                    }
+                    break;
+                case PERPETUAL_SUFFERING_MENU:
+                    if (buttons[5]->isClicked(window)) {
+                        return PLAY_MENU;
+                    }
+                    break;
+                case INFERNAL_CAMPAIGN:
+                    std::cout<<"Placeholder\n";
+                    break;
+                case PS_LVL_1:
+                    break;
+                case PS_LVL_2:
+                    break;
+                case PS_LVL_3:
+                    break;
             }
         }
     }

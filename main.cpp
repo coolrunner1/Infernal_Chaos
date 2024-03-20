@@ -18,7 +18,7 @@ int main()
     //shape.setFillColor(sf::Color::Green);
     main_menu* main1 = new main_menu;
     //main_menu main1;
-    int menuChoice=0;
+    int menuChoice=MAIN_MENU;
     while (window.isOpen())
     {
 

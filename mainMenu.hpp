@@ -4,7 +4,14 @@
 #include <iostream>
 #include <string>
 #include "button.hpp"
-#define numOfButtons 6
+#define numOfButtons 11
+#define MAIN_MENU 0
+#define PLAY_MENU 1
+#define INFERNAL_CAMPAIGN 2
+#define PERPETUAL_SUFFERING_MENU 3
+#define PS_LVL_1 4
+#define PS_LVL_2 5
+#define PS_LVL_3 6
 
 class main_menu{
     private:
@@ -21,6 +28,7 @@ class main_menu{
         //int secButtons(sf::Event& event, sf::RenderWindow& window);
         void menuButtons(sf::RenderWindow& window);
         void secondScrButtons(sf::RenderWindow& window);
+        void thirdScrButtons(sf::RenderWindow& window);
         main_menu();
         ~main_menu();
 };
