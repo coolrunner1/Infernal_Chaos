@@ -19,8 +19,7 @@ main_menu::main_menu() {
     path[6]="Sprites/level_1";
     path[7]="Sprites/level_2";
     path[8]="Sprites/level_3";
-    path[9]="Sprites/choose_game_mode";
-    path[10]="Sprites/choose_level";
+    path[9]="Sprites/game_mode";
     for (int i=0; i<numOfButtons; i++)
         buttons[i] = new button {button(path[i])};
 }

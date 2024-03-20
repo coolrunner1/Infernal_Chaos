@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include "button.hpp"
-#define numOfButtons 11
+#define numOfButtons 10
 #define MAIN_MENU 0
 #define PLAY_MENU 1
 #define INFERNAL_CAMPAIGN 2
