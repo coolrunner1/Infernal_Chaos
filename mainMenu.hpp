@@ -17,15 +17,11 @@ class main_menu{
     private:
         sf::Texture backgroundTexture[4];
         sf::Sprite backgroundShape;
-        //button butPlay;
         std::string path[numOfButtons];
-        //button buttons[numOfButtons];
         button* buttons[numOfButtons];
     public:
         void mainMenuDraw(int screen, sf::RenderWindow& window);
-        //void secondMenuDraw(sf::RenderWindow& window);
         int mainButtons(sf::Event& event, sf::RenderWindow& window, int screen);
-        //int secButtons(sf::Event& event, sf::RenderWindow& window);
         void menuButtons(sf::RenderWindow& window);
         void secondScrButtons(sf::RenderWindow& window);
         void thirdScrButtons(sf::RenderWindow& window);

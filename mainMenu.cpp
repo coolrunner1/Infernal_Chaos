@@ -65,11 +65,6 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
             thirdScrButtons(window);
             break;
     }
-    /*if (screen==0)
-        menuButtons(window);
-    else
-        menuButtons(window);*/
-    //window.display();
 }
 
 
