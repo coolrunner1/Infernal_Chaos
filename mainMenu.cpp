@@ -16,10 +16,10 @@ main_menu::main_menu() {
     path[3]="Sprites/infernal_campaign.png";
     path[4]="Sprites/perpetual_suffering.png";
     path[5]="Sprites/back.png";
-    path[6]="Sprites/level_1";
-    path[7]="Sprites/level_2";
-    path[8]="Sprites/level_3";
-    path[9]="Sprites/game_mode";
+    path[6]="Sprites/level_1.png";
+    path[7]="Sprites/level_2.png";
+    path[8]="Sprites/level_3.png";
+    path[9]="Sprites/game_mode.png";
     for (int i=0; i<numOfButtons; i++)
         buttons[i] = new button {button(path[i])};
 }
@@ -36,15 +36,17 @@ void main_menu::menuButtons(sf::RenderWindow& window){
 }
 
 void main_menu::secondScrButtons(sf::RenderWindow& window){
-    buttons[3]->buttonDraw(350, 50, 3, 3, window);
-    buttons[4]->buttonDraw(350, 350, 3, 3, window);
-    buttons[5]->buttonDraw(350, 550, 3, 3, window);
+    buttons[9]->buttonDraw(280, 50, 6, 6, window);
+    buttons[3]->buttonDraw(150, 300, 4, 4, window);
+    buttons[4]->buttonDraw(100, 450, 4, 4, window);
+    buttons[5]->buttonDraw(500, 600, 5, 5, window);
 }
 
 void main_menu::thirdScrButtons(sf::RenderWindow& window){
-    buttons[6]->buttonDraw(350, 50, 3, 3, window);
+    buttons[4]->buttonDraw(100, 50, 4, 4, window);
+    buttons[6]->buttonDraw(350, 250, 3, 3, window);
     buttons[7]->buttonDraw(350, 350, 3, 3, window);
-    buttons[8]->buttonDraw(350, 350, 3, 3, window);
+    buttons[8]->buttonDraw(350, 450, 3, 3, window);
     buttons[5]->buttonDraw(350, 550, 3, 3, window);
 }
 
@@ -59,8 +61,8 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
         case PLAY_MENU:
             secondScrButtons(window);
             break;
-        case 2:
-            //thirdScrButtons(window);
+        case PERPETUAL_SUFFERING_MENU:
+            thirdScrButtons(window);
             break;
     }
     /*if (screen==0)
@@ -89,6 +91,9 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
                 case PLAY_MENU:
                     if (buttons[3]->isClicked(window)) {
                         return INFERNAL_CAMPAIGN;
+                    }
+                    if (buttons[4]->isClicked(window)) {
+                        return PERPETUAL_SUFFERING_MENU;
                     }
                     if (buttons[5]->isClicked(window)) {
                         return MAIN_MENU;

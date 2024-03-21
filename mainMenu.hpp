@@ -7,8 +7,8 @@
 #define numOfButtons 10
 #define MAIN_MENU 0
 #define PLAY_MENU 1
-#define INFERNAL_CAMPAIGN 2
-#define PERPETUAL_SUFFERING_MENU 3
+#define INFERNAL_CAMPAIGN 3
+#define PERPETUAL_SUFFERING_MENU 2
 #define PS_LVL_1 4
 #define PS_LVL_2 5
 #define PS_LVL_3 6
