@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include "mainMenu.hpp"
 #include "button.hpp"
@@ -10,10 +11,15 @@ int main()
     icon.loadFromFile("Sprites/logo.png"); // File/Image/Pixel
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     sf::Texture texture;
-    if (!texture.loadFromFile("Sprites/rascal.png"))
+    /*if (!texture.loadFromFile("Sprites/rascal.png"))
     {
         return EXIT_FAILURE;
+    }*/
+    sf::Music music;
+    if (!music.openFromFile("music.ogg")){
+        std::cerr<<"Missing audio file: track_menu.wav\n";
     }
+    music.play();
     sf::Sprite sprite(texture);
     //shape.setFillColor(sf::Color::Green);
     main_menu* main1 = new main_menu;
