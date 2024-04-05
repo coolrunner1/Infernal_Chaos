@@ -15,11 +15,11 @@ int main()
     {
         return EXIT_FAILURE;
     }*/
-    sf::Music music;
+    /*sf::Music music;
     if (!music.openFromFile("music.ogg")){
         std::cerr<<"Missing audio file: track_menu.wav\n";
     }
-    music.play();
+    music.play();*/
     sf::Sprite sprite(texture);
     //shape.setFillColor(sf::Color::Green);
     main_menu* main1 = new main_menu;
