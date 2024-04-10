@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "button.hpp"
+#include "cutscenes.hpp"
 #define numOfButtons 10
 #define MAIN_MENU 0
 #define PLAY_MENU 1
@@ -19,8 +20,9 @@ class main_menu{
         sf::Sprite backgroundShape;
         std::string path[numOfButtons];
         button* buttons[numOfButtons];
+        cutscenes* cutScreens;
     public:
-        void mainMenuDraw(int screen, sf::RenderWindow& window);
+        void mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& event);
         int mainButtons(sf::Event& event, sf::RenderWindow& window, int screen);
         void menuButtons(sf::RenderWindow& window);
         void secondScrButtons(sf::RenderWindow& window);

@@ -15,6 +15,7 @@ class button{
         void buttonDraw(float xpos, float ypos, float height, float width, sf::RenderWindow& window);
         void buttonDrawText(float xpos, float ypos, float height, float width, std::string filePath, sf::RenderWindow& window);
         bool isClicked(sf::RenderWindow& window);
+        //void cutsceneDraw(sf::RenderWindow& window, sf::Texture backgroundTexture);
         button();
         button(std::string filePath);
         //~button();

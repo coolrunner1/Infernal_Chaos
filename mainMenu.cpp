@@ -22,11 +22,13 @@ main_menu::main_menu() {
     path[9]="Sprites/game_mode.png";
     for (int i=0; i<numOfButtons; i++)
         buttons[i] = new button {button(path[i])};
+    cutScreens = new cutscenes;
 }
 
 main_menu::~main_menu(){
     for (int i=0; i<numOfButtons; i++)
         delete buttons[i];
+    delete cutScreens;
 }
 
 void main_menu::menuButtons(sf::RenderWindow& window){
@@ -50,7 +52,7 @@ void main_menu::thirdScrButtons(sf::RenderWindow& window){
     buttons[5]->buttonDraw(350, 550, 3, 3, window);
 }
 
-void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
+void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& event){
     window.clear();
     backgroundShape.setTexture(backgroundTexture[screen]);
     window.draw(backgroundShape);
@@ -64,12 +66,15 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window){
         case PERPETUAL_SUFFERING_MENU:
             thirdScrButtons(window);
             break;
+        case INFERNAL_CAMPAIGN:
+            cutScreens->cutDraw(event, window, 0);
+            break;
     }
 }
 
 
 int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int screen){
-    mainMenuDraw(screen, window);
+    mainMenuDraw(screen, window, event);
     while(window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
                 window.close();
@@ -100,7 +105,6 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
                     }
                     break;
                 case INFERNAL_CAMPAIGN:
-                    std::cout<<"Placeholder\n";
                     break;
                 case PS_LVL_1:
                     break;
