@@ -1,4 +1,4 @@
-#ifndef MENU
+/*#ifndef MENU
 #define MENU
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -25,4 +25,4 @@ class menu{
         menu();
         ~menu();
 };
-#endif
+#endif*/
