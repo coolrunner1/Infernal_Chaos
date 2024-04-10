@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Infernal Chaos
 Comment=My game
-Exec=/home/igor/Projects/Infernal_Chaos/sfml-app
+Exec=/home/igor/Projects/Infernal_Chaos/compilerun.sh
 Icon=/home/igor/Projects/Infernal_Chaos/Sprites/logo.png
 Terminal=True
 Type=Application
