@@ -1,4 +1,4 @@
-#include "menu.hpp"
+/*#include "menu.hpp"
 
 menu::menu() {
     if (!backgroundTexture.loadFromFile("Sprites/main_menu_old.png")) {
