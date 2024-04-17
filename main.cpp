@@ -1,8 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
-#include "mainMenu.hpp"
-#include "button.hpp"
+#include "Menu/mainMenu.hpp"
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Infernal Chaos");

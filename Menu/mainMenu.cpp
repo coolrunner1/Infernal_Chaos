@@ -75,9 +75,6 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& ev
 
 int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int screen){
     mainMenuDraw(screen, window, event);
-    while(window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed)
-                window.close();
         if (event.type == sf::Event::MouseButtonPressed) {
             switch (screen){
                 case MAIN_MENU:
@@ -114,7 +111,6 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
                     break;
             }
         }
-    }
     return screen;
 }
 
