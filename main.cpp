@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include "Menu/mainMenu.hpp"
+#include "Entities/player.hpp"
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Infernal Chaos");
@@ -22,6 +23,7 @@ int main()
     sf::Sprite sprite(texture);
     //shape.setFillColor(sf::Color::Green);
     main_menu* main1 = new main_menu;
+    player sprt;
     //main_menu main1;
     int menuChoice=MAIN_MENU;
     while (window.isOpen())
@@ -34,7 +36,8 @@ int main()
                 window.close();
         }
         window.clear();
-        menuChoice=main1->mainButtons(event, window, menuChoice);
+        sprt.entityDraw(window);
+        //menuChoice=main1->mainButtons(event, window, menuChoice);
         /*switch(menuChoice){
             case 0:
                 menuChoice=main1->mainButtons(event, window, 0);
