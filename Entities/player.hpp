@@ -8,6 +8,7 @@ class player : public aliveEntity{
         int health;
         int armor;
     public:
+        void playerMove();
         player();
 };
 #endif

@@ -3,3 +3,7 @@
 player::player():aliveEntity(){
     
 }
+
+void player::playerMove(){
+    if ()
+}
