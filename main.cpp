@@ -36,8 +36,9 @@ int main()
                 window.close();
         }
         window.clear();
-        sprt.entityDraw(window);
-        //menuChoice=main1->mainButtons(event, window, menuChoice);
+        //sprt.entityDraw(window);
+        sprt.playerMove(event, window);
+        menuChoice=main1->mainButtons(event, window, menuChoice);
         /*switch(menuChoice){
             case 0:
                 menuChoice=main1->mainButtons(event, window, 0);

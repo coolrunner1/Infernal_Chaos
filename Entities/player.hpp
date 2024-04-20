@@ -8,7 +8,7 @@ class player : public aliveEntity{
         int health;
         int armor;
     public:
-        void playerMove();
+        void playerMove(sf::Event& event, sf::RenderWindow& window);
         player();
 };
 #endif
