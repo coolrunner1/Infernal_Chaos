@@ -6,7 +6,7 @@ aliveEntity::aliveEntity():entity(){
 }
 
 
-aliveEntity::aliveEntity(int health, int armor) : entity(xpos, ypos){
+aliveEntity::aliveEntity(int health, int armor) : entity(xpos, ypos, path){
     this->health=100;
     this->armor=100;
 }

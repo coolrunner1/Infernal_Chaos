@@ -6,6 +6,7 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Infernal Chaos");
+    window.setFramerateLimit(60);
     //sf::CircleShape shape(100.f);
     sf::Image icon;
     icon.loadFromFile("Sprites/logo.png"); // File/Image/Pixel
@@ -38,6 +39,7 @@ int main()
         window.clear();
         sprt->entityDraw(window);
         sprt->playerMove(event, window);
+        
         
         //menuChoice=main1->mainButtons(event, window, menuChoice);
         /*switch(menuChoice){
