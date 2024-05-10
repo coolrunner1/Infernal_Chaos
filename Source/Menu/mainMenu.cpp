@@ -23,12 +23,14 @@ main_menu::main_menu() {
     for (int i=0; i<numOfButtons; i++)
         buttons[i] = new button {button(path[i])};
     cutScreens = new cutscenes;
+    temp=new levelPattern;
 }
 
 main_menu::~main_menu(){
     for (int i=0; i<numOfButtons; i++)
         delete buttons[i];
     delete cutScreens;
+    delete temp;
 }
 
 void main_menu::menuButtons(sf::RenderWindow& window){
@@ -69,6 +71,13 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& ev
         case INFERNAL_CAMPAIGN:
             cutScreens->cutDraw(event, window, 0);
             break;
+        case PS_LVL_1:
+            temp->levelRender(event, window);
+            break;
+        case PS_LVL_2:
+            break;
+        case PS_LVL_3:
+            break;
     }
 }
 
@@ -97,17 +106,9 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
                     }
                     break;
                 case PERPETUAL_SUFFERING_MENU:
-                    if (buttons[5]->isClicked(window)) {
-                        return PLAY_MENU;
+                    if (buttons[6]->isClicked(window)) {
+                        return PS_LVL_1;
                     }
-                    break;
-                case INFERNAL_CAMPAIGN:
-                    break;
-                case PS_LVL_1:
-                    break;
-                case PS_LVL_2:
-                    break;
-                case PS_LVL_3:
                     break;
             }
         }

@@ -2,11 +2,10 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include "Menu/mainMenu.hpp"
-#include "Menu/Entities/player.hpp"
+//#include "Menu/Entities/player.hpp"
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Infernal Chaos");
-    window.setFramerateLimit(60);
     //sf::CircleShape shape(100.f);
     sf::Image icon;
     icon.loadFromFile("Sprites/logo.png"); // File/Image/Pixel
@@ -24,7 +23,7 @@ int main()
     sf::Sprite sprite(texture);
     //shape.setFillColor(sf::Color::Green);
     main_menu* main1 = new main_menu;
-    player* sprt = new player;
+    //levelPattern* temp = new levelPattern;
     //main_menu main1;
     int menuChoice=MAIN_MENU;
     while (window.isOpen())
@@ -37,11 +36,16 @@ int main()
                 window.close();
         }
         window.clear();
-        sprt->entityDraw(window);
-        sprt->playerMove(event, window);
+        //std::cout<<menuChoice<<std::endl;
+        menuChoice=main1->mainButtons(event, window, menuChoice);
+        if (menuChoice<INFERNAL_CAMPAIGN){
+            window.setFramerateLimit(10);
+        }
+        else{
+            window.setFramerateLimit(60);
+            //temp->levelRender(event, window);
+        }
         
-        
-        //menuChoice=main1->mainButtons(event, window, menuChoice);
         /*switch(menuChoice){
             case 0:
                 menuChoice=main1->mainButtons(event, window, 0);

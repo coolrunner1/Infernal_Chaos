@@ -1,6 +1,7 @@
 #include "player.hpp"
 
 player::player():aliveEntity(){
+    std::cout<<"Player created\n";
     path="Sprites/main_char_idle_0.png";
     entitySprite.setScale(4, 4);
 }
@@ -11,6 +12,7 @@ void player::playerMove(sf::Event& event, sf::RenderWindow& window){
                 setSprite("Sprites/main_char_left.png");
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                std::cout<<"r\n";
                 entitySprite.move(2.5f, 0.0f);
                 setSprite("Sprites/main_char_idle_0.png");
             }

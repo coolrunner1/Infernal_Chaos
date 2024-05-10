@@ -1,7 +1,13 @@
 #include "levelPattern.hpp"
 
 levelPattern::levelPattern(){
+        std::cout<<"Level created\n";
         myPlayer = new player;
+}
+
+void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
+        myPlayer->entityDraw(window);
+        myPlayer->playerMove(event, window);
 }
 
 levelPattern::~levelPattern(){
