@@ -9,8 +9,6 @@ class levelPattern{
         player* myPlayer;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
-        sf::Texture cursorTexture;
-        sf::Sprite cursor;
     public:
         void movePlayer(sf::Event& event, sf::RenderWindow& window);
         void levelRender(sf::Event& event, sf::RenderWindow& window);

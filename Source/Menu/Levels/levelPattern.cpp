@@ -16,20 +16,14 @@ levelPattern::levelPattern(std::string path){
 
 void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         setBackground(window);
+        window.setMouseCursorVisible(false);
         myPlayer->entityDraw(window);
         myPlayer->playerMove(event, window);
-        window.draw(cursor);
-        cursor.setScale(4, 4);
-        cursor.setPosition(200, 200/*sf::Mouse::getPosition(window)*/);/*move*/
 }
 
 void levelPattern::levelInit(){
         std::cout<<"Level created\n";
         myPlayer = new player;
-        if (!backgroundTexture.loadFromFile("Sprites/Cursor.png")) {
-                std::cerr << "Missing file: Sprites/Cursor.png"<<std::endl;
-        }
-        cursor.setTexture(cursorTexture);
 }
 
 levelPattern::~levelPattern(){
