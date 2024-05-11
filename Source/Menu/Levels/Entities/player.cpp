@@ -4,23 +4,26 @@ player::player():aliveEntity(){
     std::cout<<"Player created\n";
     path="Sprites/main_char_idle_0.png";
     entitySprite.setScale(4, 4);
+    entitySprite.setPosition(590, 260);
 }
 
 void player::playerMove(sf::Event& event, sf::RenderWindow& window){
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            playerPosition = entitySprite.getPosition();
+            std::cout << "Player Position: (" << playerPosition.x << ", " << playerPosition.y << ")" << std::endl;
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && playerPosition.x>-2.5) {
                 entitySprite.move(-2.5f, 0.0f);
                 setSprite("Sprites/main_char_left.png");
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D) && playerPosition.x<1207.5) {
                 std::cout<<"r\n";
                 entitySprite.move(2.5f, 0.0f);
                 setSprite("Sprites/main_char_idle_0.png");
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) && playerPosition.y>-2.5) {
                 entitySprite.move(0.0f, -2.5f);
                 setSprite("Sprites/main_char_back.png");
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S) && playerPosition.y<615) {
                 entitySprite.move(0.0f, 2.5f);
                 setSprite("Sprites/main_char_front.png");
             }

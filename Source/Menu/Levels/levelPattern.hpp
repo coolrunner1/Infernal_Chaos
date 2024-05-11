@@ -7,11 +7,17 @@
 class levelPattern{
     protected:
         player* myPlayer;
-        
+        sf::Texture backgroundTexture;
+        sf::Sprite backgroundShape;
+        sf::Texture cursorTexture;
+        sf::Sprite cursor;
     public:
         void movePlayer(sf::Event& event, sf::RenderWindow& window);
         void levelRender(sf::Event& event, sf::RenderWindow& window);
+        void setBackground(sf::RenderWindow& window);
+        void levelInit();
         levelPattern();
+        levelPattern(std::string path);
         ~levelPattern();
 };
 #endif

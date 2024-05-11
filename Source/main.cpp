@@ -23,7 +23,7 @@ int main()
     sf::Sprite sprite(texture);
     //shape.setFillColor(sf::Color::Green);
     main_menu* main1 = new main_menu;
-    //levelPattern* temp = new levelPattern;
+    levelPattern* temp = new levelPattern("Sprites/lvl1_bg.png");
     //main_menu main1;
     int menuChoice=MAIN_MENU;
     while (window.isOpen())
@@ -37,13 +37,13 @@ int main()
         }
         window.clear();
         //std::cout<<menuChoice<<std::endl;
-        menuChoice=main1->mainButtons(event, window, menuChoice);
-        if (menuChoice<INFERNAL_CAMPAIGN){
+        if (menuChoice<=INFERNAL_CAMPAIGN){
             window.setFramerateLimit(10);
+            menuChoice=main1->mainButtons(event, window, menuChoice);
         }
         else{
             window.setFramerateLimit(60);
-            //temp->levelRender(event, window);
+            temp->levelRender(event, window);
         }
         
         /*switch(menuChoice){

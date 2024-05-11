@@ -5,5 +5,13 @@
 #include <iostream>
 #include <string>
 #include "levelPattern.hpp"
+class level1_PS{
+    protected:
+        player* myPlayer;
+        
+    public:
+        level1_PS();
+        ~level1_PS();
+};
 
 #endif

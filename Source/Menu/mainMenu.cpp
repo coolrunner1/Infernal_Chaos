@@ -23,7 +23,6 @@ main_menu::main_menu() {
     for (int i=0; i<numOfButtons; i++)
         buttons[i] = new button {button(path[i])};
     cutScreens = new cutscenes;
-    temp=new levelPattern;
 }
 
 main_menu::~main_menu(){
@@ -72,7 +71,6 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& ev
             cutScreens->cutDraw(event, window, 0);
             break;
         case PS_LVL_1:
-            temp->levelRender(event, window);
             break;
         case PS_LVL_2:
             break;
