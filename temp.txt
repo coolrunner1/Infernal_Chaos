@@ -4,6 +4,7 @@
 class MainMenu {
 private:
     sf::Texture backgroundTexture;
+
     sf::Sprite backgroundShape;
 
 public:
