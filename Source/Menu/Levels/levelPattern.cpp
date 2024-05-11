@@ -19,11 +19,13 @@ void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         window.setMouseCursorVisible(false);
         myPlayer->entityDraw(window);
         myPlayer->playerMove(event, window);
+        test->entityDraw(window);
 }
 
 void levelPattern::levelInit(){
         std::cout<<"Level created\n";
         myPlayer = new player;
+        test=new enemyMobile;
 }
 
 levelPattern::~levelPattern(){

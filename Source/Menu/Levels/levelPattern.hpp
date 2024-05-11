@@ -1,12 +1,14 @@
 #ifndef LEVELPATTERN
 #define LEVELPATTERN
 #include "Entities/player.hpp"
+#include "Entities/enemyMobile.hpp"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
 class levelPattern{
     protected:
         player* myPlayer;
+        enemyMobile* test;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
     public:

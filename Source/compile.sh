@@ -1,3 +1,3 @@
 #!/bin/bash
-g++ -c main.cpp Menu/mainMenu.cpp Menu/button.cpp Menu/cutscenes.cpp Menu/Levels/Entities/entity.cpp Menu/Levels/Entities/aliveEntity.cpp Menu/Levels/Entities/player.cpp Menu/Levels/levelPattern.cpp
-g++ main.o mainMenu.o button.o cutscenes.o entity.o aliveEntity.o player.o levelPattern.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+g++ -c main.cpp Menu/mainMenu.cpp Menu/button.cpp Menu/cutscenes.cpp Menu/Levels/Entities/entity.cpp Menu/Levels/Entities/enemyMobile.cpp Menu/Levels/Entities/aliveEntity.cpp Menu/Levels/Entities/player.cpp Menu/Levels/levelPattern.cpp
+g++ main.o mainMenu.o button.o cutscenes.o entity.o aliveEntity.o player.o levelPattern.o enemyMobile.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
