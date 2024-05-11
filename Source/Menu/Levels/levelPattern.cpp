@@ -17,9 +17,10 @@ levelPattern::levelPattern(std::string path){
 void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         setBackground(window);
         window.setMouseCursorVisible(false);
+        test->entityDraw(window);
+        test->enemyMove(window, myPlayer->getPlayerPosition());
         myPlayer->entityDraw(window);
         myPlayer->playerMove(event, window);
-        test->entityDraw(window);
 }
 
 void levelPattern::levelInit(){

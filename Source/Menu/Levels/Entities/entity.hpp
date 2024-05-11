@@ -8,6 +8,7 @@ class entity{
         int xpos;
         int ypos;
         std::string path;
+        sf::Vector2f enemyPos;
     public:
         sf::Sprite entitySprite;
         sf::Texture entityTexture;

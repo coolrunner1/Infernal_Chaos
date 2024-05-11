@@ -10,6 +10,7 @@ player::player():aliveEntity(){
         }
     cursor.setTexture(cursorTexture);
     cursor.setScale(3, 3);
+    speed=2.5f;
 }
 
 void player::playerMove(sf::Event& event, sf::RenderWindow& window){
@@ -20,19 +21,19 @@ void player::playerMove(sf::Event& event, sf::RenderWindow& window){
             std::cout << "Player Position: (" << playerPosition.x << ", " << playerPosition.y << ")" << std::endl;
             std::cout << "Cursor Position: (" << cursorPosition.x << ", " << cursorPosition.y << ")" << std::endl;
             if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && playerPosition.x>-2.5) {
-                entitySprite.move(-2.5f, 0.0f);
+                entitySprite.move(-speed, 0.0f);
                 setSprite("Sprites/main_char_left.png");
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D) && playerPosition.x<1207.5) {
-                entitySprite.move(2.5f, 0.0f);
+                entitySprite.move(speed, 0.0f);
                 setSprite("Sprites/main_char_idle_0.png");
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) && playerPosition.y>-2.5) {
-                entitySprite.move(0.0f, -2.5f);
+                entitySprite.move(0.0f, -speed);
                 setSprite("Sprites/main_char_back.png");
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S) && playerPosition.y<615) {
-                entitySprite.move(0.0f, 2.5f);
+                entitySprite.move(0.0f, speed);
                 setSprite("Sprites/main_char_front.png");
             }
             if (event.type == sf::Event::MouseButtonPressed){
@@ -43,4 +44,8 @@ void player::playerMove(sf::Event& event, sf::RenderWindow& window){
                     setSprite("Sprites/main_char_idle_0.png");
                 }
             }
+}
+
+sf::Vector2f player::getPlayerPosition(){
+    return entitySprite.getPosition();
 }

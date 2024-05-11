@@ -3,7 +3,6 @@
 entity::entity(){
     xpos=0;
     ypos=0;
-    setSprite("Sprites/main_char_idle_0.png");
     entityInit();
 }
 

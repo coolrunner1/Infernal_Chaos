@@ -7,6 +7,7 @@ class aliveEntity : public entity{
     protected:
         int health;
         int armor;
+        float speed;
     public:
         void healthDamage(int damage);
         //void

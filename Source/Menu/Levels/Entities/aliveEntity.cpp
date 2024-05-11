@@ -3,12 +3,14 @@
 aliveEntity::aliveEntity():entity(){
     health=100;
     armor=100;
+    speed=0.5f;
 }
 
 
 aliveEntity::aliveEntity(int health, int armor) : entity(xpos, ypos, path){
-    this->health=100;
-    this->armor=100;
+    this->health=health;
+    this->armor=armor;
+    this->speed=speed;
 }
 
 void aliveEntity::healthDamage(int damage){

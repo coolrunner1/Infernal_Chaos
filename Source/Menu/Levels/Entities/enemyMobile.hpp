@@ -8,7 +8,7 @@ class enemyMobile : public aliveEntity{
         /*int health;
         int armor;*/
     public:
-        void enemyMove(sf::RenderWindow window);
+        void enemyMove(sf::RenderWindow& window, sf::Vector2f playerPos);
         /*aliveEntity();
         aliveEntity(int health, int armor);*/
         enemyMobile();

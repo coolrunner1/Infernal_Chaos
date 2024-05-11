@@ -13,6 +13,7 @@ class player : public aliveEntity{
         sf::Sprite cursor;
     public:
         void playerMove(sf::Event& event, sf::RenderWindow& window);
+        sf::Vector2f getPlayerPosition();
         player();
 };
 #endif
