@@ -11,6 +11,18 @@ player::player():aliveEntity(){
     cursor.setTexture(cursorTexture);
     cursor.setScale(3, 3);
     speed=2.5f;
+    if (!font.loadFromFile("Fonts/ARCADECLASSIC.TTF")) {
+        std::cerr << "Missing file: Fonts/ARCADECLASSIC.TTF"<<std::endl;
+    }
+    healthText.setFont(font);
+    armorText.setFont(font);
+    ammoText.setFont(font);
+    healthText.setFillColor(sf::Color::White);
+    armorText.setFillColor(sf::Color::White);
+    ammoText.setFillColor(sf::Color::White);
+    healthText.setPosition(5, 0);
+    armorText.setPosition(5, 30);
+    ammoText.setPosition(5, 60);
 }
 
 void player::playerMove(sf::Event& event, sf::RenderWindow& window){
@@ -48,4 +60,17 @@ void player::playerMove(sf::Event& event, sf::RenderWindow& window){
 
 sf::Vector2f player::getPlayerPosition(){
     return entitySprite.getPosition();
+}
+
+void player::playerRender(sf::RenderWindow& window){
+    entityDraw(window);
+    currentHealth="Health "+std::to_string(health);
+    healthText.setString(currentHealth);
+    window.draw(healthText);
+    currentArmor="Armor "+std::to_string(armor);
+    armorText.setString(currentArmor);
+    window.draw(armorText);
+    currentAmmo="Ammo placeholder"/*+std::to_string(ammo)*/;
+    ammoText.setString(currentAmmo);
+    window.draw(ammoText);
 }

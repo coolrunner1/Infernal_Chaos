@@ -19,7 +19,7 @@ void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         window.setMouseCursorVisible(false);
         test->entityDraw(window);
         test->enemyMove(window, myPlayer->getPlayerPosition());
-        myPlayer->entityDraw(window);
+        myPlayer->playerRender(window);
         myPlayer->playerMove(event, window);
 }
 
