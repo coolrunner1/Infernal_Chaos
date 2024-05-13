@@ -6,8 +6,10 @@ bullet::bullet() : aliveEntity(){
     speed=3.4f;
 }
 
-void bullet::bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2f cursorPos){
+void bullet::bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos){
     //bulletStart=playerPos;
+    cursorPos.x*=10;
+    cursorPos.y*=10;
     bulletEnd=cursorPos;
     entitySprite.setPosition(playerPos);
 }
@@ -26,11 +28,12 @@ sf::Vector2f bullet::bulletMove(bool& reachedEnd){
     if (bulletPos.y>bulletEnd.y){
         entitySprite.move(0.0f, -speed);
     }
-    if (bulletPos==bulletEnd){
+    if (bulletPos.x==bulletEnd.x){
         reachedEnd=true;
     }
     else{
         reachedEnd=false;
     }
     std::cout << "Bullet Position: (" << bulletPos.x << ", " << bulletPos.y << ")" << std::endl;
+    return bulletPos;
 }

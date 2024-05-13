@@ -7,13 +7,13 @@ class bullet : public aliveEntity{
     private:
         sf::Vector2f targetPos;
         //sf::Vector2f bulletStart;
-        sf::Vector2f bulletEnd;
+        sf::Vector2i bulletEnd;
         sf::Vector2f bulletPos;
     public:
-        void bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2f cursorPos);
+        void bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos);
         sf::Vector2f bulletMove(bool& reachedEnd);
         bullet();
-}
+};
 /*class aliveEntity : public entity{
     protected:
         int health;

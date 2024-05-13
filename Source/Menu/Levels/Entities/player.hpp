@@ -7,8 +7,6 @@ class player : public aliveEntity{
     private:
         sf::Vector2f playerPosition;
         sf::Vector2i cursorPosition;
-        sf::Texture cursorTexture;
-        sf::Sprite cursor;
         sf::Font font;
         sf::Text healthText;
         sf::Text armorText;

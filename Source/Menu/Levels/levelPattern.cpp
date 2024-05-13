@@ -21,12 +21,36 @@ void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         test->enemyMove(window, myPlayer->getPlayerPosition());
         myPlayer->playerRender(window);
         myPlayer->playerMove(event, window);
+        cursorPosition=sf::Mouse::getPosition(window);
+        cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
+        window.draw(cursor);
+        if (event.type == sf::Event::MouseButtonPressed /*&& !tempFired*/){
+                tempBul->bulletSet(window, myPlayer->getPlayerPosition(), cursorPosition);
+                tempFired=true;
+        }
+        if (tempFired){
+                tempBul->bulletMove(tempBulletReachedEnd);
+                window.draw(tempBul->entitySprite);
+        }
+        if (tempBulletReachedEnd){
+                tempBulletReachedEnd=false;  
+                tempFired=false;
+
+        }
 }
 
 void levelPattern::levelInit(){
         std::cout<<"Level created\n";
         myPlayer = new player;
         test=new enemyMobile;
+        if (!cursorTexture.loadFromFile("Sprites/Cursor.png")) {
+                std::cerr << "Missing file: Sprites/Cursor.png"<<std::endl;
+        }
+        cursor.setTexture(cursorTexture);
+        cursor.setScale(3, 3);
+        /**/
+        tempBul=new bullet;
+        tempFired=false;
 }
 
 levelPattern::~levelPattern(){

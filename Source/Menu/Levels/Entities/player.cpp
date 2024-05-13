@@ -5,11 +5,6 @@ player::player():aliveEntity(){
     path="Sprites/main_char_idle_0.png";
     entitySprite.setScale(4, 4);
     entitySprite.setPosition(590, 260);
-    if (!cursorTexture.loadFromFile("Sprites/Cursor.png")) {
-                std::cerr << "Missing file: Sprites/Cursor.png"<<std::endl;
-        }
-    cursor.setTexture(cursorTexture);
-    cursor.setScale(3, 3);
     speed=2.5f;
     if (!font.loadFromFile("Fonts/ARCADECLASSIC.TTF")) {
         std::cerr << "Missing file: Fonts/ARCADECLASSIC.TTF"<<std::endl;
@@ -27,8 +22,6 @@ player::player():aliveEntity(){
 
 void player::playerMove(sf::Event& event, sf::RenderWindow& window){
             cursorPosition=sf::Mouse::getPosition(window);
-            cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
-            window.draw(cursor);
             playerPosition = entitySprite.getPosition();
             std::cout << "Player Position: (" << playerPosition.x << ", " << playerPosition.y << ")" << std::endl;
             std::cout << "Cursor Position: (" << cursorPosition.x << ", " << cursorPosition.y << ")" << std::endl;

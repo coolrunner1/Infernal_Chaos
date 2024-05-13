@@ -2,14 +2,21 @@
 #define LEVELPATTERN
 #include "Entities/player.hpp"
 #include "Entities/enemyMobile.hpp"
+#include "Entities/bullet.hpp"
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
 
 class levelPattern{
     protected:
+        bool tempBulletReachedEnd;
+        bool tempFired;
+        bullet* tempBul;
         player* myPlayer;
         enemyMobile* test;
+        sf::Vector2i cursorPosition;
+        sf::Texture cursorTexture;
+        sf::Sprite cursor;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
         std::vector<enemyMobile*> mobileEnemies;
