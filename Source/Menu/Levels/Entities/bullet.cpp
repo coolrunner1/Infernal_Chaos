@@ -8,10 +8,13 @@ bullet::bullet() : aliveEntity(){
 
 void bullet::bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos){
     //bulletStart=playerPos;
-    cursorPos.x*=10;
-    cursorPos.y*=10;
+    playerPos.x+=50;
+    playerPos.y+=70;
+    //cursorPos*=10;
     bulletEnd=cursorPos;
     entitySprite.setPosition(playerPos);
+    entitySprite.rotate(atan2(bulletEnd.y-playerPos.y, bulletEnd.x-playerPos.x)*(-1));
+    //angle = atan2(p1.y - p2.y, p1.x - p2.x)
 }
 
 sf::Vector2f bullet::bulletMove(bool& reachedEnd){
