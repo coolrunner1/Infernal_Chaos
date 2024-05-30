@@ -8,7 +8,7 @@ class bullet : public aliveEntity{
     private:
         sf::Vector2f targetPos;
         sf::Vector2f bulletStart;
-        sf::Vector2i bulletEnd;
+        sf::Vector2f bulletEnd;
         sf::Vector2f bulletPos;
         float angle;
     public:

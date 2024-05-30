@@ -38,7 +38,7 @@ int main()
         window.clear();
         //std::cout<<menuChoice<<std::endl;
         if (menuChoice<=INFERNAL_CAMPAIGN){
-            window.setFramerateLimit(10);
+            window.setFramerateLimit(5);
             menuChoice=main1->mainButtons(event, window, menuChoice);
         }
         else{

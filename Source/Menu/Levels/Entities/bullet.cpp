@@ -3,7 +3,7 @@
 bullet::bullet() : aliveEntity(){
     setSprite("Sprites/bullet.png");
     //entitySprite.setScale(3, 3);
-    speed=3.4f;
+    speed=4.4f;
 }
 
 void bullet::bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos){
@@ -11,15 +11,23 @@ void bullet::bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vec
     playerPos.x+=50;
     playerPos.y+=70;
     //cursorPos*=10;
-    bulletEnd=cursorPos;
+    bulletEnd.x=cursorPos.x;
+    bulletEnd.y=cursorPos.y;
     entitySprite.setPosition(playerPos);
-    entitySprite.rotate(atan2(bulletEnd.y-playerPos.y, bulletEnd.x-playerPos.x)*(-1));
-    //angle = atan2(p1.y - p2.y, p1.x - p2.x)
+    angle = atan2(bulletEnd.y-playerPos.y, bulletEnd.x-playerPos.x);
+    std::cout<<angle;
+    entitySprite.rotate((-1)*angle);
+    //float radians = angle * 3.14159 / 180.0;
+    // Calculate the x and y components of the velocity vector
+    //bulletEnd *= speed;
+    // Apply the velocity to the sprite's position
 }
 
 sf::Vector2f bullet::bulletMove(bool& reachedEnd){
+    //entitySprite.move(bulletEnd);
+    entitySprite.move(speed*cos(angle),speed*sin(angle));
     bulletPos=entitySprite.getPosition();
-    if (bulletPos.x<bulletEnd.x){
+    /*if (bulletPos.x<bulletEnd.x){
         entitySprite.move(speed, 0.0f);
     }
     if (bulletPos.x>bulletEnd.x){
@@ -36,7 +44,7 @@ sf::Vector2f bullet::bulletMove(bool& reachedEnd){
     }
     else{
         reachedEnd=false;
-    }
+    }*/
     std::cout << "Bullet Position: (" << bulletPos.x << ", " << bulletPos.y << ")" << std::endl;
     return bulletPos;
 }
