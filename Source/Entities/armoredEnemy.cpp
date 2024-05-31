@@ -4,6 +4,14 @@ armoredEnemy::armoredEnemy(){
     setSprite("Sprites/robot.png");
     enemyPath[0]="Sprites/robot.png";
     enemyPath[1]="Sprites/robot_left.png";
+    armoredInit();
+}
+
+armoredEnemy::armoredEnemy(std::string path){
+    armoredInit();
+}
+
+void armoredEnemy::armoredInit(){
     health=125;
     entitySprite.setScale(4, 4);
 }

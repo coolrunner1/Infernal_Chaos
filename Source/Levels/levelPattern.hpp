@@ -7,6 +7,7 @@
 #include "../Entities/armorPack.hpp"
 #include "../Entities/healthPack.hpp"
 #include "../Entities/armoredEnemy.hpp"
+#include "../Entities/combinedEnemy.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -20,6 +21,7 @@ class levelPattern{
         std::vector<bullet> enemyBullets;
         std::vector<enemyMobile> mobileEnemies;
         std::vector<armoredEnemy> armoredEnemies;
+        std::vector<combinedEnemy> combinedEnemies;
         std::vector<ammoPack> ammoPacks;
         std::vector<armorPack> armorPacks;
         std::vector<healthPack> healthPacks;
@@ -37,14 +39,19 @@ class levelPattern{
         float mobileInterval;
         float armoredInterval;
         float enemyFireInterval;
+        float assasinSpawnInterval;
+        float assasinInterval[2];
         std::time_t start;
         std::time_t current;
         std::time_t prevDamage;
         std::time_t lastMobileEnemy;
         std::time_t lastArmoredEnemy;
+        std::time_t lastCombinedEnemy;
         std::time_t lastAmmoPack;
         std::time_t lastArmorPack;
         std::time_t lastHealthPack;
+        std::time_t assasinTransition[2];
+        int shootingDamage;
         int pickupSpawnInterval;
         int maxMobileEnemies;
         int maxShootingEnemies;
