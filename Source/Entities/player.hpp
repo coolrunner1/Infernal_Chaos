@@ -21,7 +21,6 @@ class player : public aliveEntity{
         void ammoDecrement();
         void ammoIncrease(int newAmmo);
         int getAmmo();
-        sf::Vector2f getPlayerPosition();
         player();
 };
 #endif

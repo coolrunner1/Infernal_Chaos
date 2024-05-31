@@ -52,10 +52,6 @@ void player::playerMove(sf::Event& event, sf::RenderWindow& window){
             }
 }
 
-sf::Vector2f player::getPlayerPosition(){
-    return entitySprite.getPosition();
-}
-
 void player::playerRender(sf::RenderWindow& window){
     entityDraw(window);
     currentHealth="Health "+std::to_string(health);

@@ -5,7 +5,6 @@ bullet::bullet() : aliveEntity(){
     //entitySprite.setScale(3, 3);
     speed=4.4f;
     //bulletReachedEnd=false;
-    std::time(&start);
 }
 
 void bullet::bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos){
@@ -60,8 +59,4 @@ bool bullet::bulletLifeCycle(){
     /*if (bulletReachedEnd){
         std::cout<<"bullet destroyed";
     }*/
-}
-
-std::time_t bullet::getTime(){
-    return start;
 }

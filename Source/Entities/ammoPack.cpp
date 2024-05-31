@@ -2,7 +2,7 @@
 
 ammoPack::ammoPack():entity()/*pickup()*/{
     ammo=generateRandomInt(10, 200);
-    setSprite("Sprites/rascal_right.png");
+    setSprite("Sprites/ammo_pickup.png");
     entitySprite.setScale(3, 3);
 }
 

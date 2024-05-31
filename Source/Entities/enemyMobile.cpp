@@ -4,6 +4,7 @@ enemyMobile::enemyMobile() : aliveEntity(){
     setSprite("Sprites/rascal_right.png");
     entitySprite.setScale(3, 3);
     speed=0.4f;
+    damage=2;
 }
 
 
@@ -24,4 +25,8 @@ void enemyMobile::enemyMove(sf::RenderWindow& window, sf::Vector2f playerPos){
         entitySprite.move(0.0f, -speed);
     }
     std::cout << "Enemy Position: (" << enemyPos.x << ", " << enemyPos.y << ")" << std::endl;
+}
+
+int enemyMobile::getDamage(){
+    return damage;
 }

@@ -28,6 +28,7 @@ void entity::setSprite(std::string path){
 }
 
 void entity::entityInit(){
+    std::time(&start);
     entitySprite.setPosition(sf::Vector2f(xpos, ypos));
 }
 
@@ -35,4 +36,12 @@ void entity::entityMove(int xpos, int ypos){
     this->xpos=xpos;
     this->ypos=ypos;
     entitySprite.setPosition(sf::Vector2f(xpos, ypos));
+}
+
+std::time_t entity::getTime(){
+    return start;
+}
+
+sf::Vector2f entity::getPosition(){
+    return entitySprite.getPosition();
 }
