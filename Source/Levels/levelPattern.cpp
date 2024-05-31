@@ -22,7 +22,8 @@ void levelPattern::levelInit(){
         assasinInterval[0]=5;
         assasinInterval[1]=0.5;
         assasinSpawnInterval=30;
-        shootingDamage=1000;
+        shootingDamage=50;
+        enemyBulletDamage=25;
         std::cout<<"Level created\n";
         time(&start);
         lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;
@@ -38,6 +39,12 @@ void levelPattern::levelInit(){
         gameoverShape.setTexture(gameoverTexture);
         gameoverShape.setScale(6, 6);
         gameoverShape.setPosition(250,250);
+        if (!pauseTexture.loadFromFile("Sprites/pause.png")) {
+                std::cerr << "Missing file: Sprites/pause.png"<<std::endl;
+        }
+        pauseShape.setTexture(pauseTexture);
+        pauseShape.setScale(6, 6);
+        pauseShape.setPosition(400,250);
 }
 
 int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
@@ -100,7 +107,7 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         window.draw(cursor);
         //window.draw(gameoverShape);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-                window.draw(gameoverShape);
+                window.draw(pauseShape);
                 window.display();
                 while(true){
                         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
@@ -125,6 +132,12 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
 levelPattern::~levelPattern(){
         bullets.clear();
         mobileEnemies.clear();
+        enemyBullets.clear();
+        armoredEnemies.clear();
+        combinedEnemies.clear();
+        ammoPacks.clear();
+        armorPacks.clear();
+        healthPacks.clear();
         delete myPlayer;
 }
 
@@ -262,7 +275,7 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
                                 combinedEnemy->healthDamage(shootingDamage);
                                 if (combinedEnemy->getHealth()<=0){
                                         combinedEnemies.erase(combinedEnemy);
-                                        myPlayer->scoreIncrease(30);
+                                        myPlayer->scoreIncrease(60);
                                         break;
                                 }
                         }
@@ -283,7 +296,7 @@ void levelPattern::enemyBulletPoll(sf::RenderWindow& window){
                 bulletPosition=it->getPosition();
                 propPosition=myPlayer->getPosition();
                 if (bulletPosition.x >= propPosition.x-70 && bulletPosition.x <= propPosition.x+70 && bulletPosition.y >= propPosition.y-70 && bulletPosition.y <= propPosition.y+70){
-                        myPlayer->healthDamage(2);
+                        myPlayer->healthDamage(enemyBulletDamage);
                 }
         }
 }

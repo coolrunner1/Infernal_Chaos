@@ -35,6 +35,8 @@ class levelPattern{
         sf::Sprite backgroundShape;
         sf::Texture gameoverTexture;
         sf::Sprite gameoverShape;
+        sf::Texture pauseTexture;
+        sf::Sprite pauseShape;
         //ammoPack temp;
         //int bulletNum;
         float mobileInterval;
@@ -42,6 +44,7 @@ class levelPattern{
         float enemyFireInterval;
         float assasinSpawnInterval;
         float assasinInterval[2];
+        float enemyBulletDamage;
         std::time_t start;
         std::time_t current;
         std::time_t prevDamage;
@@ -65,7 +68,6 @@ class levelPattern{
         void bulletPoll(sf::RenderWindow& window);
         void enemyBulletPoll(sf::RenderWindow& window);
         //void enemyMobilePoll(sf::RenderWindow& window);
-        void gameOver();
         void levelInit();
         void collision(sf::RenderWindow& window);
         levelPattern();
