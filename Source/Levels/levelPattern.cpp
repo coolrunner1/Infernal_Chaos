@@ -32,6 +32,12 @@ void levelPattern::levelInit(){
         }
         cursor.setTexture(cursorTexture);
         cursor.setScale(3, 3);
+        if (!gameoverTexture.loadFromFile("Sprites/game_over.png")) {
+                std::cerr << "Missing file: Sprites/game_over.png"<<std::endl;
+        }
+        gameoverShape.setTexture(gameoverTexture);
+        gameoverShape.setScale(6, 6);
+        gameoverShape.setPosition(250,250);
 }
 
 int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
@@ -89,7 +95,13 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         collision(window);
         myPlayer->playerRender(window);
         myPlayer->playerMove(event, window);
+        cursorPosition=sf::Mouse::getPosition(window);
+        cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
+        window.draw(cursor);
+        //window.draw(gameoverShape);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                window.draw(gameoverShape);
+                window.display();
                 while(true){
                         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
                                 break;
@@ -97,6 +109,8 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
                 }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || myPlayer->getHealth()<=0){
+                window.draw(gameoverShape);
+                window.display();
                 while(true){
                         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
                                 break;
@@ -105,9 +119,6 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
                 delete myPlayer;
                 return 0;
         }
-        cursorPosition=sf::Mouse::getPosition(window);
-        cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
-        window.draw(cursor);
         return 4;
 }
 

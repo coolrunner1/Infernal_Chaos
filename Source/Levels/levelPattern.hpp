@@ -16,7 +16,6 @@
 
 class levelPattern{
     protected:
-        //bullet* tempBul;
         std::vector<bullet> bullets;
         std::vector<bullet> enemyBullets;
         std::vector<enemyMobile> mobileEnemies;
@@ -34,6 +33,8 @@ class levelPattern{
         sf::Sprite cursor;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
+        sf::Texture gameoverTexture;
+        sf::Sprite gameoverShape;
         //ammoPack temp;
         //int bulletNum;
         float mobileInterval;
@@ -64,6 +65,7 @@ class levelPattern{
         void bulletPoll(sf::RenderWindow& window);
         void enemyBulletPoll(sf::RenderWindow& window);
         //void enemyMobilePoll(sf::RenderWindow& window);
+        void gameOver();
         void levelInit();
         void collision(sf::RenderWindow& window);
         levelPattern();
