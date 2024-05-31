@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include "button.hpp"
-#include "cutscenes.hpp"
 //#include "Levels/level1_PS.hpp"
 /*temp*/#include "../Levels/levelPattern.hpp"
 #define numOfButtons 10
@@ -22,7 +21,6 @@ class main_menu{
         sf::Sprite backgroundShape;
         std::string path[numOfButtons];
         button* buttons[numOfButtons];
-        cutscenes* cutScreens;
         levelPattern* temp;
     public:
         void mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& event);

@@ -22,8 +22,8 @@ void levelPattern::levelInit(){
         assasinInterval[0]=5;
         assasinInterval[1]=0.5;
         assasinSpawnInterval=30;
-        shootingDamage=50;
-        enemyBulletDamage=25;
+        shootingDamage=3;
+        enemyBulletDamage=1;
         std::cout<<"Level created\n";
         time(&start);
         lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;

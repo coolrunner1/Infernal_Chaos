@@ -22,13 +22,11 @@ main_menu::main_menu() {
     path[9]="Sprites/game_mode.png";
     for (int i=0; i<numOfButtons; i++)
         buttons[i] = new button {button(path[i])};
-    cutScreens = new cutscenes;
 }
 
 main_menu::~main_menu(){
     for (int i=0; i<numOfButtons; i++)
         delete buttons[i];
-    delete cutScreens;
     delete temp;
 }
 
@@ -69,7 +67,6 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& ev
             thirdScrButtons(window);
             break;
         case INFERNAL_CAMPAIGN:
-            cutScreens->cutDraw(event, window, 0);
             break;
         case PS_LVL_1:
             break;
@@ -107,6 +104,9 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
                 case PERPETUAL_SUFFERING_MENU:
                     if (buttons[6]->isClicked(window)) {
                         return PS_LVL_1;
+                    }
+                    if (buttons[5]->isClicked(window)) {
+                        return PLAY_MENU;
                     }
                     break;
             }
