@@ -36,7 +36,7 @@ class levelPattern{
         bool boss;
     public:
         void movePlayer(sf::Event& event, sf::RenderWindow& window);
-        void levelRender(sf::Event& event, sf::RenderWindow& window);
+        int levelRender(sf::Event& event, sf::RenderWindow& window);
         void setBackground(sf::RenderWindow& window);
         void bulletPoll(sf::RenderWindow& window);
         void enemyMobilePoll(sf::RenderWindow& window);

@@ -10,7 +10,7 @@ class aliveEntity : public entity{
         float speed;
     public:
         void healthDamage(int damage);
-        //void
+        int getHealth();
         aliveEntity();
         aliveEntity(int health, int armor);
 };

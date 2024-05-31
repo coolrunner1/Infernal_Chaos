@@ -18,7 +18,7 @@ levelPattern::levelPattern(std::string path){
         pickupSpawnInterval=15; 
 }
 
-void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
+int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         std::time(&current);
         setBackground(window);
         window.setMouseCursorVisible(false);
@@ -50,9 +50,14 @@ void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         collision(window);
         myPlayer->playerRender(window);
         myPlayer->playerMove(event, window);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || myPlayer->getHealth()<=0){
+                delete myPlayer;
+                return 0;
+        }
         cursorPosition=sf::Mouse::getPosition(window);
         cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
         window.draw(cursor);
+        return 4;
 }
 
 void levelPattern::levelInit(){

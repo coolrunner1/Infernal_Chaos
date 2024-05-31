@@ -43,7 +43,7 @@ int main()
         }
         else{
             window.setFramerateLimit(60);
-            temp->levelRender(event, window);
+            menuChoice=temp->levelRender(event, window);
         }
         
         /*switch(menuChoice){

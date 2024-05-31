@@ -26,3 +26,7 @@ void aliveEntity::healthDamage(int damage){
         //death animation
     }
 }
+
+int aliveEntity::getHealth(){
+    return health;
+}
