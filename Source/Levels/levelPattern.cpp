@@ -83,8 +83,8 @@ void levelPattern::collision(sf::RenderWindow& window){
                         enemyPosition=it->getPosition();
                         it->enemyMove(window, playerPosition);
                         it->entityDraw(window);
-                        if (playerPosition.x >= enemyPosition.x-70 && playerPosition.x <= enemyPosition.x+70 && playerPosition.y >= enemyPosition.y-70 && playerPosition.y <= enemyPosition.y+70 && std::difftime(current, prevDamage)>0.005){
-                                std::time(&prevDamage);
+                        if (playerPosition.x >= enemyPosition.x-70 && playerPosition.x <= enemyPosition.x+70 && playerPosition.y >= enemyPosition.y-70 && playerPosition.y <= enemyPosition.y+70 && std::difftime(current, it->getDamageTime())>0.005){
+                                it->setDamageTime(std::time(&prevDamage));
                                 myPlayer->healthDamage(it->getDamage());
                         }
                 }

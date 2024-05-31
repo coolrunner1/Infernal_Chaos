@@ -1,14 +1,12 @@
-#include "enemyMobile.hpp"
+#include "enemy.hpp"
 
-enemyMobile::enemyMobile() : enemy(){
-    setSprite("Sprites/rascal_right.png");
-    entitySprite.setScale(3, 3);
-    speed=0.4f;
-    damage=2;
+enemy::enemy() : aliveEntity(){
+    damage=0;
+    speed=0;
 }
 
-/*
-void enemyMobile::enemyMove(sf::RenderWindow& window, sf::Vector2f playerPos){
+
+void enemy::enemyMove(sf::RenderWindow& window, sf::Vector2f playerPos){
     enemyPos=entitySprite.getPosition();
     if (enemyPos.x<playerPos.x){
         setSprite("Sprites/rascal_right.png");
@@ -27,14 +25,14 @@ void enemyMobile::enemyMove(sf::RenderWindow& window, sf::Vector2f playerPos){
     std::cout << "Enemy Position: (" << enemyPos.x << ", " << enemyPos.y << ")" << std::endl;
 }
 
-int enemyMobile::getDamage(){
+int enemy::getDamage(){
     return damage;
 }
 
-void enemyMobile::setDamageTime(std::time_t damageTime){
+void enemy::setDamageTime(std::time_t damageTime){
     this->damageTime=damageTime;
 }
 
-std::time_t enemyMobile::getDamageTime(){
+std::time_t enemy::getDamageTime(){
     return damageTime;
-}*/
+}
