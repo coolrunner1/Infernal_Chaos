@@ -4,6 +4,7 @@ enemy::enemy() : aliveEntity(){
     damage=0;
     speed=0;
     std::time(&damageTime);
+    entitySprite.setScale(3, 3);
 }
 
 

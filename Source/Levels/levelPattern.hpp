@@ -6,6 +6,7 @@
 #include "../Entities/ammoPack.hpp"
 #include "../Entities/armorPack.hpp"
 #include "../Entities/healthPack.hpp"
+#include "../Entities/armoredEnemy.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -16,14 +17,16 @@ class levelPattern{
     protected:
         //bullet* tempBul;
         std::vector<bullet> bullets;
+        std::vector<bullet> enemyBullets;
         std::vector<enemyMobile> mobileEnemies;
+        std::vector<armoredEnemy> armoredEnemies;
         std::vector<ammoPack> ammoPacks;
         std::vector<armorPack> armorPacks;
         std::vector<healthPack> healthPacks;
         player* myPlayer;
         sf::Vector2i cursorPosition;
         sf::Vector2f playerPosition;
-        sf::Vector2f enemyPosition;
+        sf::Vector2f propPosition;
         sf::Vector2f bulletPosition;
         sf::Texture cursorTexture;
         sf::Sprite cursor;
@@ -36,6 +39,7 @@ class levelPattern{
         std::time_t current;
         std::time_t prevDamage;
         std::time_t lastMobileEnemy;
+        std::time_t lastArmoredEnemy;
         std::time_t lastAmmoPack;
         std::time_t lastArmorPack;
         std::time_t lastHealthPack;

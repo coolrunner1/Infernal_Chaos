@@ -8,7 +8,7 @@ levelPattern::levelPattern(){
         mobileInterval=2;
         pickupSpawnInterval=15; 
         time(&start);
-        lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=start;
+        lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=start;
 }
 
 levelPattern::levelPattern(std::string path){
@@ -34,6 +34,11 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         if (std::difftime(current, lastMobileEnemy)>mobileInterval){
                 mobileEnemies.push_back(enemyMobile());
                 lastMobileEnemy=mobileEnemies.back().getTime();
+                //bullets.back().bulletSet(window, myPlayer->getPlayerPosition(), cursorPosition);
+        }
+        if (std::difftime(current, lastArmoredEnemy)>mobileInterval*2){
+                armoredEnemies.push_back(armoredEnemy());
+                lastArmoredEnemy=armoredEnemies.back().getTime();
                 //bullets.back().bulletSet(window, myPlayer->getPlayerPosition(), cursorPosition);
         }
         /*if (tempFired){
@@ -72,7 +77,19 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         collision(window);
         myPlayer->playerRender(window);
         myPlayer->playerMove(event, window);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                while(true){
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)){
+                                break;
+                        }
+                }
+        }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || myPlayer->getHealth()<=0){
+                while(true){
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)){
+                                break;
+                        }
+                }
                 delete myPlayer;
                 return 0;
         }
@@ -106,18 +123,28 @@ void levelPattern::setBackground(sf::RenderWindow& window){
 void levelPattern::collision(sf::RenderWindow& window){
         for (auto it=mobileEnemies.begin(); it!=mobileEnemies.end(); ++it){
                 playerPosition=myPlayer->getPosition();
-                enemyPosition=it->getPosition();
+                propPosition=it->getPosition();
                 it->enemyMove(window, playerPosition);
                 it->entityDraw(window);
-                if (playerPosition.x >= enemyPosition.x-70 && playerPosition.x <= enemyPosition.x+70 && playerPosition.y >= enemyPosition.y-70 && playerPosition.y <= enemyPosition.y+70 && std::difftime(current, it->getDamageTime())>0.05){
+                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70 && std::difftime(current, it->getDamageTime())>0.05){
+                        it->setDamageTime(std::time(&prevDamage));
+                        myPlayer->healthDamage(it->getDamage());
+                }
+        }
+        for (auto it=armoredEnemies.begin(); it!=armoredEnemies.end(); ++it){
+                playerPosition=myPlayer->getPosition();
+                propPosition=it->getPosition();
+                it->enemyMove(window, playerPosition);
+                it->entityDraw(window);
+                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70 && std::difftime(current, it->getDamageTime())>0.05){
                         it->setDamageTime(std::time(&prevDamage));
                         myPlayer->healthDamage(it->getDamage());
                 }
         }
         for (auto ammoPack=ammoPacks.begin(); ammoPack!=ammoPacks.end(); ++ammoPack){
-                enemyPosition=ammoPack->getPosition();
+                propPosition=ammoPack->getPosition();
                 ammoPack->entityDraw(window);
-                if (playerPosition.x >= enemyPosition.x-70 && playerPosition.x <= enemyPosition.x+70 && playerPosition.y >= enemyPosition.y-70 && playerPosition.y <= enemyPosition.y+70){
+                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70){
                         myPlayer->ammoIncrease(ammoPack->getAmmo());
                         ammoPacks.erase(ammoPack);
                         myPlayer->scoreIncrease(5);
@@ -125,9 +152,9 @@ void levelPattern::collision(sf::RenderWindow& window){
                 }
         }
         for (auto armorPack=armorPacks.begin(); armorPack!=armorPacks.end(); ++armorPack){
-                enemyPosition=armorPack->getPosition();
+                propPosition=armorPack->getPosition();
                 armorPack->entityDraw(window);
-                if (playerPosition.x >= enemyPosition.x-70 && playerPosition.x <= enemyPosition.x+70 && playerPosition.y >= enemyPosition.y-70 && playerPosition.y <= enemyPosition.y+70){
+                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70){
                         myPlayer->armorIncrease(armorPack->getArmor());
                         armorPacks.erase(armorPack);
                         myPlayer->scoreIncrease(5);
@@ -135,9 +162,9 @@ void levelPattern::collision(sf::RenderWindow& window){
                 }
         }
         for (auto healthPack=healthPacks.begin(); healthPack!=healthPacks.end(); ++healthPack){
-                enemyPosition=healthPack->getPosition();
+                propPosition=healthPack->getPosition();
                 healthPack->entityDraw(window);
-                if (playerPosition.x >= enemyPosition.x-70 && playerPosition.x <= enemyPosition.x+70 && playerPosition.y >= enemyPosition.y-70 && playerPosition.y <= enemyPosition.y+70){
+                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70){
                         myPlayer->healthIncrease(healthPack->getHealth());
                         healthPacks.erase(healthPack);
                         myPlayer->scoreIncrease(5);
@@ -159,14 +186,28 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
                 }
                 for (auto mobileEnemy=mobileEnemies.begin(); mobileEnemy!=mobileEnemies.end(); ++mobileEnemy){
                         bulletPosition=it->getPosition();
-                        enemyPosition=mobileEnemy->getPosition();
+                        propPosition=mobileEnemy->getPosition();
                         //mobileEnemy->enemyMove(window, playerPosition);
                         //mobileEnemy->entityDraw(window);
-                        if (bulletPosition.x >= enemyPosition.x-70 && bulletPosition.x <= enemyPosition.x+70 && bulletPosition.y >= enemyPosition.y-70 && bulletPosition.y <= enemyPosition.y+70){
+                        if (bulletPosition.x >= propPosition.x-70 && bulletPosition.x <= propPosition.x+70 && bulletPosition.y >= propPosition.y-70 && bulletPosition.y <= propPosition.y+70){
                                 mobileEnemy->healthDamage(1000);
                                 if (mobileEnemy->getHealth()<=0){
                                         mobileEnemies.erase(mobileEnemy);
                                         myPlayer->scoreIncrease(15);
+                                        break;
+                                }
+                        }
+                }
+                for (auto armoredEnemy=armoredEnemies.begin(); armoredEnemy!=armoredEnemies.end(); ++armoredEnemy){
+                        bulletPosition=it->getPosition();
+                        propPosition=armoredEnemy->getPosition();
+                        //mobileEnemy->enemyMove(window, playerPosition);
+                        //mobileEnemy->entityDraw(window);
+                        if (bulletPosition.x >= propPosition.x-70 && bulletPosition.x <= propPosition.x+70 && bulletPosition.y >= propPosition.y-70 && bulletPosition.y <= propPosition.y+70){
+                                armoredEnemy->healthDamage(1000);
+                                if (armoredEnemy->getHealth()<=0){
+                                        armoredEnemies.erase(armoredEnemy);
+                                        myPlayer->scoreIncrease(30);
                                         break;
                                 }
                         }
