@@ -3,6 +3,8 @@
 #include "aliveEntity.hpp"
 #include <cmath>
 #include <iostream>
+#include <chrono>
+#include <ctime>
 
 class bullet : public aliveEntity{
     private:
@@ -11,9 +13,15 @@ class bullet : public aliveEntity{
         sf::Vector2f bulletEnd;
         sf::Vector2f bulletPos;
         float angle;
+        float bulletAngle;
+        std::time_t start;
+        std::time_t current;
     public:
         void bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos);
-        sf::Vector2f bulletMove(bool& reachedEnd);
+        sf::Vector2f bulletMove();
+        //bool bulletReachedEnd;
+        bool bulletLifeCycle();
+        std::time_t getTime();
         bullet();
 };
 /*class aliveEntity : public entity{

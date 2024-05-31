@@ -15,6 +15,7 @@ levelPattern::levelPattern(std::string path){
 }
 
 void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
+        std::time(&current);
         setBackground(window);
         window.setMouseCursorVisible(false);
         test->entityDraw(window);
@@ -24,19 +25,21 @@ void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         cursorPosition=sf::Mouse::getPosition(window);
         cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
         window.draw(cursor);
-        if (event.type == sf::Event::MouseButtonPressed /*&& !tempFired*/){
-                tempBul->bulletSet(window, myPlayer->getPlayerPosition(), cursorPosition);
-                tempFired=true;
+        if (event.type == sf::Event::MouseButtonPressed && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
+                bullets.push_back(bullet());
+                bullets.back().bulletSet(window, myPlayer->getPlayerPosition(), cursorPosition);
+                //tempFired=true;
         }
-        if (tempFired){
+        /*if (tempFired){
                 tempBul->bulletMove(tempBulletReachedEnd);
                 window.draw(tempBul->entitySprite);
-        }
-        if (tempBulletReachedEnd){
+        }*/
+        /*if (tempBulletReachedEnd){
                 tempBulletReachedEnd=false;  
                 tempFired=false;
 
-        }
+        }*/
+        bulletPoll(window);
 }
 
 void levelPattern::levelInit(){
@@ -48,9 +51,6 @@ void levelPattern::levelInit(){
         }
         cursor.setTexture(cursorTexture);
         cursor.setScale(3, 3);
-        /**/
-        tempBul=new bullet;
-        tempFired=false;
 }
 
 levelPattern::~levelPattern(){
@@ -66,7 +66,21 @@ void levelPattern::movePlayer(sf::Event& event, sf::RenderWindow& window){
         
 }
 
-
+void levelPattern::bulletPoll(sf::RenderWindow& window){
+        bulletNum=0;
+        for (auto it=bullets.begin(); it!=bullets.end(); ++it){
+                if (bullets[bulletNum].bulletLifeCycle()){
+                        bullets.erase(it);
+                        if (bulletNum>=bullets.size())
+                                break;
+                }
+                else{
+                        bullets[bulletNum].bulletMove();
+                        bullets[bulletNum].entityDraw(window);
+                }
+                ++bulletNum;
+        }
+}
 
 /*player* sprt = new player;
 sprt->entityDraw(window);
