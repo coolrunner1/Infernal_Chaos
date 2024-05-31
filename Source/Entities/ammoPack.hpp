@@ -8,6 +8,7 @@ class ammoPack : public entity /*pickup*/{
     protected:
         int ammo;
     public:
+        int getAmmo();
         ammoPack();
         ammoPack(int ammo);
 };

@@ -4,6 +4,7 @@
 #include "../Entities/enemyMobile.hpp"
 #include "../Entities/bullet.hpp"
 #include "../Entities/ammoPack.hpp"
+#include "../Entities/healthPack.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -14,16 +15,19 @@ class levelPattern{
     protected:
         //bullet* tempBul;
         std::vector<bullet> bullets;
+        std::vector<enemyMobile> mobileEnemies;
+        std::vector<ammoPack> ammoPacks;
+        std::vector<healthPack> healthPacks;
         player* myPlayer;
         sf::Vector2i cursorPosition;
         sf::Vector2f playerPosition;
         sf::Vector2f enemyPosition;
+        sf::Vector2f bulletPosition;
         sf::Texture cursorTexture;
         sf::Sprite cursor;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
-        std::vector<enemyMobile> mobileEnemies;
-        std::vector<ammoPack> ammoPacks;
+        ammoPack temp;
         int bulletNum;
         float mobileInterval;
         std::time_t start;

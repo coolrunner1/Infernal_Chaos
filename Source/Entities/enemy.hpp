@@ -7,6 +7,7 @@ class enemy : public aliveEntity{
     protected:
         int damage;
         std::time_t damageTime;
+        std::string enemyPath[2];
     public:
         void enemyMove(sf::RenderWindow& window, sf::Vector2f playerPos);
         int getDamage();

@@ -5,7 +5,8 @@ levelPattern::levelPattern(){
         if (!backgroundTexture.loadFromFile("Sprites/lvl1_bg.png")) {
                 std::cerr << "Missing file: Sprites/lvl1_bg.png"<<std::endl;
         }
-        mobileInterval=3;
+        mobileInterval=2;
+        pickupSpawnInterval=15; 
         time(&start);
 }
 
@@ -14,8 +15,8 @@ levelPattern::levelPattern(std::string path){
         if (!backgroundTexture.loadFromFile(path)) {
                 std::cerr << "Missing file: "<<path<<std::endl;
         }
-        mobileInterval=3;
-        pickupSpawnInterval=15; 
+        mobileInterval=2;/***/
+        pickupSpawnInterval=15; /***/
 }
 
 int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
@@ -24,11 +25,12 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         window.setMouseCursorVisible(false);
         if (event.type == sf::Event::MouseButtonPressed && myPlayer->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
                 bullets.push_back(bullet());
+                bullets.back().refresh();
                 bullets.back().bulletSet(window, myPlayer->getPosition(), cursorPosition);
                 myPlayer->ammoDecrement();
                 //tempFired=true;
         }
-        if (std::difftime(current, start)>2 && (mobileEnemies.empty() || std::difftime(current, mobileEnemies.back().getTime())>mobileInterval)){
+        if (/*std::difftime(current, start)>5 &&*/ (mobileEnemies.empty() || std::difftime(current, mobileEnemies.back().getTime())>mobileInterval)){
                 mobileEnemies.push_back(enemyMobile());
                 //bullets.back().bulletSet(window, myPlayer->getPlayerPosition(), cursorPosition);
         }
@@ -41,10 +43,14 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
                 tempFired=false;
 
         }*/
-        /*if (std::difftime(current, start)>30 && (ammoPacks.empty() || ammoPacks.back().getTime()>pickupSpawnInterval)){
+        if (std::difftime(current, start)>10 && (ammoPacks.empty() || ammoPacks.back().getTime()>pickupSpawnInterval)){
                 ammoPacks.push_back(ammoPack());
-                ammoPacks.back().entityDraw(window);
-        }*/
+                ammoPacks.back().refresh();
+                //ammoPacks.back().entityDraw(window);
+        }
+        /*healthPacks.push_back(healthPack());
+        healthPacks.back().refresh();
+        healthPacks.back().entityDraw(window);*/
         bulletPoll(window);
         //enemyMobilePoll(window);
         collision(window);
@@ -82,18 +88,26 @@ void levelPattern::setBackground(sf::RenderWindow& window){
 }
 
 void levelPattern::collision(sf::RenderWindow& window){
-        if (!mobileEnemies.empty()){
-                for (auto it=mobileEnemies.begin(); it!=mobileEnemies.end(); ++it){
-                        playerPosition=myPlayer->getPosition();
-                        enemyPosition=it->getPosition();
-                        it->enemyMove(window, playerPosition);
-                        it->entityDraw(window);
-                        if (playerPosition.x >= enemyPosition.x-70 && playerPosition.x <= enemyPosition.x+70 && playerPosition.y >= enemyPosition.y-70 && playerPosition.y <= enemyPosition.y+70 && std::difftime(current, it->getDamageTime())>0.005){
-                                it->setDamageTime(std::time(&prevDamage));
-                                myPlayer->healthDamage(it->getDamage());
-                        }
+        for (auto it=mobileEnemies.begin(); it!=mobileEnemies.end(); ++it){
+                playerPosition=myPlayer->getPosition();
+                enemyPosition=it->getPosition();
+                it->enemyMove(window, playerPosition);
+                it->entityDraw(window);
+                if (playerPosition.x >= enemyPosition.x-70 && playerPosition.x <= enemyPosition.x+70 && playerPosition.y >= enemyPosition.y-70 && playerPosition.y <= enemyPosition.y+70 && std::difftime(current, it->getDamageTime())>0.05){
+                        it->setDamageTime(std::time(&prevDamage));
+                        myPlayer->healthDamage(it->getDamage());
                 }
         }
+        for (auto ammoPack=ammoPacks.begin(); ammoPack!=ammoPacks.end(); ++ammoPack){
+                enemyPosition=ammoPack->getPosition();
+                ammoPack->entityDraw(window);
+                if (playerPosition.x >= enemyPosition.x-70 && playerPosition.x <= enemyPosition.x+70 && playerPosition.y >= enemyPosition.y-70 && playerPosition.y <= enemyPosition.y+70){
+                        myPlayer->ammoIncrease(ammoPack->getAmmo());
+                        ammoPacks.erase(ammoPack);
+                        break;
+                }
+        }
+        //temp.entityDraw(window);
 }
 
 void levelPattern::bulletPoll(sf::RenderWindow& window){
@@ -107,6 +121,19 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
                 else{
                         it->bulletMove();
                         it->entityDraw(window);
+                }
+                for (auto mobileEnemy=mobileEnemies.begin(); mobileEnemy!=mobileEnemies.end(); ++mobileEnemy){
+                        bulletPosition=it->getPosition();
+                        enemyPosition=mobileEnemy->getPosition();
+                        //mobileEnemy->enemyMove(window, playerPosition);
+                        //mobileEnemy->entityDraw(window);
+                        if (bulletPosition.x >= enemyPosition.x-70 && bulletPosition.x <= enemyPosition.x+70 && bulletPosition.y >= enemyPosition.y-80 && bulletPosition.y <= enemyPosition.y+60){
+                                mobileEnemy->healthDamage(1000);
+                                if (mobileEnemy->getHealth()<=0){
+                                        mobileEnemies.erase(mobileEnemy);
+                                        break;
+                                }
+                        }
                 }
                 ++bulletNum;
         }

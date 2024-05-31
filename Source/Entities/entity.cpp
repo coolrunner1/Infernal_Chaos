@@ -45,3 +45,7 @@ std::time_t entity::getTime(){
 sf::Vector2f entity::getPosition(){
     return entitySprite.getPosition();
 }
+
+void entity::refresh(){
+    setSprite(path);
+}

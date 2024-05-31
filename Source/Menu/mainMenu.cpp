@@ -55,6 +55,7 @@ void main_menu::thirdScrButtons(sf::RenderWindow& window){
 
 void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& event){
     window.clear();
+    window.setMouseCursorVisible(true);
     backgroundShape.setTexture(backgroundTexture[screen]);
     window.draw(backgroundShape);
     switch(screen){

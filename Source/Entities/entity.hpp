@@ -24,6 +24,7 @@ class entity{
         void entityDraw(sf::RenderWindow& window);
         void entityInit();
         void entityMove(int xpos, int ypos);
+        void refresh();
         void setSprite(std::string path);
         sf::Vector2f getPosition();
         std::time_t getTime();

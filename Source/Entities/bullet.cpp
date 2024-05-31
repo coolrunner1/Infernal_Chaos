@@ -1,7 +1,8 @@
 #include "bullet.hpp"
 
 bullet::bullet() : aliveEntity(){
-    setSprite("Sprites/bullet.png");
+    path="Sprites/bullet.png";
+    setSprite(path);
     //entitySprite.setScale(3, 3);
     speed=4.4f;
     //bulletReachedEnd=false;
@@ -49,7 +50,7 @@ sf::Vector2f bullet::bulletMove(){
     else{
         reachedEnd=false;
     }*/
-    std::cout << "Bullet Position: (" << bulletPos.x << ", " << bulletPos.y << ")" << std::endl;
+    //std::cout << "Bullet Position: (" << bulletPos.x << ", " << bulletPos.y << ")" << std::endl;
     return bulletPos;
 }
 

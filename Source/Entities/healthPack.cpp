@@ -1,16 +1,12 @@
-#include "ammoPack.hpp"
+#include "healthPack.hpp"
 
-ammoPack::ammoPack():entity()/*pickup()*/{
-    ammo=generateRandomInt(10, 200);
+healthPack::healthPack() : entity()/*pickup()*/{
+    health=generateRandomInt(10, 50);
     entitySprite.setScale(3, 3);
     path="Sprites/health_pickup.png";
     setSprite(path);
-    //std::cout<<"ammopack";
 }
 
-int ammoPack::getAmmo(){
-    return ammo;
-}
 
 /*ammoPack::ammoPack(int ammo):pickup(xpos, ypos){
     this->ammo=ammo;
