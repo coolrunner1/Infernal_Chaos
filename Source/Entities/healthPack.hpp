@@ -7,7 +7,7 @@ class healthPack : public entity /*pickup*/{
     protected:
         int health;
     public:
-        void refresh();
+        int getHealth();
         healthPack();
 };
 #endif

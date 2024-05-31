@@ -1,15 +1,15 @@
-#include "ammoPack.hpp"
+#include "armorPack.hpp"
 
-ammoPack::ammoPack():entity()/*pickup()*/{
-    ammo=generateRandomInt(10, 75);
+armorPack::armorPack():entity()/*pickup()*/{
+    armor=generateRandomInt(10, 50);
     entitySprite.setScale(3, 3);
-    path="Sprites/ammo_pickup.png";
+    path="Sprites/armor_pickup.png";
     setSprite(path);
     //std::cout<<"ammopack";
 }
 
-int ammoPack::getAmmo(){
-    return ammo;
+int armorPack::getArmor(){
+    return armor;
 }
 
 /*ammoPack::ammoPack(int ammo):pickup(xpos, ypos){

@@ -4,6 +4,7 @@
 #include "../Entities/enemyMobile.hpp"
 #include "../Entities/bullet.hpp"
 #include "../Entities/ammoPack.hpp"
+#include "../Entities/armorPack.hpp"
 #include "../Entities/healthPack.hpp"
 #include <iostream>
 #include <vector>
@@ -17,6 +18,7 @@ class levelPattern{
         std::vector<bullet> bullets;
         std::vector<enemyMobile> mobileEnemies;
         std::vector<ammoPack> ammoPacks;
+        std::vector<armorPack> armorPacks;
         std::vector<healthPack> healthPacks;
         player* myPlayer;
         sf::Vector2i cursorPosition;
@@ -28,11 +30,15 @@ class levelPattern{
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
         ammoPack temp;
-        int bulletNum;
+        //int bulletNum;
         float mobileInterval;
         std::time_t start;
         std::time_t current;
         std::time_t prevDamage;
+        std::time_t lastMobileEnemy;
+        std::time_t lastAmmoPack;
+        std::time_t lastArmorPack;
+        std::time_t lastHealthPack;
         int pickupSpawnInterval;
         int maxMobileEnemies;
         int maxShootingEnemies;

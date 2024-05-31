@@ -7,6 +7,9 @@ healthPack::healthPack() : entity()/*pickup()*/{
     setSprite(path);
 }
 
+int healthPack::getHealth(){
+    return health;
+}
 
 /*ammoPack::ammoPack(int ammo):pickup(xpos, ypos){
     this->ammo=ammo;

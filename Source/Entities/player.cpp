@@ -10,15 +10,19 @@ player::player():aliveEntity(){
         std::cerr << "Missing file: Fonts/ARCADECLASSIC.TTF"<<std::endl;
     }
     ammo=50;
+    score=0;
     healthText.setFont(font);
     armorText.setFont(font);
     ammoText.setFont(font);
+    scoreText.setFont(font);
     healthText.setFillColor(sf::Color::White);
     armorText.setFillColor(sf::Color::White);
     ammoText.setFillColor(sf::Color::White);
+    scoreText.setFillColor(sf::Color::White);
     healthText.setPosition(5, 0);
     armorText.setPosition(5, 30);
     ammoText.setPosition(5, 60);
+    scoreText.setPosition(1050, 0);
     setSprite("Sprites/main_char_idle_0.png");
 }
 
@@ -64,6 +68,9 @@ void player::playerRender(sf::RenderWindow& window){
     currentAmmo="Ammo "+std::to_string(ammo);
     ammoText.setString(currentAmmo);
     window.draw(ammoText);
+    currentScore="Score "+std::to_string(score);
+    scoreText.setString(currentScore);
+    window.draw(scoreText);
 }
 
 void player::ammoDecrement(){
@@ -76,4 +83,28 @@ int player::getAmmo(){
 
 void player::ammoIncrease(int newAmmo){
     ammo+=newAmmo;
+}
+
+void player::healthIncrease(int newHealth){
+    if (health+newHealth>100){
+        health=100;
+        return;
+    }
+    health+=newHealth;
+}
+
+void player::armorIncrease(int newArmor){
+    if (armor+newArmor>100){
+        armor=100;
+        return;
+    }
+    armor+=newArmor;
+}
+
+void player::scoreIncrease(int newScore){
+    score+=newScore;
+}
+
+int player::getScore(){
+    return score;
 }
