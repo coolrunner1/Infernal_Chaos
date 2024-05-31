@@ -14,9 +14,13 @@ class player : public aliveEntity{
         std::string currentHealth;
         std::string currentArmor;
         std::string currentAmmo;
+        int ammo;
     public:
         void playerMove(sf::Event& event, sf::RenderWindow& window);
         void playerRender(sf::RenderWindow& window);
+        void ammoDecrement();
+        void ammoIncrease(int newAmmo);
+        int getAmmo();
         sf::Vector2f getPlayerPosition();
         player();
 };

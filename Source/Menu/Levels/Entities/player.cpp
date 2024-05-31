@@ -9,6 +9,7 @@ player::player():aliveEntity(){
     if (!font.loadFromFile("Fonts/ARCADECLASSIC.TTF")) {
         std::cerr << "Missing file: Fonts/ARCADECLASSIC.TTF"<<std::endl;
     }
+    ammo=50;
     healthText.setFont(font);
     armorText.setFont(font);
     ammoText.setFont(font);
@@ -25,19 +26,19 @@ void player::playerMove(sf::Event& event, sf::RenderWindow& window){
             playerPosition = entitySprite.getPosition();
             std::cout << "Player Position: (" << playerPosition.x << ", " << playerPosition.y << ")" << std::endl;
             std::cout << "Cursor Position: (" << cursorPosition.x << ", " << cursorPosition.y << ")" << std::endl;
-            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && playerPosition.x>-2.5) {
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && playerPosition.x>COLLISION_LEFT) {
                 entitySprite.move(-speed, 0.0f);
                 setSprite("Sprites/main_char_left.png");
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D) && playerPosition.x<1207.5) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D) && playerPosition.x<COLLISION_RIGHT) {
                 entitySprite.move(speed, 0.0f);
                 setSprite("Sprites/main_char_idle_0.png");
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) && playerPosition.y>-2.5) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) && playerPosition.y>COLLISION_TOP) {
                 entitySprite.move(0.0f, -speed);
                 setSprite("Sprites/main_char_back.png");
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S) && playerPosition.y<615) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S) && playerPosition.y<COLLISION_BOTTOM) {
                 entitySprite.move(0.0f, speed);
                 setSprite("Sprites/main_char_front.png");
             }
@@ -63,7 +64,15 @@ void player::playerRender(sf::RenderWindow& window){
     currentArmor="Armor "+std::to_string(armor);
     armorText.setString(currentArmor);
     window.draw(armorText);
-    currentAmmo="Ammo placeholder"/*+std::to_string(ammo)*/;
+    currentAmmo="Ammo "+std::to_string(ammo);
     ammoText.setString(currentAmmo);
     window.draw(ammoText);
+}
+
+void player::ammoDecrement(){
+    --ammo;
+}
+
+int player::getAmmo(){
+    return ammo;
 }

@@ -25,9 +25,10 @@ void levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         cursorPosition=sf::Mouse::getPosition(window);
         cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
         window.draw(cursor);
-        if (event.type == sf::Event::MouseButtonPressed && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
+        if (event.type == sf::Event::MouseButtonPressed && myPlayer->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
                 bullets.push_back(bullet());
                 bullets.back().bulletSet(window, myPlayer->getPlayerPosition(), cursorPosition);
+                myPlayer->ammoDecrement();
                 //tempFired=true;
         }
         /*if (tempFired){
