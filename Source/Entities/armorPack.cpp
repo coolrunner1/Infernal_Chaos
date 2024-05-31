@@ -5,6 +5,7 @@ armorPack::armorPack():entity()/*pickup()*/{
     entitySprite.setScale(3, 3);
     path="Sprites/armor_pickup.png";
     setSprite(path);
+    spawnInterval=30;
     //std::cout<<"ammopack";
 }
 

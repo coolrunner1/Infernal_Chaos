@@ -5,6 +5,7 @@ healthPack::healthPack() : entity()/*pickup()*/{
     entitySprite.setScale(3, 3);
     path="Sprites/health_pickup.png";
     setSprite(path);
+    //spawnInterval=20;
 }
 
 int healthPack::getHealth(){

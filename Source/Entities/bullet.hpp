@@ -16,8 +16,10 @@ class bullet : public aliveEntity{
         std::time_t current;
     public:
         void bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos);
+        void setupBullet(sf::RenderWindow& window, sf::Vector2f playerPos);
         sf::Vector2f bulletMove();
         //bool bulletReachedEnd;
+        void bulletSetFloat(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2f endPos);
         bool bulletLifeCycle();
         bullet();
 };

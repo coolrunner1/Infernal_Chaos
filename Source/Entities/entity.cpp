@@ -49,3 +49,11 @@ sf::Vector2f entity::getPosition(){
 void entity::refresh(){
     setSprite(path);
 }
+
+int entity::getSpawnInterval(){
+    return spawnInterval;
+}
+
+void entity::setSpawnInterval(int interval){
+    spawnInterval=interval;
+}

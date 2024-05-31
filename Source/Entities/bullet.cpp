@@ -9,23 +9,23 @@ bullet::bullet() : aliveEntity(){
 }
 
 void bullet::bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos){
-    //bulletStart=playerPos;
-    playerPos.x+=50;
-    playerPos.y+=70;
-    //cursorPos*=10;
     bulletEnd.x=cursorPos.x;
     bulletEnd.y=cursorPos.y;
+    setupBullet(window, playerPos);
+}
+
+void bullet::bulletSetFloat(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2f endPos){
+    bulletEnd=endPos;
+    setupBullet(window, playerPos);
+}
+
+void bullet::setupBullet(sf::RenderWindow& window, sf::Vector2f playerPos){
+    playerPos.x+=50;
+    playerPos.y+=70;
     entitySprite.setPosition(playerPos);
     angle = atan2(bulletEnd.y-playerPos.y, bulletEnd.x-playerPos.x);
-    //std::cout<<angle;
     bulletAngle=angle*180/3.14159;
     entitySprite.rotate(bulletAngle);
-    //entitySprite.setRotation(angle);
-    
-    //float radians = angle * 3.14159 / 180.0;
-    // Calculate the x and y components of the velocity vector
-    //bulletEnd *= speed;
-    // Apply the velocity to the sprite's position
 }
 
 sf::Vector2f bullet::bulletMove(){

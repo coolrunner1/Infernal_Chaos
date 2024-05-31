@@ -7,3 +7,11 @@ armoredEnemy::armoredEnemy(){
     health=125;
     entitySprite.setScale(4, 4);
 }
+
+void armoredEnemy::setFired(std::time_t fired){
+    lastFired=fired;
+}
+
+std::time_t armoredEnemy::getLastFired(){
+    return lastFired;
+}

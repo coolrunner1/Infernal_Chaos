@@ -5,6 +5,7 @@ ammoPack::ammoPack():entity()/*pickup()*/{
     entitySprite.setScale(3, 3);
     path="Sprites/ammo_pickup.png";
     setSprite(path);
+    //spawnInterval=15;
     //std::cout<<"ammopack";
 }
 

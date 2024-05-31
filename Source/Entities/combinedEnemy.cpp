@@ -1,11 +1,8 @@
-/*#include "pickup.hpp"
+#include "combinedEnemy.hpp"
 
-pickup::pickup():entity(){
-    xpos=generateRandomFloat(COLLISION_LEFT, COLLISION_RIGHT);
-    ypos=generateRandomFloat(COLLISION_TOP, COLLISION_BOTTOM);
+combinedEnemy::combinedEnemy():armoredEnemy(){
+    speed=4.0f;
+    path="Sprites/assasin.png";
+    enemyPath[0]=path;
+    enemyPath[1]="Sprites/assasin_left.png";
 }
-
-pickup::pickup(float xpos, float ypos):entity(){
-    this->xpos=xpos;
-    this->ypos=ypos;
-}*/

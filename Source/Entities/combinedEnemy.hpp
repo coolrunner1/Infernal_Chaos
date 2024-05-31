@@ -1,11 +1,10 @@
-/*#ifndef PICKUP
-#define PICKUP
-#include "entity.hpp"
+#ifndef COMBINEDENEMY
+#define COMBINEDENEMY
+#include "armoredEnemy.hpp"
 #include <iostream>
 
-class pickup : public entity{
+class combinedEnemy : public armoredEnemy{
     public:
-        pickup();
-        pickup(float xpos, float ypos);
+        combinedEnemy();
 };
-#endif*/
+#endif

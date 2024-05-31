@@ -15,6 +15,7 @@ class entity{
     protected:
         int xpos;
         int ypos;
+        int spawnInterval;
         std::string path;
         sf::Vector2f enemyPos;
         std::time_t start;
@@ -26,6 +27,8 @@ class entity{
         void entityMove(int xpos, int ypos);
         void refresh();
         void setSprite(std::string path);
+        int getSpawnInterval();
+        void setSpawnInterval(int interval);
         sf::Vector2f getPosition();
         std::time_t getTime();
         entity();

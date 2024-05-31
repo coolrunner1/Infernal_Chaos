@@ -6,9 +6,9 @@ levelPattern::levelPattern(){
                 std::cerr << "Missing file: Sprites/lvl1_bg.png"<<std::endl;
         }
         mobileInterval=2;
-        pickupSpawnInterval=15; 
-        time(&start);
-        lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=start;
+        pickupSpawnInterval=15;
+        armoredInterval=5;
+        enemyFireInterval=1;
 }
 
 levelPattern::levelPattern(std::string path){
@@ -16,8 +16,10 @@ levelPattern::levelPattern(std::string path){
         if (!backgroundTexture.loadFromFile(path)) {
                 std::cerr << "Missing file: "<<path<<std::endl;
         }
-        mobileInterval=2;/***/
-        pickupSpawnInterval=15; /***/
+        mobileInterval=2;
+        pickupSpawnInterval=15;
+        armoredInterval=5;
+        enemyFireInterval=1;
 }
 
 int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
@@ -31,25 +33,17 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
                 myPlayer->ammoDecrement();
                 //tempFired=true;
         }
+        //std::cout<<"current: "<<current<<"last:"<<start<<std::endl;
         if (std::difftime(current, lastMobileEnemy)>mobileInterval){
                 mobileEnemies.push_back(enemyMobile());
                 lastMobileEnemy=mobileEnemies.back().getTime();
                 //bullets.back().bulletSet(window, myPlayer->getPlayerPosition(), cursorPosition);
         }
-        if (std::difftime(current, lastArmoredEnemy)>mobileInterval*2){
+        if (std::difftime(current, lastArmoredEnemy)>armoredInterval){
                 armoredEnemies.push_back(armoredEnemy());
                 lastArmoredEnemy=armoredEnemies.back().getTime();
-                //bullets.back().bulletSet(window, myPlayer->getPlayerPosition(), cursorPosition);
+                armoredEnemies.back().setFired(lastArmoredEnemy);
         }
-        /*if (tempFired){
-                tempBul->bulletMove(tempBulletReachedEnd);
-                window.draw(tempBul->entitySprite);
-        }*/
-        /*if (tempBulletReachedEnd){
-                tempBulletReachedEnd=false;  
-                tempFired=false;
-
-        }*/
         if (std::difftime(current, lastAmmoPack)>pickupSpawnInterval+15){
                 ammoPacks.push_back(ammoPack());
                 ammoPacks.back().refresh();
@@ -73,20 +67,21 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         healthPacks.back().refresh();
         healthPacks.back().entityDraw(window);*/
         bulletPoll(window);
+        enemyBulletPoll(window);
         //enemyMobilePoll(window);
         collision(window);
         myPlayer->playerRender(window);
         myPlayer->playerMove(event, window);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 while(true){
-                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)){
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
                                 break;
                         }
                 }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || myPlayer->getHealth()<=0){
                 while(true){
-                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)){
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
                                 break;
                         }
                 }
@@ -101,6 +96,8 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
 
 void levelPattern::levelInit(){
         std::cout<<"Level created\n";
+        time(&start);
+        lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=start;
         myPlayer = new player;
         if (!cursorTexture.loadFromFile("Sprites/Cursor.png")) {
                 std::cerr << "Missing file: Sprites/Cursor.png"<<std::endl;
@@ -133,6 +130,11 @@ void levelPattern::collision(sf::RenderWindow& window){
         }
         for (auto it=armoredEnemies.begin(); it!=armoredEnemies.end(); ++it){
                 playerPosition=myPlayer->getPosition();
+                if (std::difftime(current, it->getLastFired())>enemyFireInterval){
+                        it->setFired(current);
+                        enemyBullets.push_back(bullet());
+                        enemyBullets.back().bulletSetFloat(window, it->getPosition(), playerPosition);
+                }
                 propPosition=it->getPosition();
                 it->enemyMove(window, playerPosition);
                 it->entityDraw(window);
@@ -215,22 +217,21 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
         }
 }
 
-void levelPattern::enemyMobilePoll(sf::RenderWindow& window){
-        //bulletNum=0;
-        for (auto it=mobileEnemies.begin(); it!=mobileEnemies.end(); ++it){
-                it->enemyMove(window, myPlayer->getPosition());
-                it->entityDraw(window);
-                /*if (bullets[bulletNum].bulletLifeCycle()){
-                        bullets.erase(it);
-                        if (bulletNum>=bullets.size())
-                                break;
+void levelPattern::enemyBulletPoll(sf::RenderWindow& window){
+        for (auto it=enemyBullets.begin(); it!=enemyBullets.end(); ++it){
+                if (it->bulletLifeCycle()){
+                        enemyBullets.erase(it);
+                        break;
                 }
                 else{
-                        bullets[bulletNum].bulletMove();
-                        bullets[bulletNum].entityDraw(window);
+                        it->bulletMove();
+                        it->entityDraw(window);
                 }
-                ++bulletNum;
-                }*/
+                bulletPosition=it->getPosition();
+                propPosition=myPlayer->getPosition();
+                if (bulletPosition.x >= propPosition.x-70 && bulletPosition.x <= propPosition.x+70 && bulletPosition.y >= propPosition.y-70 && bulletPosition.y <= propPosition.y+70){
+                        myPlayer->healthDamage(2);
+                }
         }
 }
 

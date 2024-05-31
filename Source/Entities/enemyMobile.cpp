@@ -8,6 +8,7 @@ enemyMobile::enemyMobile() : enemy(){
     armor=0;
     enemyPath[0]="Sprites/rascal_right.png";
     enemyPath[1]="Sprites/rascal.png";
+    //spawnInterval=2;
 }
 
 /*
