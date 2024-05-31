@@ -1,13 +1,11 @@
-#ifndef PICKUP
+/*#ifndef PICKUP
 #define PICKUP
 #include "entity.hpp"
 #include <iostream>
 
 class pickup : public entity{
-    protected:
-        float xpos;
-        float ypos;
     public:
         pickup();
+        pickup(float xpos, float ypos);
 };
-#endif
+#endif*/

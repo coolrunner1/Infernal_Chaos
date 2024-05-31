@@ -1,8 +1,9 @@
 #ifndef LEVELPATTERN
 #define LEVELPATTERN
-#include "Entities/player.hpp"
-#include "Entities/enemyMobile.hpp"
-#include "Entities/bullet.hpp"
+#include "../Entities/player.hpp"
+#include "../Entities/enemyMobile.hpp"
+#include "../Entities/bullet.hpp"
+#include "../Entities/ammoPack.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>

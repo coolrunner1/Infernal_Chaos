@@ -1,9 +1,10 @@
 #ifndef AMMOPACK
 #define AMMOPACK
-#include "pickup.hpp"
+//#include "pickup.hpp"
+#include "entity.hpp"
 #include <iostream>
 
-class ammoPack : public pickup{
+class ammoPack : public entity /*pickup*/{
     protected:
         int ammo;
     public:

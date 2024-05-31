@@ -1,4 +1,4 @@
-#include "pickup.hpp"
+/*#include "pickup.hpp"
 
 pickup::pickup():entity(){
     xpos=generateRandomFloat(COLLISION_LEFT, COLLISION_RIGHT);
@@ -8,4 +8,4 @@ pickup::pickup():entity(){
 pickup::pickup(float xpos, float ypos):entity(){
     this->xpos=xpos;
     this->ypos=ypos;
-}
+}*/

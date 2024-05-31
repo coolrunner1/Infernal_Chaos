@@ -2,8 +2,8 @@
 #define ENTITY
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "../../../Functions/randomFloat.hpp"
-#include "../../../Functions/randomInt.hpp"
+#include "../Functions/randomFloat.hpp"
+#include "../Functions/randomInt.hpp"
 #define COLLISION_TOP -2.5
 #define COLLISION_LEFT -2.5
 #define COLLISION_RIGHT 1207.5
