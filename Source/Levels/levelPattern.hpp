@@ -36,8 +36,6 @@ class levelPattern{
         sf::Sprite cursor;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
-        //ammoPack temp;
-        //int bulletNum;
         float mobileInterval;
         float armoredInterval;
         float enemyFireInterval;
@@ -66,7 +64,6 @@ class levelPattern{
         void setBackground(sf::RenderWindow& window);
         void bulletPoll(sf::RenderWindow& window);
         void enemyBulletPoll(sf::RenderWindow& window);
-        //void enemyMobilePoll(sf::RenderWindow& window);
         void clearVectors();
         void levelInit();
         void collision(sf::RenderWindow& window);
@@ -75,7 +72,6 @@ class levelPattern{
         void setHardDifficulty();
         void setCampaign();
         void spawnEntities(sf::RenderWindow& window);
-        void pause();
         levelPattern();
         levelPattern(std::string path);
         ~levelPattern();

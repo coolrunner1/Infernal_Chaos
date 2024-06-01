@@ -4,8 +4,7 @@
 #include <iostream>
 #include <string>
 #include "button.hpp"
-//#include "Levels/level1_PS.hpp"
-/*temp*/#include "../Levels/levelPattern.hpp"
+#include "../Levels/levelPattern.hpp"
 #define numOfButtons 10
 #define MAIN_MENU 0
 #define PLAY_MENU 1
