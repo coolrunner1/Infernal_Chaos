@@ -59,6 +59,7 @@ class levelPattern{
         int mode;
         bool bossSpawned;
         bool bossDefeated;
+        stillScreen* stillScreens;
     public:
         void movePlayer(sf::Event& event, sf::RenderWindow& window);
         int levelRender(sf::Event& event, sf::RenderWindow& window);

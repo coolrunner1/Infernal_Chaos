@@ -15,6 +15,7 @@ levelPattern::levelPattern(std::string path){
 }
 
 void levelPattern::levelInit(){
+        stillScreens=new stillScreen;
         bossFinal=new boss();
         bossDefeated=false;
         bossSpawned=false;
@@ -28,18 +29,6 @@ void levelPattern::levelInit(){
         }
         cursor.setTexture(cursorTexture);
         cursor.setScale(3, 3);
-        if (!gameoverTexture.loadFromFile("Sprites/game_over.png")) {
-                std::cerr << "Missing file: Sprites/game_over.png"<<std::endl;
-        }
-        gameoverShape.setTexture(gameoverTexture);
-        gameoverShape.setScale(6, 6);
-        gameoverShape.setPosition(250,250);
-        if (!pauseTexture.loadFromFile("Sprites/pause.png")) {
-                std::cerr << "Missing file: Sprites/pause.png"<<std::endl;
-        }
-        pauseShape.setTexture(pauseTexture);
-        pauseShape.setScale(6, 6);
-        pauseShape.setPosition(400,250);
 }
 
 void levelPattern::setEasyDifficulty(){
@@ -119,17 +108,25 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
         window.draw(cursor);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-                window.draw(pauseShape);
-                window.display();
+                stillScreens->pause(window);
                 while(true){
                         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
                                 break;
                         }
                 }
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || myPlayer->getHealth()<=0 || bossDefeated){
-                window.draw(gameoverShape);
-                window.display();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || myPlayer->getHealth()<=0){
+                stillScreens->gameOver(window);
+                while(true){
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
+                                break;
+                        }
+                }
+                delete myPlayer;
+                window.close();
+        }
+        if (bossDefeated){
+                stillScreens->youWin(window);
                 while(true){
                         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
                                 break;
@@ -188,6 +185,7 @@ levelPattern::~levelPattern(){
         clearVectors();
         delete myPlayer;
         delete bossFinal;
+        delete stillScreens;
 }
 
 void levelPattern::setBackground(sf::RenderWindow& window){
