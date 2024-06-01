@@ -1,20 +1,12 @@
 #include "ammoPack.hpp"
 
-ammoPack::ammoPack():entity()/*pickup()*/{
+ammoPack::ammoPack():entity(){
     ammo=generateRandomInt(10, 75);
     entitySprite.setScale(3, 3);
     path="Sprites/ammo_pickup.png";
     setSprite(path);
-    //spawnInterval=15;
-    //std::cout<<"ammopack";
 }
 
 int ammoPack::getAmmo(){
     return ammo;
 }
-
-/*ammoPack::ammoPack(int ammo):pickup(xpos, ypos){
-    this->ammo=ammo;
-    setSprite("Sprites/rascal_right.png");
-    entitySprite.setScale(3, 3);
-}*/

@@ -66,14 +66,14 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& ev
         case PERPETUAL_SUFFERING_MENU:
             thirdScrButtons(window);
             break;
-        case INFERNAL_CAMPAIGN:
+        /*case INFERNAL_CAMPAIGN:
             break;
         case PS_LVL_1:
             break;
         case PS_LVL_2:
             break;
         case PS_LVL_3:
-            break;
+            break;*/
     }
 }
 
@@ -104,6 +104,12 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
                 case PERPETUAL_SUFFERING_MENU:
                     if (buttons[6]->isClicked(window)) {
                         return PS_LVL_1;
+                    }
+                    if (buttons[7]->isClicked(window)) {
+                        return PS_LVL_2;
+                    }
+                    if (buttons[8]->isClicked(window)) {
+                        return PS_LVL_3;
                     }
                     if (buttons[5]->isClicked(window)) {
                         return PLAY_MENU;

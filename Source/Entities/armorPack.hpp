@@ -1,6 +1,5 @@
 #ifndef ARMORPACK
 #define ARMORPACK
-//#include "pickup.hpp"
 #include "entity.hpp"
 #include <iostream>
 

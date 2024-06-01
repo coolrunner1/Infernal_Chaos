@@ -1,8 +1,6 @@
 #include "entity.hpp"
 
 entity::entity(){
-    /*xpos=0;
-    ypos=0;*/
     xpos=generateRandomFloat(COLLISION_LEFT, COLLISION_RIGHT);
     ypos=generateRandomFloat(COLLISION_TOP, COLLISION_BOTTOM);
     entityInit();

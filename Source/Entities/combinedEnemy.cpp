@@ -6,8 +6,13 @@ combinedEnemy::combinedEnemy():armoredEnemy(path){
     enemyPath[0]=path;
     enemyPath[1]="Sprites/assasin_left.png";
     entitySprite.setScale(4, 4);
-    damage=50;
+    damage=25;
+    armor=200;
     setSprite("Sprites/assasin_left.png");
+}
+
+combinedEnemy::combinedEnemy(std::string path):armoredEnemy(path){
+    speed=0.5f;
 }
 
 std::time_t combinedEnemy::setHighSpeed(){

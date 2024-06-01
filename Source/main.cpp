@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <iostream>
 #include "Menu/mainMenu.hpp"
 //#include "Menu/Entities/player.hpp"
@@ -37,12 +36,29 @@ int main()
         }
         window.clear();
         //std::cout<<menuChoice<<std::endl;
-        if (menuChoice<=INFERNAL_CAMPAIGN){
+        if (menuChoice<INFERNAL_CAMPAIGN){
             window.setFramerateLimit(5);
             menuChoice=main1->mainButtons(event, window, menuChoice);
         }
-        else{
+        else if (menuChoice<7){
             window.setFramerateLimit(60);
+            switch(menuChoice){
+                case INFERNAL_CAMPAIGN:
+                    temp->setCampaign();
+                    break;
+                case PS_LVL_1:
+                    temp->setEasyDifficulty();
+                    break;
+                case PS_LVL_2:
+                    temp->setMediumDifficulty();
+                    break;
+                case PS_LVL_3:
+                    temp->setHardDifficulty();
+                    break;
+            }
+            menuChoice=7;
+        }
+        else{
             menuChoice=temp->levelRender(event, window);
         }
         

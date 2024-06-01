@@ -28,7 +28,6 @@ class player : public aliveEntity{
         void scoreIncrease(int newScore);
         int getScore();
         int getAmmo();
-        //sf::Vector2f getPlayerPosition();
         player();
 };
 #endif

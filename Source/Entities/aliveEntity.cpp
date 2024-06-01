@@ -22,9 +22,6 @@ void aliveEntity::healthDamage(int damage){
         health+=armor;
         armor=0;
     }
-    if (health<0){
-        //death animation
-    }
 }
 
 int aliveEntity::getHealth(){

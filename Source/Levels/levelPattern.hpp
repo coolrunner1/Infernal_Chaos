@@ -8,6 +8,8 @@
 #include "../Entities/healthPack.hpp"
 #include "../Entities/armoredEnemy.hpp"
 #include "../Entities/combinedEnemy.hpp"
+#include "../Entities/boss.hpp"
+#include "stillScreen.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -24,6 +26,7 @@ class levelPattern{
         std::vector<ammoPack> ammoPacks;
         std::vector<armorPack> armorPacks;
         std::vector<healthPack> healthPacks;
+        boss* bossFinal;
         player* myPlayer;
         sf::Vector2i cursorPosition;
         sf::Vector2f playerPosition;
@@ -33,10 +36,6 @@ class levelPattern{
         sf::Sprite cursor;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
-        sf::Texture gameoverTexture;
-        sf::Sprite gameoverShape;
-        sf::Texture pauseTexture;
-        sf::Sprite pauseShape;
         //ammoPack temp;
         //int bulletNum;
         float mobileInterval;
@@ -57,10 +56,9 @@ class levelPattern{
         std::time_t assasinTransition[2];
         int shootingDamage;
         int pickupSpawnInterval;
-        int maxMobileEnemies;
-        int maxShootingEnemies;
-        int maxAssasins;
-        bool boss;
+        int mode;
+        bool bossSpawned;
+        bool bossDefeated;
     public:
         void movePlayer(sf::Event& event, sf::RenderWindow& window);
         int levelRender(sf::Event& event, sf::RenderWindow& window);
@@ -68,8 +66,15 @@ class levelPattern{
         void bulletPoll(sf::RenderWindow& window);
         void enemyBulletPoll(sf::RenderWindow& window);
         //void enemyMobilePoll(sf::RenderWindow& window);
+        void clearVectors();
         void levelInit();
         void collision(sf::RenderWindow& window);
+        void setEasyDifficulty();
+        void setMediumDifficulty();
+        void setHardDifficulty();
+        void setCampaign();
+        void spawnEntities(sf::RenderWindow& window);
+        void pause();
         levelPattern();
         levelPattern(std::string path);
         ~levelPattern();

@@ -2,7 +2,6 @@
 
 player::player():aliveEntity(){
     std::cout<<"Player created\n";
-    //path="Sprites/main_char_idle_0.png";
     entitySprite.setScale(4, 4);
     entitySprite.setPosition(590, 260);
     speed=2.5f;
