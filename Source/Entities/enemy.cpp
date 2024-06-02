@@ -9,22 +9,22 @@ enemy::enemy() : aliveEntity(){
 
 
 void enemy::enemyMove(sf::RenderWindow& window, sf::Vector2f playerPos){
-    enemyPos=entitySprite.getPosition();
-    if (enemyPos.x<playerPos.x){
+    entityPosition=entitySprite.getPosition();
+    if (entityPosition.x<playerPos.x){
         setSprite(enemyPath[0]);
         entitySprite.move(speed, 0.0f);
     }
-    if (enemyPos.x>playerPos.x){
+    if (entityPosition.x>playerPos.x){
         setSprite(enemyPath[1]);
         entitySprite.move(-speed, 0.0f);
     }
-    if (enemyPos.y<playerPos.y){
+    if (entityPosition.y<playerPos.y){
         entitySprite.move(0.0f, speed);
     }
-    if (enemyPos.y>playerPos.y){
+    if (entityPosition.y>playerPos.y){
         entitySprite.move(0.0f, -speed);
     }
-    //std::cout << "Enemy Position: (" << enemyPos.x << ", " << enemyPos.y << ")" << std::endl;
+    //std::cout << "Enemy Position: (" << entityPosition.x << ", " << entityPosition.y << ")" << std::endl;
 }
 
 int enemy::getDamage(){

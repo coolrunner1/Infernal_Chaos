@@ -10,6 +10,5 @@ class combinedEnemy : public armoredEnemy{
         std::time_t setHighSpeed();
         std::time_t setLowSpeed();
         combinedEnemy();
-        combinedEnemy(std::string path);
 };
 #endif

@@ -55,3 +55,8 @@ int entity::getSpawnInterval(){
 void entity::setSpawnInterval(int interval){
     spawnInterval=interval;
 }
+
+bool entity::collidesWithPlayer(sf::Vector2f playerPosition){
+    entityPosition=getPosition();
+    return (playerPosition.x >= entityPosition.x-70 && playerPosition.x <= entityPosition.x+70 && playerPosition.y >= entityPosition.y-70 && playerPosition.y <= entityPosition.y+70);
+}

@@ -30,7 +30,7 @@ class levelPattern{
         player* myPlayer;
         sf::Vector2i cursorPosition;
         sf::Vector2f playerPosition;
-        sf::Vector2f propPosition;
+        //sf::Vector2f propPosition;
         sf::Vector2f bulletPosition;
         sf::Texture cursorTexture;
         sf::Sprite cursor;

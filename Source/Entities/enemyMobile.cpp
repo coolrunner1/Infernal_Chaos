@@ -1,7 +1,7 @@
 #include "enemyMobile.hpp"
 
 enemyMobile::enemyMobile() : enemy(){
-    setSprite("Sprites/rascal_right.png");
+    //setSprite("Sprites/rascal_right.png");
     speed=0.4f;
     damage=2;
     health=75;

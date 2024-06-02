@@ -194,33 +194,30 @@ void levelPattern::setBackground(sf::RenderWindow& window){
 }
 
 void levelPattern::collision(sf::RenderWindow& window){
+        playerPosition=myPlayer->getPosition();
         for (auto it=mobileEnemies.begin(); it!=mobileEnemies.end(); ++it){
-                playerPosition=myPlayer->getPosition();
-                propPosition=it->getPosition();
                 it->enemyMove(window, playerPosition);
                 it->entityDraw(window);
-                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70 && std::difftime(current, it->getDamageTime())>0.05){
+                if (it->collidesWithPlayer(playerPosition) && std::difftime(current, it->getDamageTime())>0.05){
                         it->setDamageTime(std::time(&prevDamage));
                         myPlayer->healthDamage(it->getDamage());
                 }
         }
         for (auto it=armoredEnemies.begin(); it!=armoredEnemies.end(); ++it){
-                playerPosition=myPlayer->getPosition();
                 if (std::difftime(current, it->getLastFired())>enemyFireInterval){
                         it->setFired(current);
                         enemyBullets.push_back(bullet());
+                        enemyBullets.back().refresh();
                         enemyBullets.back().bulletSetFloat(window, it->getPosition(), playerPosition);
                 }
-                propPosition=it->getPosition();
                 it->enemyMove(window, playerPosition);
                 it->entityDraw(window);
-                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70 && std::difftime(current, it->getDamageTime())>0.05){
+                if (it->collidesWithPlayer(playerPosition) && std::difftime(current, it->getDamageTime())>0.05){
                         it->setDamageTime(std::time(&prevDamage));
                         myPlayer->healthDamage(it->getDamage());
                 }
         }
         for (auto it=combinedEnemies.begin(); it!=combinedEnemies.end(); ++it){
-                playerPosition=myPlayer->getPosition();
                 if (std::difftime(current, assasinTransition[1])>assasinInterval[1]){
                         assasinTransition[1]=it->setLowSpeed();
                 }
@@ -230,20 +227,19 @@ void levelPattern::collision(sf::RenderWindow& window){
                 if (std::difftime(current, it->getLastFired())>enemyFireInterval){
                         it->setFired(current);
                         enemyBullets.push_back(bullet());
+                        enemyBullets.back().refresh();
                         enemyBullets.back().bulletSetFloat(window, it->getPosition(), playerPosition);
                 }
-                propPosition=it->getPosition();
                 it->enemyMove(window, playerPosition);
                 it->entityDraw(window);
-                if (playerPosition.x >= propPosition.x-100 && playerPosition.x <= propPosition.x+100 && playerPosition.y >= propPosition.y-100 && playerPosition.y <= propPosition.y+100 && std::difftime(current, it->getDamageTime())>0.05){
+                if (it->collidesWithPlayer(playerPosition) && std::difftime(current, it->getDamageTime())>0.05){
                         it->setDamageTime(std::time(&prevDamage));
                         myPlayer->healthDamage(it->getDamage());
                 }
         }
         for (auto ammoPack=ammoPacks.begin(); ammoPack!=ammoPacks.end(); ++ammoPack){
-                propPosition=ammoPack->getPosition();
                 ammoPack->entityDraw(window);
-                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70){
+                if (ammoPack->collidesWithPlayer(playerPosition)){
                         myPlayer->ammoIncrease(ammoPack->getAmmo());
                         ammoPacks.erase(ammoPack);
                         myPlayer->scoreIncrease(5);
@@ -251,9 +247,8 @@ void levelPattern::collision(sf::RenderWindow& window){
                 }
         }
         for (auto armorPack=armorPacks.begin(); armorPack!=armorPacks.end(); ++armorPack){
-                propPosition=armorPack->getPosition();
                 armorPack->entityDraw(window);
-                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70){
+                if (armorPack->collidesWithPlayer(playerPosition)){
                         myPlayer->armorIncrease(armorPack->getArmor());
                         armorPacks.erase(armorPack);
                         myPlayer->scoreIncrease(5);
@@ -261,9 +256,8 @@ void levelPattern::collision(sf::RenderWindow& window){
                 }
         }
         for (auto healthPack=healthPacks.begin(); healthPack!=healthPacks.end(); ++healthPack){
-                propPosition=healthPack->getPosition();
                 healthPack->entityDraw(window);
-                if (playerPosition.x >= propPosition.x-70 && playerPosition.x <= propPosition.x+70 && playerPosition.y >= propPosition.y-70 && playerPosition.y <= propPosition.y+70){
+                if (healthPack->collidesWithPlayer(playerPosition)){
                         myPlayer->healthIncrease(healthPack->getHealth());
                         healthPacks.erase(healthPack);
                         myPlayer->scoreIncrease(5);
@@ -271,7 +265,6 @@ void levelPattern::collision(sf::RenderWindow& window){
                 }
         }
         if (bossSpawned){
-                playerPosition=myPlayer->getPosition();
                 if (std::difftime(current, assasinTransition[1])>assasinInterval[1]){
                         assasinTransition[1]=bossFinal->setLowSpeed();
                 }
@@ -281,12 +274,12 @@ void levelPattern::collision(sf::RenderWindow& window){
                 if (std::difftime(current, bossFinal->getLastFired())>enemyFireInterval){
                         bossFinal->setFired(current);
                         enemyBullets.push_back(bullet());
+                        enemyBullets.back().refresh();
                         enemyBullets.back().bulletSetFloat(window, bossFinal->getPosition(), playerPosition);
                 }
-                propPosition=bossFinal->getPosition();
                 bossFinal->enemyMove(window, playerPosition);
                 bossFinal->entityDraw(window);
-                if (playerPosition.x >= propPosition.x-100 && playerPosition.x <= propPosition.x+100 && playerPosition.y >= propPosition.y-100 && playerPosition.y <= propPosition.y+100 && std::difftime(current, bossFinal->getDamageTime())>0.05){
+                if (bossFinal->collidesWithPlayer(playerPosition) && std::difftime(current, bossFinal->getDamageTime())>0.05){
                         bossFinal->setDamageTime(std::time(&prevDamage));
                         myPlayer->healthDamage(bossFinal->getDamage());
                 }
@@ -295,6 +288,7 @@ void levelPattern::collision(sf::RenderWindow& window){
 }
 
 void levelPattern::bulletPoll(sf::RenderWindow& window){
+        sf::Vector2f propPosition;
         for (auto it=bullets.begin(); it!=bullets.end(); ++it){
                 if (it->bulletLifeCycle()){
                         bullets.erase(it);
@@ -356,6 +350,7 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
 }
 
 void levelPattern::enemyBulletPoll(sf::RenderWindow& window){
+        sf::Vector2f propPosition;
         for (auto it=enemyBullets.begin(); it!=enemyBullets.end(); ++it){
                 if (it->bulletLifeCycle()){
                         enemyBullets.erase(it);

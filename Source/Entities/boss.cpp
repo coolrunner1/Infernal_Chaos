@@ -1,6 +1,6 @@
 #include "boss.hpp"
 
-boss::boss():combinedEnemy(path){
+boss::boss():combinedEnemy(){
     speed=0.5f;
     path="Sprites/zombie.png";
     enemyPath[0]=path;
@@ -9,5 +9,5 @@ boss::boss():combinedEnemy(path){
     damage=50;
     health=200;
     armor=300;
-    setSprite("Sprites/zombie_left.png");
+    //setSprite("Sprites/zombie_left.png");
 }

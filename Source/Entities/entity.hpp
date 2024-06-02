@@ -15,9 +15,13 @@ class entity{
     protected:
         int xpos;
         int ypos;
+        int topCollision;
+        int bottomCollision;
+        int leftCollision;
+        int rightCollision;
         int spawnInterval;
         std::string path;
-        sf::Vector2f enemyPos;
+        sf::Vector2f entityPosition;
         std::time_t start;
     public:
         sf::Sprite entitySprite;
@@ -29,6 +33,7 @@ class entity{
         void setSprite(std::string path);
         int getSpawnInterval();
         void setSpawnInterval(int interval);
+        bool collidesWithPlayer(sf::Vector2f playerPosition);
         sf::Vector2f getPosition();
         std::time_t getTime();
         entity();
