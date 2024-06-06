@@ -59,7 +59,7 @@ class levelPattern{
         bool bossDefeated;
         stillScreen* stillScreens;
     public:
-        void movePlayer(sf::Event& event, sf::RenderWindow& window);
+        void keysCheck(sf::RenderWindow& window);
         int levelRender(sf::Event& event, sf::RenderWindow& window);
         void setBackground(sf::RenderWindow& window);
         void bulletPoll(sf::RenderWindow& window);

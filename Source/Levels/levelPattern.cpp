@@ -107,6 +107,11 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         cursorPosition=sf::Mouse::getPosition(window);
         cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
         window.draw(cursor);
+        keysCheck(window);
+        return 7;
+}
+
+void levelPattern::keysCheck(sf::RenderWindow& window){
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 stillScreens->pause(window);
                 while(true){
@@ -135,7 +140,6 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
                 delete myPlayer;
                 window.close();
         }
-        return 7;
 }
 
 void levelPattern::spawnEntities(sf::RenderWindow& window){
@@ -288,8 +292,8 @@ void levelPattern::collision(sf::RenderWindow& window){
 }
 
 void levelPattern::bulletPoll(sf::RenderWindow& window){
-        sf::Vector2f propPosition;
         for (auto it=bullets.begin(); it!=bullets.end(); ++it){
+                bulletPosition=it->getPosition();
                 if (it->bulletLifeCycle()){
                         bullets.erase(it);
                         break;
@@ -299,9 +303,7 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
                         it->entityDraw(window);
                 }
                 for (auto mobileEnemy=mobileEnemies.begin(); mobileEnemy!=mobileEnemies.end(); ++mobileEnemy){
-                        bulletPosition=it->getPosition();
-                        propPosition=mobileEnemy->getPosition();
-                        if (bulletPosition.x >= propPosition.x-70 && bulletPosition.x <= propPosition.x+70 && bulletPosition.y >= propPosition.y-70 && bulletPosition.y <= propPosition.y+70){
+                        if (mobileEnemy->collidesWithPlayer(bulletPosition)){
                                 mobileEnemy->healthDamage(shootingDamage);
                                 if (mobileEnemy->getHealth()<=0){
                                         mobileEnemies.erase(mobileEnemy);
@@ -311,9 +313,7 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
                         }
                 }
                 for (auto armoredEnemy=armoredEnemies.begin(); armoredEnemy!=armoredEnemies.end(); ++armoredEnemy){
-                        bulletPosition=it->getPosition();
-                        propPosition=armoredEnemy->getPosition();
-                        if (bulletPosition.x >= propPosition.x-70 && bulletPosition.x <= propPosition.x+70 && bulletPosition.y >= propPosition.y-70 && bulletPosition.y <= propPosition.y+70){
+                        if (armoredEnemy->collidesWithPlayer(bulletPosition)){
                                 armoredEnemy->healthDamage(shootingDamage);
                                 if (armoredEnemy->getHealth()<=0){
                                         armoredEnemies.erase(armoredEnemy);
@@ -323,9 +323,7 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
                         }
                 }
                 for (auto combinedEnemy=combinedEnemies.begin(); combinedEnemy!=combinedEnemies.end(); ++combinedEnemy){
-                        bulletPosition=it->getPosition();
-                        propPosition=combinedEnemy->getPosition();
-                        if (bulletPosition.x >= propPosition.x-100 && bulletPosition.x <= propPosition.x+100 && bulletPosition.y >= propPosition.y-100 && bulletPosition.y <= propPosition.y+100){
+                        if (combinedEnemy->collidesWithPlayer(bulletPosition)){
                                 combinedEnemy->healthDamage(shootingDamage);
                                 if (combinedEnemy->getHealth()<=0){
                                         combinedEnemies.erase(combinedEnemy);
@@ -335,9 +333,7 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
                         }
                 }
                 if (bossSpawned){
-                        bulletPosition=it->getPosition();
-                        propPosition=bossFinal->getPosition();
-                        if (bulletPosition.x >= propPosition.x-100 && bulletPosition.x <= propPosition.x+100 && bulletPosition.y >= propPosition.y-100 && bulletPosition.y <= propPosition.y+100){
+                        if (bossFinal->collidesWithPlayer(bulletPosition)){
                                 bossFinal->healthDamage(shootingDamage);
                                 if (bossFinal->getHealth()<=0){
                                         bossDefeated=true;
@@ -350,7 +346,7 @@ void levelPattern::bulletPoll(sf::RenderWindow& window){
 }
 
 void levelPattern::enemyBulletPoll(sf::RenderWindow& window){
-        sf::Vector2f propPosition;
+        playerPosition=myPlayer->getPosition();
         for (auto it=enemyBullets.begin(); it!=enemyBullets.end(); ++it){
                 if (it->bulletLifeCycle()){
                         enemyBullets.erase(it);
@@ -360,9 +356,7 @@ void levelPattern::enemyBulletPoll(sf::RenderWindow& window){
                         it->bulletMove();
                         it->entityDraw(window);
                 }
-                bulletPosition=it->getPosition();
-                propPosition=myPlayer->getPosition();
-                if (bulletPosition.x >= propPosition.x-70 && bulletPosition.x <= propPosition.x+70 && bulletPosition.y >= propPosition.y-70 && bulletPosition.y <= propPosition.y+70){
+                if (it->collidesWithPlayer(playerPosition)){
                         myPlayer->healthDamage(enemyBulletDamage);
                 }
         }

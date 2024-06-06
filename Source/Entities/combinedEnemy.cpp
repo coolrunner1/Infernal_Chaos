@@ -1,6 +1,6 @@
 #include "combinedEnemy.hpp"
 
-combinedEnemy::combinedEnemy():armoredEnemy(){
+combinedEnemy::combinedEnemy():armoredEnemy(false){
     speed=0.5f;
     path="Sprites/assasin.png";
     enemyPath[0]=path;
