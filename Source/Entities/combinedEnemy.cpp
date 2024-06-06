@@ -2,13 +2,24 @@
 
 combinedEnemy::combinedEnemy():armoredEnemy(false){
     speed=0.5f;
+    entitySprite.setScale(4, 4);
+    combinedEnemyInit();
+}
+
+combinedEnemy::combinedEnemy(bool assasin):armoredEnemy(false){
+    speed=0.5f;
+    entitySprite.setScale(4, 4);
+    if (assasin)
+        combinedEnemyInit();
+}
+
+
+void combinedEnemy::combinedEnemyInit(){
     path="Sprites/assasin.png";
     enemyPath[0]=path;
     enemyPath[1]="Sprites/assasin_left.png";
-    entitySprite.setScale(4, 4);
     damage=25;
     armor=200;
-    //setSprite("Sprites/assasin_left.png");
 }
 
 std::time_t combinedEnemy::setHighSpeed(){
