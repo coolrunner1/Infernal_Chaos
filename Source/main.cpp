@@ -1,29 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Menu/mainMenu.hpp"
-//#include "Menu/Entities/player.hpp"
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Infernal Chaos");
-    //sf::CircleShape shape(100.f);
     sf::Image icon;
-    icon.loadFromFile("Sprites/logo.png"); // File/Image/Pixel
+    icon.loadFromFile("Sprites/logo.png");
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-    sf::Texture texture;
-    /*if (!texture.loadFromFile("Sprites/rascal.png"))
-    {
-        return EXIT_FAILURE;
-    }*/
-    /*sf::Music music;
-    if (!music.openFromFile("music.ogg")){
-        std::cerr<<"Missing audio file: track_menu.wav\n";
-    }
-    music.play();*/
-    sf::Sprite sprite(texture);
-    //shape.setFillColor(sf::Color::Green);
     main_menu* main1 = new main_menu;
-    levelPattern* temp = new levelPattern("Sprites/lvl1_bg.png");
-    //main_menu main1;
+    mainLevel* level = new mainLevel;
     int menuChoice=MAIN_MENU;
     while (window.isOpen())
     {
@@ -35,7 +20,6 @@ int main()
                 window.close();
         }
         window.clear();
-        //std::cout<<menuChoice<<std::endl;
         if (menuChoice<INFERNAL_CAMPAIGN){
             window.setFramerateLimit(5);
             menuChoice=main1->mainButtons(event, window, menuChoice);
@@ -44,45 +28,23 @@ int main()
             window.setFramerateLimit(60);
             switch(menuChoice){
                 case INFERNAL_CAMPAIGN:
-                    temp->setCampaign();
+                    level->setCampaign();
                     break;
                 case PS_LVL_1:
-                    temp->setEasyDifficulty();
+                    level->setEasyDifficulty();
                     break;
                 case PS_LVL_2:
-                    temp->setMediumDifficulty();
+                    level->setMediumDifficulty();
                     break;
                 case PS_LVL_3:
-                    temp->setHardDifficulty();
+                    level->setHardDifficulty();
                     break;
             }
             menuChoice=7;
         }
         else{
-            menuChoice=temp->levelRender(event, window);
+            menuChoice=level->levelRender(event, window);
         }
-        
-        /*switch(menuChoice){
-            case 0:
-                menuChoice=main1->mainButtons(event, window, 0);
-                //std::cout<<menuChoice<<std::endl;
-                break;
-            case 1:
-                menuChoice=main1->mainButtons(event, window, 1);
-                //main1->secButtons(event, window);
-                break;
-            default:
-                delete main1;
-                return 0;
-                break;
-        }*/
-        //main1.mainButtons(event, window);
         window.display();
-        //if (main1)
-        //
-        //window.draw(sprite);
-        //window.draw(texture);
-        //window.draw(shape);
-        //
     }
 }

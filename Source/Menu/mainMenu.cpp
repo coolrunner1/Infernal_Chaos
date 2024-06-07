@@ -27,7 +27,6 @@ main_menu::main_menu() {
 main_menu::~main_menu(){
     for (int i=0; i<numOfButtons; i++)
         delete buttons[i];
-    delete temp;
 }
 
 void main_menu::menuButtons(sf::RenderWindow& window){
