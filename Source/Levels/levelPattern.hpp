@@ -73,6 +73,17 @@ class levelPattern{
         void setCampaign();
         void spawnEntities(sf::RenderWindow& window);
         void bulletFire(sf::Event& event, sf::RenderWindow& window);
+        void collisionMobile(auto props, sf::RenderWindow& window);
+        void collisionArmored(auto props, sf::RenderWindow& window);
+        void collisionAssasin(auto props, sf::RenderWindow& window);
+        void collisionHealth(auto props, sf::RenderWindow& window);
+        void collisionArmor(auto props, sf::RenderWindow& window);
+        void collisionAmmo(auto props, sf::RenderWindow& window);
+        void collisionBoss(sf::RenderWindow& window);
+        void collides(auto it, sf::RenderWindow& window);
+        void collisionBullet(auto props, int increaseScore);
+        void collisionBulletBoss(int increaseScore);
+        void enemyFiresABullet(auto it, sf::RenderWindow& window);
         levelPattern();
         levelPattern(std::string path);
         ~levelPattern();
