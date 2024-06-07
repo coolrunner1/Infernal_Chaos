@@ -24,11 +24,7 @@ void levelPattern::levelInit(){
         time(&start);
         lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;
         myPlayer = new player;
-        if (!cursorTexture.loadFromFile("Sprites/Cursor.png")) {
-                std::cerr << "Missing file: Sprites/Cursor.png"<<std::endl;
-        }
-        cursor.setTexture(cursorTexture);
-        cursor.setScale(3, 3);
+        myCursor=new cursor;
 }
 
 void levelPattern::setEasyDifficulty(){
@@ -83,7 +79,7 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         if (event.type == sf::Event::MouseButtonPressed && myPlayer->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
                 bullets.push_back(bullet());
                 bullets.back().refresh();
-                bullets.back().bulletSet(window, myPlayer->getPosition(), cursorPosition);
+                bullets.back().bulletSet(window, myPlayer->getPosition(), sf::Mouse::getPosition(window));
                 myPlayer->ammoDecrement();
         }
         if (mode==0 && myPlayer->getScore()>1000){
@@ -104,9 +100,8 @@ int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         collision(window);
         myPlayer->playerRender(window);
         myPlayer->playerMove(event, window);
-        cursorPosition=sf::Mouse::getPosition(window);
-        cursor.setPosition(cursorPosition.x-25, cursorPosition.y-25);
-        window.draw(cursor);
+        
+        myCursor->cursorUpdate(window);
         keysCheck(window);
         return 7;
 }

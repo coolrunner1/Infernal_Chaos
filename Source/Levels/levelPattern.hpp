@@ -9,6 +9,7 @@
 #include "../Entities/armoredEnemy.hpp"
 #include "../Entities/combinedEnemy.hpp"
 #include "../Entities/boss.hpp"
+#include "../Entities/cursor.hpp"
 #include "stillScreen.hpp"
 #include <iostream>
 #include <vector>
@@ -28,12 +29,9 @@ class levelPattern{
         std::vector<healthPack> healthPacks;
         boss* bossFinal;
         player* myPlayer;
-        sf::Vector2i cursorPosition;
+        cursor* myCursor;
         sf::Vector2f playerPosition;
-        //sf::Vector2f propPosition;
         sf::Vector2f bulletPosition;
-        sf::Texture cursorTexture;
-        sf::Sprite cursor;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
         float mobileInterval;

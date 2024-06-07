@@ -13,7 +13,6 @@ combinedEnemy::combinedEnemy(bool assasin):armoredEnemy(false){
         combinedEnemyInit();
 }
 
-
 void combinedEnemy::combinedEnemyInit(){
     path="Sprites/assasin.png";
     enemyPath[0]=path;

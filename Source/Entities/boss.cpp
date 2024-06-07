@@ -5,6 +5,6 @@ boss::boss():combinedEnemy(false){
     enemyPath[0]=path;
     enemyPath[1]="Sprites/zombie_left.png";
     damage=50;
-    health=200;
-    armor=300;
+    health=500;
+    armor=500;
 }
