@@ -11,6 +11,7 @@
 #include "../Entities/boss.hpp"
 #include "../Entities/cursor.hpp"
 #include "stillScreen.hpp"
+#include "stats.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -30,6 +31,8 @@ class levelPattern{
         boss* bossFinal;
         player* myPlayer;
         cursor* myCursor;
+        stats* myStats;
+        stillScreen* stillScreens;
         sf::Vector2f playerPosition;
         sf::Vector2f bulletPosition;
         sf::Texture backgroundTexture;
@@ -55,7 +58,6 @@ class levelPattern{
         int mode;
         bool bossSpawned;
         bool bossDefeated;
-        stillScreen* stillScreens;
     public:
         void keysCheck(sf::RenderWindow& window);
         int levelRender(sf::Event& event, sf::RenderWindow& window);
@@ -70,6 +72,7 @@ class levelPattern{
         void setHardDifficulty();
         void setCampaign();
         void spawnEntities(sf::RenderWindow& window);
+        void bulletFire(sf::Event& event, sf::RenderWindow& window);
         levelPattern();
         levelPattern(std::string path);
         ~levelPattern();

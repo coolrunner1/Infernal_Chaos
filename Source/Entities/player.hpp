@@ -7,15 +7,6 @@ class player : public aliveEntity{
     private:
         sf::Vector2f playerPosition;
         sf::Vector2i cursorPosition;
-        sf::Font font;
-        sf::Text healthText;
-        sf::Text armorText;
-        sf::Text ammoText;
-        sf::Text scoreText;
-        std::string currentHealth;
-        std::string currentArmor;
-        std::string currentAmmo;
-        std::string currentScore;
         int ammo;
         int score;
     public:

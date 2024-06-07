@@ -27,3 +27,7 @@ void aliveEntity::healthDamage(int damage){
 int aliveEntity::getHealth(){
     return health;
 }
+
+int aliveEntity::getArmor(){
+    return armor;
+}

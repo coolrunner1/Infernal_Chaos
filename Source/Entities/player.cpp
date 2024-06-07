@@ -5,23 +5,10 @@ player::player():aliveEntity(){
     entitySprite.setScale(4, 4);
     entitySprite.setPosition(590, 260);
     speed=2.5f;
-    if (!font.loadFromFile("Fonts/ARCADECLASSIC.TTF")) {
-        std::cerr << "Missing file: Fonts/ARCADECLASSIC.TTF"<<std::endl;
-    }
+   
     ammo=50;
     score=0;
-    healthText.setFont(font);
-    armorText.setFont(font);
-    ammoText.setFont(font);
-    scoreText.setFont(font);
-    healthText.setFillColor(sf::Color::White);
-    armorText.setFillColor(sf::Color::White);
-    ammoText.setFillColor(sf::Color::White);
-    scoreText.setFillColor(sf::Color::White);
-    healthText.setPosition(5, 0);
-    armorText.setPosition(5, 30);
-    ammoText.setPosition(5, 60);
-    scoreText.setPosition(1050, 0);
+    
     setSprite("Sprites/main_char_idle_0.png");
 }
 
@@ -58,18 +45,6 @@ void player::playerMove(sf::Event& event, sf::RenderWindow& window){
 
 void player::playerRender(sf::RenderWindow& window){
     entityDraw(window);
-    currentHealth="Health "+std::to_string(health);
-    healthText.setString(currentHealth);
-    window.draw(healthText);
-    currentArmor="Armor "+std::to_string(armor);
-    armorText.setString(currentArmor);
-    window.draw(armorText);
-    currentAmmo="Ammo "+std::to_string(ammo);
-    ammoText.setString(currentAmmo);
-    window.draw(ammoText);
-    currentScore="Score "+std::to_string(score);
-    scoreText.setString(currentScore);
-    window.draw(scoreText);
 }
 
 void player::ammoDecrement(){

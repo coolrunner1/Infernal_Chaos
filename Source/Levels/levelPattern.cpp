@@ -19,12 +19,12 @@ void levelPattern::levelInit(){
         bossFinal=new boss();
         bossDefeated=false;
         bossSpawned=false;
-        //bossFinal=NULL;
         std::cout<<"Level created\n";
         time(&start);
         lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;
         myPlayer = new player;
         myCursor=new cursor;
+        myStats=new stats;
 }
 
 void levelPattern::setEasyDifficulty(){
@@ -69,41 +69,32 @@ void levelPattern::setHardDifficulty(){
 void levelPattern::setCampaign(){
         setEasyDifficulty();
         mode=0;
-        
 }
 
 int levelPattern::levelRender(sf::Event& event, sf::RenderWindow& window){
         std::time(&current);
         setBackground(window);
         window.setMouseCursorVisible(false);
+        bulletFire(event, window);
+        spawnEntities(window);
+        bulletPoll(window);
+        enemyBulletPoll(window);
+        collision(window);
+        myPlayer->playerRender(window);
+        myPlayer->playerMove(event, window);
+        myCursor->cursorUpdate(window);
+        myStats->statsRender(window, myPlayer->getHealth(), myPlayer->getArmor(), myPlayer->getAmmo(), myPlayer->getScore());
+        keysCheck(window);
+        return 7;
+}
+
+void levelPattern::bulletFire(sf::Event& event, sf::RenderWindow& window){
         if (event.type == sf::Event::MouseButtonPressed && myPlayer->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
                 bullets.push_back(bullet());
                 bullets.back().refresh();
                 bullets.back().bulletSet(window, myPlayer->getPosition(), sf::Mouse::getPosition(window));
                 myPlayer->ammoDecrement();
         }
-        if (mode==0 && myPlayer->getScore()>1000){
-                if (!bossSpawned){
-                        clearVectors();
-                        myPlayer->ammoIncrease(300);
-                        myPlayer->armorIncrease(100);
-                        myPlayer->healthIncrease(100);
-                        bossSpawned=true;
-                }
-                        
-        }
-        else{
-             spawnEntities(window); 
-        }
-        bulletPoll(window);
-        enemyBulletPoll(window);
-        collision(window);
-        myPlayer->playerRender(window);
-        myPlayer->playerMove(event, window);
-        
-        myCursor->cursorUpdate(window);
-        keysCheck(window);
-        return 7;
 }
 
 void levelPattern::keysCheck(sf::RenderWindow& window){
@@ -138,35 +129,48 @@ void levelPattern::keysCheck(sf::RenderWindow& window){
 }
 
 void levelPattern::spawnEntities(sf::RenderWindow& window){
-        if (std::difftime(current, lastMobileEnemy)>mobileInterval){
-                mobileEnemies.push_back(enemyMobile());
-                lastMobileEnemy=mobileEnemies.back().getTime();
+        if (mode==0 && myPlayer->getScore()>1000){
+                if (!bossSpawned){
+                        clearVectors();
+                        myPlayer->ammoIncrease(300);
+                        myPlayer->armorIncrease(100);
+                        myPlayer->healthIncrease(100);
+                        bossSpawned=true;
+                }
+                        
         }
-        if (std::difftime(current, lastArmoredEnemy)>armoredInterval){
-                armoredEnemies.push_back(armoredEnemy());
-                lastArmoredEnemy=armoredEnemies.back().getTime();
-                armoredEnemies.back().setFired(lastArmoredEnemy);
+        else {
+                if (std::difftime(current, lastMobileEnemy)>mobileInterval){
+                        mobileEnemies.push_back(enemyMobile());
+                        lastMobileEnemy=mobileEnemies.back().getTime();
+                }
+                if (std::difftime(current, lastArmoredEnemy)>armoredInterval){
+                        armoredEnemies.push_back(armoredEnemy());
+                        lastArmoredEnemy=armoredEnemies.back().getTime();
+                        armoredEnemies.back().setFired(lastArmoredEnemy);
+                }
+                if (std::difftime(current, lastAmmoPack)>pickupSpawnInterval+15){
+                        ammoPacks.push_back(ammoPack());
+                        ammoPacks.back().refresh();
+                        lastAmmoPack=ammoPacks.back().getTime();
+                }
+                if (std::difftime(current, lastArmorPack)>pickupSpawnInterval+25){
+                        armorPacks.push_back(armorPack());
+                        armorPacks.back().refresh();
+                        lastArmorPack=armorPacks.back().getTime();
+                }
+                if (std::difftime(current, lastHealthPack)>pickupSpawnInterval+20){
+                        healthPacks.push_back(healthPack());
+                        healthPacks.back().refresh();
+                        lastHealthPack=healthPacks.back().getTime();
+                }
+                if (std::difftime(current, lastCombinedEnemy)>assasinSpawnInterval){
+                        combinedEnemies.push_back(combinedEnemy());
+                        lastCombinedEnemy=combinedEnemies.back().getTime();
+                        combinedEnemies.back().setFired(lastCombinedEnemy);
+                }
         }
-        if (std::difftime(current, lastAmmoPack)>pickupSpawnInterval+15){
-                ammoPacks.push_back(ammoPack());
-                ammoPacks.back().refresh();
-                lastAmmoPack=ammoPacks.back().getTime();
-        }
-        if (std::difftime(current, lastArmorPack)>pickupSpawnInterval+25){
-                armorPacks.push_back(armorPack());
-                armorPacks.back().refresh();
-                lastArmorPack=armorPacks.back().getTime();
-        }
-        if (std::difftime(current, lastHealthPack)>pickupSpawnInterval+20){
-                healthPacks.push_back(healthPack());
-                healthPacks.back().refresh();
-                lastHealthPack=healthPacks.back().getTime();
-        }
-        if (std::difftime(current, lastCombinedEnemy)>assasinSpawnInterval){
-                combinedEnemies.push_back(combinedEnemy());
-                lastCombinedEnemy=combinedEnemies.back().getTime();
-                combinedEnemies.back().setFired(lastCombinedEnemy);
-        }
+        
 }
 
 void levelPattern::clearVectors(){

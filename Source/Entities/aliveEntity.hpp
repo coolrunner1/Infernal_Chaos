@@ -11,6 +11,7 @@ class aliveEntity : public entity{
     public:
         void healthDamage(int damage);
         int getHealth();
+        int getArmor();
         aliveEntity();
         aliveEntity(int health, int armor);
 };
