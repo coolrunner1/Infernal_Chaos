@@ -5,10 +5,8 @@ player::player():aliveEntity(){
     entitySprite.setScale(4, 4);
     entitySprite.setPosition(590, 260);
     speed=2.5f;
-   
     ammo=50;
     score=0;
-    
     setSprite("Sprites/main_char_idle_0.png");
 }
 
