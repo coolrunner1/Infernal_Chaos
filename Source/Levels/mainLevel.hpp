@@ -47,12 +47,12 @@ class mainLevel : public levelPattern{
         void setHardDifficulty();
         void setCampaign();
         void spawnEntities(sf::RenderWindow& window);
-        void collisionAssasin(auto props, sf::RenderWindow& window);
-        void collisionArmored(auto props, sf::RenderWindow& window);
+        void collisionAssasin(sf::RenderWindow& window);
+        void collisionArmored(sf::RenderWindow& window);
         void collisionBoss(sf::RenderWindow& window);
         void collisionBulletBoss(int increaseScore);
         void collisionBullet(auto props, int increaseScore);
-        void collisionMobile(auto props, sf::RenderWindow& window);
+        void collisionMobile(sf::RenderWindow& window);
         void enemyFiresABullet(auto it, sf::RenderWindow& window);
         void collidesBoss(sf::RenderWindow& window);
         void bulletFire(sf::Event& event, sf::RenderWindow& window);

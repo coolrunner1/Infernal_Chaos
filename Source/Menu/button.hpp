@@ -12,7 +12,6 @@ class button{
 
     public:
         void buttonDraw(float xpos, float ypos, float height, float width, sf::RenderWindow& window);
-        void buttonDrawText(float xpos, float ypos, float height, float width, std::string filePath, sf::RenderWindow& window);
         bool isClicked(sf::RenderWindow& window);
         button();
         button(std::string filePath);

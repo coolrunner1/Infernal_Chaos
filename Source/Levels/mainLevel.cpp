@@ -71,9 +71,9 @@ void mainLevel::bulletPoll(sf::RenderWindow& window){
 
 void mainLevel::collision(sf::RenderWindow& window){
         playerPosition=myPlayer->getPosition();
-        collisionMobile(&mobileEnemies, window);
-        collisionArmored(&armoredEnemies, window);
-        collisionAssasin(&combinedEnemies, window);
+        collisionMobile(window);
+        collisionArmored(window);
+        collisionAssasin(window);
         collisionAmmo(window);
         collisionArmor(window);
         collisionHealth(window);
@@ -165,8 +165,8 @@ void mainLevel::collisionBulletBoss(int increaseScore){
         
 }
 
-void mainLevel::collisionAssasin(auto props, sf::RenderWindow& window){
-        for (auto it=props->begin(); it!=props->end(); ++it){
+void mainLevel::collisionAssasin(sf::RenderWindow& window){
+        for (auto it=combinedEnemies.begin(); it!=combinedEnemies.end(); ++it){
                 if (std::difftime(current, assasinTransition[1])>assasinInterval[1]){
                         assasinTransition[1]=it->setLowSpeed();
                 }
@@ -208,15 +208,15 @@ void mainLevel::collisionBullet(auto props, int increaseScore){
         }
 }
 
-void mainLevel::collisionMobile(auto props, sf::RenderWindow& window){
+void mainLevel::collisionMobile(sf::RenderWindow& window){
         playerPosition=myPlayer->getPosition();
-        for (auto it=props->begin(); it!=props->end(); ++it){
+        for (auto it=mobileEnemies.begin(); it!=mobileEnemies.end(); ++it){
             collides(it, window);   
         }
 }
 
-void mainLevel::collisionArmored(auto props, sf::RenderWindow& window){
-        for (auto it=props->begin(); it!=props->end(); ++it){
+void mainLevel::collisionArmored(sf::RenderWindow& window){
+        for (auto it=armoredEnemies.begin(); it!=armoredEnemies.end(); ++it){
                 enemyFiresABullet(it, window);
                 collides(it, window);  
         }

@@ -10,12 +10,6 @@ void button::buttonDraw(float xpos, float ypos, float height, float width, sf::R
     window.draw(buttonShape);
 }
 
-/*void button::cutsceneDraw(sf::RenderWindow& window, sf::Texture backgroundTexture){
-    window.clear();
-    buttonShape.setTexture(backgroundTexture);
-    window.draw(buttonShape);
-}*/
-
 bool button::isClicked(sf::RenderWindow& window){
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     sf::FloatRect buttonBounds = buttonShape.getGlobalBounds();

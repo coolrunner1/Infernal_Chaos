@@ -65,14 +65,6 @@ void main_menu::mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& ev
         case PERPETUAL_SUFFERING_MENU:
             thirdScrButtons(window);
             break;
-        /*case INFERNAL_CAMPAIGN:
-            break;
-        case PS_LVL_1:
-            break;
-        case PS_LVL_2:
-            break;
-        case PS_LVL_3:
-            break;*/
     }
 }
 
@@ -118,26 +110,3 @@ int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window, int scree
         }
     return screen;
 }
-
-/*int main_menu::mainButtons(sf::Event& event, sf::RenderWindow& window){
-    mainMenuDraw(window);
-
-    while(window.isOpen()) {
-        while(window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-            if (event.type == sf::Event::MouseButtonPressed) {
-                if (buttons[0].isClicked(window)) {
-                    std::cout << "Start button clicked!\n";
-                    secondMenuDraw(window);
-                    window.display();
-                }
-                if (buttons[1].isClicked(window)) {
-                    window.close();
-                }
-            }
-        }
-    }
-
-    return 0;
-}*/

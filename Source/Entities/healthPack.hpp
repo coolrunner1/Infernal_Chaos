@@ -3,7 +3,7 @@
 #include "entity.hpp"
 #include <iostream>
 
-class healthPack : public entity /*pickup*/{
+class healthPack : public entity {
     private:
         int health;
     public:

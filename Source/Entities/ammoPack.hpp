@@ -9,6 +9,5 @@ class ammoPack : public entity {
     public:
         int getAmmo();
         ammoPack();
-        ammoPack(int ammo);
 };
 #endif

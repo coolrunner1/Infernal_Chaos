@@ -9,6 +9,5 @@ class armorPack : public entity {
     public:
         int getArmor();
         armorPack();
-        armorPack(int armor);
 };
 #endif

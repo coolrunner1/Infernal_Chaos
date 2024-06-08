@@ -15,10 +15,6 @@ class entity{
     protected:
         int xpos;
         int ypos;
-        /*int topCollision;
-        int bottomCollision;
-        int leftCollision;
-        int rightCollision;*/
         int spawnInterval;
         std::string path;
         sf::Vector2f entityPosition;
