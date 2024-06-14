@@ -9,8 +9,6 @@
 
 class cursor : public entity{
     private:
-        sf::Texture cursorTexture;
-        sf::Sprite cursorSprite;
         sf::Vector2i cursorPosition;
     public:
         void cursorUpdate(sf::RenderWindow& window);
