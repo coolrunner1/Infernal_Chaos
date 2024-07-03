@@ -2,7 +2,6 @@
 #define LEVELPATTERN
 #include "../Entities/player.hpp"
 #include "../Entities/cursor.hpp"
-#include "../Entities/bullet.hpp"
 #include "stillScreen.hpp"
 #include "stats.hpp"
 #include <iostream>
@@ -13,8 +12,6 @@
 
 class levelPattern{
     protected:
-        std::vector<bullet> bullets;
-        std::vector<bullet> enemyBullets;
         player* myPlayer;
         cursor* myCursor;
         stats* myStats;
@@ -37,7 +34,6 @@ class levelPattern{
         void keysCheck(sf::RenderWindow& window);
         void setBackground(sf::RenderWindow& window);
         void levelInit();
-        void bulletFire(sf::Event& event, sf::RenderWindow& window);
         levelPattern();
         levelPattern(std::string path);
         ~levelPattern();

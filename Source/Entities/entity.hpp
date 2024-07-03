@@ -19,9 +19,9 @@ class entity{
         std::string path;
         sf::Vector2f entityPosition;
         std::time_t start;
+    public:
         sf::Sprite entitySprite;
         sf::Texture entityTexture;
-    public:
         void entityDraw(sf::RenderWindow& window);
         void entityInit();
         void entityMove(int xpos, int ypos);

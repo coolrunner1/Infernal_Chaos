@@ -69,12 +69,3 @@ void levelPattern::setBackground(sf::RenderWindow& window){
         backgroundShape.setTexture(backgroundTexture);
         window.draw(backgroundShape);
 }
-
-void levelPattern::bulletFire(sf::Event& event, sf::RenderWindow& window){
-        if (event.type == sf::Event::MouseButtonPressed && myPlayer->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
-                bullets.push_back(bullet());
-                bullets.back().refresh();
-                bullets.back().bulletSet(window, myPlayer->getPosition(), sf::Mouse::getPosition(window));
-                myPlayer->ammoDecrement();
-        }
-}

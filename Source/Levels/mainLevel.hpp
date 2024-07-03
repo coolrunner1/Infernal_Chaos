@@ -1,12 +1,6 @@
 #ifndef MAINLEVEL
 #define MAINLEVEL
 #include "levelPattern.hpp"
-#include "bossContainer.hpp"
-#include "armoredContainer.hpp"
-#include "mobileContainer.hpp"
-#include "ammoPackContainer.hpp"
-#include "armorPackContainer.hpp"
-#include "healthPackContainer.hpp"
 #include "../Entities/enemyMobile.hpp"
 #include "../Entities/bullet.hpp"
 #include "../Entities/ammoPack.hpp"
@@ -23,15 +17,16 @@
 
 class mainLevel : public levelPattern{
     protected:
+        std::vector<bullet> bullets;
+        std::vector<bullet> enemyBullets;
+        std::vector<ammoPack> ammoPacks;
+        std::vector<armorPack> armorPacks;
+        std::vector<healthPack> healthPacks;
         std::string path;
-        //std::vector<armoredEnemy> armoredEnemies;
+        std::vector<enemyMobile> mobileEnemies;
+        std::vector<armoredEnemy> armoredEnemies;
         std::vector<combinedEnemy> combinedEnemies;
-        bossContainer* bossContainerPoint;
-        ammoPackContainer* ammoPacksContainer;
-        armorPackContainer* armorPacksContainer;
-        healthPackContainer* healthPacksContainer;
-        mobileContainer* mobileEnemiesContainer;
-        armoredContainer* armoredEnemiesContainer;
+        boss* bossFinal;
         float assasinSpawnInterval;
         float assasinInterval[2];
         float mobileInterval;
@@ -52,12 +47,21 @@ class mainLevel : public levelPattern{
         void setHardDifficulty();
         void setCampaign();
         void spawnEntities(sf::RenderWindow& window);
-        /**/void collisionAssasin(sf::RenderWindow& window);
-        /**/void collisionBullet(auto props, int increaseScore);
-        /**/void collides(auto it, sf::RenderWindow& window);
+        void collisionAssasin(sf::RenderWindow& window);
+        void collisionArmored(sf::RenderWindow& window);
+        void collisionBoss(sf::RenderWindow& window);
+        void collisionBulletBoss(int increaseScore);
+        void collisionBullet(auto props, int increaseScore);
+        void collisionMobile(sf::RenderWindow& window);
         void enemyFiresABullet(auto it, sf::RenderWindow& window);
+        void collidesBoss(sf::RenderWindow& window);
+        void bulletFire(sf::Event& event, sf::RenderWindow& window);
         void clearVectors();
         void enemyBulletPoll(sf::RenderWindow& window);
+        void collisionHealth(sf::RenderWindow& window);
+        void collisionArmor(sf::RenderWindow& window);
+        void collisionAmmo(sf::RenderWindow& window);
+        void collides(auto it, sf::RenderWindow& window);
         mainLevel();
         ~mainLevel();
 };
