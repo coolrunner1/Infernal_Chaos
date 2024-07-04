@@ -1,14 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Menu/mainMenu.hpp"
+#include "Menu/MainMenu.hpp"
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Infernal Chaos");
     sf::Image icon;
     icon.loadFromFile("Sprites/logo.png");
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-    main_menu* main1 = new main_menu;
-    mainLevel* level = new mainLevel;
+    MainMenu* mainMenu = new MainMenu;
+    MainLevel* mainLevel = new MainLevel;
     int menuChoice=MAIN_MENU;
     while (window.isOpen())
     {
@@ -22,28 +22,28 @@ int main()
         window.clear();
         if (menuChoice<INFERNAL_CAMPAIGN){
             window.setFramerateLimit(5);
-            menuChoice=main1->mainButtons(event, window, menuChoice);
+            menuChoice=mainMenu->mainButtons(event, window, menuChoice);
         }
         else if (menuChoice<7){
             window.setFramerateLimit(60);
             switch(menuChoice){
                 case INFERNAL_CAMPAIGN:
-                    level->setCampaign();
+                    mainLevel->setCampaign();
                     break;
                 case PS_LVL_1:
-                    level->setEasyDifficulty();
+                    mainLevel->setEasyDifficulty();
                     break;
                 case PS_LVL_2:
-                    level->setMediumDifficulty();
+                    mainLevel->setMediumDifficulty();
                     break;
                 case PS_LVL_3:
-                    level->setHardDifficulty();
+                    mainLevel->setHardDifficulty();
                     break;
             }
             menuChoice=7;
         }
         else{
-            menuChoice=level->levelRender(event, window);
+            menuChoice=mainLevel->levelRender(event, window);
         }
         window.display();
     }
