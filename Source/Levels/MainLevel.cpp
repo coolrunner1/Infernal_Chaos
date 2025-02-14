@@ -195,7 +195,8 @@ int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
         return 7;
 }
 
-void MainLevel::collisionBullet(auto props, int increaseScore){
+template <typename T>
+void MainLevel::collisionBullet(T props, int increaseScore){
         for (auto it=props->begin(); it!=props->end(); ++it){
                 if (it->collidesWithPlayer(bulletPosition)){
                         it->healthDamage(shootingDamage);
@@ -222,7 +223,8 @@ void MainLevel::collisionArmored(sf::RenderWindow& window){
         }
 }
 
-void MainLevel::enemyFiresABullet(auto it, sf::RenderWindow& window){
+template <typename T>
+void MainLevel::enemyFiresABullet(T it, sf::RenderWindow& window){
         if (std::difftime(current, it->getLastFired())>enemyFireInterval){
                         it->setFired(current);
                         enemyBullets.push_back(Bullet());
@@ -292,7 +294,8 @@ void MainLevel::collisionHealth(sf::RenderWindow& window){
         }
 }
 
-void MainLevel::collides(auto it, sf::RenderWindow& window){
+template <typename T>
+void MainLevel::collides(T it, sf::RenderWindow& window){
     it->enemyMove(window, playerPosition);
     it->entityDraw(window);
     if (it->collidesWithPlayer(playerPosition) && std::difftime(current, it->getDamageTime())>0.05){

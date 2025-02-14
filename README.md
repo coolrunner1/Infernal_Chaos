@@ -1,18 +1,19 @@
-My first video game distributed under GNU GPL license.
-University coursework project (4 semester).
+# My first video game distributed under GNU GPL license. University coursework project (4 semester).
 
-Controls:
+## Requires SFML2
 
-WSAD - Movements
+## Controls:
 
-Mouse - Aim
+- WSAD - Movements
 
-Left Mouse Click - Shoot
+- Mouse - Aim
 
-ENTER - Pause
+- Left Mouse Click - Shoot
 
-F - Unpause (After hitting enter)
+- ENTER - Pause
 
-ESC - End the game
+- F - Unpause (After hitting enter)
 
-F - Quit the game (After hitting enter, dying or losing)
+- ESC - End the game
+
+- F - Quit the game (After hitting enter, dying or losing)

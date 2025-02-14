@@ -51,9 +51,11 @@ class MainLevel : public LevelPattern{
         void collisionArmored(sf::RenderWindow& window);
         void collisionBoss(sf::RenderWindow& window);
         void collisionBulletBoss(int increaseScore);
-        void collisionBullet(auto props, int increaseScore);
+        template <typename T>
+        void collisionBullet(T props, int increaseScore);
         void collisionMobile(sf::RenderWindow& window);
-        void enemyFiresABullet(auto it, sf::RenderWindow& window);
+        template <typename T>
+        void enemyFiresABullet(T it, sf::RenderWindow& window);
         void collidesBoss(sf::RenderWindow& window);
         void bulletFire(sf::Event& event, sf::RenderWindow& window);
         void clearVectors();
@@ -61,7 +63,8 @@ class MainLevel : public LevelPattern{
         void collisionHealth(sf::RenderWindow& window);
         void collisionArmor(sf::RenderWindow& window);
         void collisionAmmo(sf::RenderWindow& window);
-        void collides(auto it, sf::RenderWindow& window);
+        template <typename T>
+        void collides(T it, sf::RenderWindow& window);
         MainLevel();
         ~MainLevel();
 };
