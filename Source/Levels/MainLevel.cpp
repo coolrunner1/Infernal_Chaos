@@ -1,22 +1,22 @@
 #include "MainLevel.hpp"
 
 MainLevel::MainLevel() : LevelPattern("Sprites/lvl1_bg.png"){
-    bossFinal=new Boss();
+    boss=new Boss();
     lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;
 }
 
 MainLevel::~MainLevel(){
     clearVectors();
-    delete bossFinal;
+    delete boss;
 }
 
 void MainLevel::spawnEntities(sf::RenderWindow& window){
-        if (mode==0 && myPlayer->getScore()>1000){
+        if (mode==0 && player->getScore()>1000){
                 if (!bossSpawned){
                         clearVectors();
-                        myPlayer->ammoIncrease(300);
-                        myPlayer->armorIncrease(100);
-                        myPlayer->healthIncrease(100);
+                        player->ammoIncrease(300);
+                        player->armorIncrease(100);
+                        player->healthIncrease(100);
                         bossSpawned=true;
                 }
                         
@@ -70,7 +70,7 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
 }
 
 void MainLevel::collision(sf::RenderWindow& window){
-        playerPosition=myPlayer->getPosition();
+        playerPosition=player->getPosition();
         collisionMobile(window);
         collisionArmored(window);
         collisionAssasin(window);
@@ -139,26 +139,26 @@ void MainLevel::setCampaign(){
 
 void MainLevel::collisionBoss(sf::RenderWindow& window){
         if (bossSpawned){
-                bossFinal->enemyMove(window, playerPosition);
-                bossFinal->entityDraw(window);
+                boss->enemyMove(window, playerPosition);
+                boss->entityDraw(window);
                 if (std::difftime(current, assasinTransition[1])>assasinInterval[1]){
-                        assasinTransition[1]=bossFinal->setLowSpeed();
+                        assasinTransition[1]=boss->setLowSpeed();
                 }
                 if (std::difftime(current, assasinTransition[0])>assasinInterval[0]){
-                        assasinTransition[0]=bossFinal->setHighSpeed();
+                        assasinTransition[0]=boss->setHighSpeed();
                 }
-                enemyFiresABullet(bossFinal, window);
+                enemyFiresABullet(boss, window);
                 collidesBoss(window);
         }
 }
 
 void MainLevel::collisionBulletBoss(int increaseScore){
         if (bossSpawned){
-                if (bossFinal->collidesWithPlayer(bulletPosition)){
-                        bossFinal->healthDamage(shootingDamage);
-                        if (bossFinal->getHealth()<=0){
+                if (boss->collidesWithPlayer(bulletPosition)){
+                        boss->healthDamage(shootingDamage);
+                        if (boss->getHealth()<=0){
                                 bossDefeated=true;
-                                myPlayer->scoreIncrease(increaseScore);
+                                player->scoreIncrease(increaseScore);
                         }
                 }
         }
@@ -187,10 +187,10 @@ int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
         bulletPoll(window);
         enemyBulletPoll(window);
         collision(window);
-        myPlayer->playerRender(window);
-        myPlayer->playerMove(event, window);
-        myCursor->cursorUpdate(window);
-        myStats->statsRender(window, myPlayer->getHealth(), myPlayer->getArmor(), myPlayer->getAmmo(), myPlayer->getScore());
+        player->playerRender(window);
+        player->playerMove(event, window);
+        cursor->cursorUpdate(window);
+        stats->statsRender(window, player->getHealth(), player->getArmor(), player->getAmmo(), player->getScore());
         keysCheck(window);
         return 7;
 }
@@ -202,7 +202,7 @@ void MainLevel::collisionBullet(T props, int increaseScore){
                         it->healthDamage(shootingDamage);
                         if (it->getHealth()<=0){
                                 props->erase(it);
-                                myPlayer->scoreIncrease(increaseScore);
+                                player->scoreIncrease(increaseScore);
                                 break;
                         }
                 }
@@ -210,7 +210,7 @@ void MainLevel::collisionBullet(T props, int increaseScore){
 }
 
 void MainLevel::collisionMobile(sf::RenderWindow& window){
-        playerPosition=myPlayer->getPosition();
+        playerPosition=player->getPosition();
         for (auto it=mobileEnemies.begin(); it!=mobileEnemies.end(); ++it){
             collides(it, window);   
         }
@@ -234,23 +234,23 @@ void MainLevel::enemyFiresABullet(T it, sf::RenderWindow& window){
 }
 
 void MainLevel::collidesBoss(sf::RenderWindow& window){
-    bossFinal->enemyMove(window, playerPosition);
-    bossFinal->entityDraw(window);
-    if (bossFinal->collidesWithPlayer(playerPosition) && std::difftime(current, bossFinal->getDamageTime())>0.05){
-        bossFinal->setDamageTime(std::time(&prevDamage));
-        myPlayer->healthDamage(bossFinal->getDamage());
+    boss->enemyMove(window, playerPosition);
+    boss->entityDraw(window);
+    if (boss->collidesWithPlayer(playerPosition) && std::difftime(current, boss->getDamageTime())>0.05){
+        boss->setDamageTime(std::time(&prevDamage));
+        player->healthDamage(boss->getDamage());
     }
 }
 
 void MainLevel::enemyBulletPoll(sf::RenderWindow& window){
-        playerPosition=myPlayer->getPosition();
+        playerPosition=player->getPosition();
         if (!enemyBullets.empty() && enemyBullets.begin()->bulletLifeCycle())
                 enemyBullets.erase(enemyBullets.begin());
         for (auto it=enemyBullets.begin(); it!=enemyBullets.end(); ++it){
                 it->bulletMove();
                 it->entityDraw(window);
                 if (it->collidesWithPlayer(playerPosition)){
-                        myPlayer->healthDamage(enemyBulletDamage);
+                        player->healthDamage(enemyBulletDamage);
                 }
         }
 }
@@ -260,9 +260,9 @@ void MainLevel::collisionAmmo(sf::RenderWindow& window){
                 it->refresh();
                 it->entityDraw(window);
                 if (it->collidesWithPlayer(playerPosition)){
-                        myPlayer->ammoIncrease(it->getAmmo());
+                        player->ammoIncrease(it->getAmmo());
                         ammoPacks.erase(it);
-                        myPlayer->scoreIncrease(5);
+                        player->scoreIncrease(5);
                         break;
                 }
         }
@@ -273,9 +273,9 @@ void MainLevel::collisionArmor(sf::RenderWindow& window){
                 it->refresh();
                 it->entityDraw(window);
                 if (it->collidesWithPlayer(playerPosition)){
-                        myPlayer->armorIncrease(it->getArmor());
+                        player->armorIncrease(it->getArmor());
                         armorPacks.erase(it);
-                        myPlayer->scoreIncrease(5);
+                        player->scoreIncrease(5);
                         break;
                 }
         }
@@ -286,9 +286,9 @@ void MainLevel::collisionHealth(sf::RenderWindow& window){
                 it->refresh();
                 it->entityDraw(window);
                 if (it->collidesWithPlayer(playerPosition)){
-                        myPlayer->healthIncrease(it->getHealth());
+                        player->healthIncrease(it->getHealth());
                         healthPacks.erase(it);
-                        myPlayer->scoreIncrease(5);
+                        player->scoreIncrease(5);
                         break;
                 }
         }
@@ -300,15 +300,15 @@ void MainLevel::collides(T it, sf::RenderWindow& window){
     it->entityDraw(window);
     if (it->collidesWithPlayer(playerPosition) && std::difftime(current, it->getDamageTime())>0.05){
         it->setDamageTime(std::time(&prevDamage));
-        myPlayer->healthDamage(it->getDamage());
+        player->healthDamage(it->getDamage());
     }
 }
 
 void MainLevel::bulletFire(sf::Event& event, sf::RenderWindow& window){
-        if (event.type == sf::Event::MouseButtonPressed && myPlayer->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
+        if (event.type == sf::Event::MouseButtonPressed && player->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
                 bullets.push_back(Bullet());
                 bullets.back().refresh();
-                bullets.back().bulletSet(window, myPlayer->getPosition(), sf::Mouse::getPosition(window));
-                myPlayer->ammoDecrement();
+                bullets.back().bulletSet(window, player->getPosition(), sf::Mouse::getPosition(window));
+                player->ammoDecrement();
         }
 }

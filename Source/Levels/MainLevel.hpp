@@ -26,7 +26,7 @@ class MainLevel : public LevelPattern{
         std::vector<EnemyMobile> mobileEnemies;
         std::vector<ArmoredEnemy> armoredEnemies;
         std::vector<CombinedEnemy> combinedEnemies;
-        Boss* bossFinal;
+        Boss* boss;
         float assasinSpawnInterval;
         float assasinInterval[2];
         float mobileInterval;

@@ -12,9 +12,9 @@
 
 class LevelPattern{
     protected:
-        Player* myPlayer;
-        Cursor* myCursor;
-        Stats* myStats;
+        Player* player;
+        Cursor* cursor;
+        Stats* stats;
         StillScreen* stillScreens;
         sf::Vector2f playerPosition;
         sf::Vector2f bulletPosition;

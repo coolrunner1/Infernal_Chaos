@@ -21,9 +21,9 @@ void LevelPattern::levelInit(){
         std::cout<<"Level created\n";
         time(&start);
         enemyBulletDamage=1;
-        myPlayer = new Player;
-        myCursor=new Cursor;
-        myStats=new Stats;
+        player = new Player;
+        cursor=new Cursor;
+        stats=new Stats;
 }
 
 
@@ -36,14 +36,14 @@ void LevelPattern::keysCheck(sf::RenderWindow& window){
                         }
                 }
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || myPlayer->getHealth()<=0){
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || player->getHealth()<=0){
                 stillScreens->gameOver(window);
                 while(true){
                         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
                                 break;
                         }
                 }
-                delete myPlayer;
+                delete player;
                 window.close();
         }
         if (bossDefeated){
@@ -53,16 +53,16 @@ void LevelPattern::keysCheck(sf::RenderWindow& window){
                                 break;
                         }
                 }
-                delete myPlayer;
+                delete player;
                 window.close();
         }
 }
 
 LevelPattern::~LevelPattern(){
-        delete myPlayer;
+        delete player;
         delete stillScreens;
-        delete myCursor;
-        delete myStats;
+        delete cursor;
+        delete stats;
 }
 
 void LevelPattern::setBackground(sf::RenderWindow& window){
