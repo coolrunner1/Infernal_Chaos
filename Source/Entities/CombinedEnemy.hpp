@@ -3,7 +3,7 @@
 #include "ArmoredEnemy.hpp"
 #include <iostream>
 
-class CombinedEnemy : public ArmoredEnemy{
+class CombinedEnemy : public ArmoredEnemy {
     private:
         void combinedEnemyInit();
     protected:

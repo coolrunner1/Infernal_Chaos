@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-class Bullet : public AliveEntity{
+class Bullet : public AliveEntity {
     private:
         sf::Vector2f targetPos;
         sf::Vector2f bulletStart;

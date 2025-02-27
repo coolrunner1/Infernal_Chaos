@@ -3,7 +3,7 @@
 #include "Entity.hpp"
 #include <iostream>
 
-class AliveEntity : public Entity{
+class AliveEntity : public Entity {
     protected:
         int health;
         int armor;

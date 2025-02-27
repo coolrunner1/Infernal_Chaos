@@ -1,6 +1,6 @@
 #include "StillScreen.hpp"
 
-StillScreen::StillScreen(){
+StillScreen::StillScreen() {
     if (!gameoverTexture.loadFromFile("Sprites/game_over.png")) {
             std::cerr << "Missing file: Sprites/game_over.png"<<std::endl;
     }
@@ -21,17 +21,17 @@ StillScreen::StillScreen(){
     winShape.setPosition(350,250);
 }
 
-void StillScreen::pause(sf::RenderWindow& window){
+void StillScreen::pause(sf::RenderWindow& window) {
     window.draw(pauseShape);
     window.display();
 }
 
-void StillScreen::gameOver(sf::RenderWindow& window){
+void StillScreen::gameOver(sf::RenderWindow& window) {
     window.draw(gameoverShape);
     window.display();
 }
 
-void StillScreen::youWin(sf::RenderWindow& window){
+void StillScreen::youWin(sf::RenderWindow& window) {
     window.draw(winShape);
     window.display();
 }

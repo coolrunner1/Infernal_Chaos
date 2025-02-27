@@ -3,7 +3,7 @@
 #include "AliveEntity.hpp"
 #include <iostream>
 
-class Enemy : public AliveEntity{
+class Enemy : public AliveEntity {
     protected:
         int damage;
         std::time_t damageTime;

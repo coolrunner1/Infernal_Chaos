@@ -18,17 +18,17 @@ Stats::Stats(){
     scoreText.setPosition(1050, 0);
 }
 
-void Stats::statsRender(sf::RenderWindow& window, int health, int armor, int ammo, int score){
-    currentHealth="Health "+std::to_string(health);
+void Stats::statsRender(sf::RenderWindow& window, int health, int armor, int ammo, int score) {
+    currentHealth = "Health " + std::to_string(health);
     healthText.setString(currentHealth);
     window.draw(healthText);
-    currentArmor="Armor "+std::to_string(armor);
+    currentArmor = "Armor " + std::to_string(armor);
     armorText.setString(currentArmor);
     window.draw(armorText);
-    currentAmmo="Ammo "+std::to_string(ammo);
+    currentAmmo = "Ammo " + std::to_string(ammo);
     ammoText.setString(currentAmmo);
     window.draw(ammoText);
-    currentScore="Score "+std::to_string(score);
+    currentScore = "Score " + std::to_string(score);
     scoreText.setString(currentScore);
     window.draw(scoreText);
 }

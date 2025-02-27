@@ -3,7 +3,7 @@
 #include <iostream>
 #include "AliveEntity.hpp"
 
-class Player : public AliveEntity{
+class Player : public AliveEntity {
     private:
         sf::Vector2f playerPosition;
         sf::Vector2i cursorPosition;

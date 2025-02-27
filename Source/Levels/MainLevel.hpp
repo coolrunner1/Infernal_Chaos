@@ -1,6 +1,6 @@
 #ifndef MAINLEVEL
 #define MAINLEVEL
-#include "LevelPattern.hpp"
+#include "AbstractLevel.hpp"
 #include "../Entities/EnemyMobile.hpp"
 #include "../Entities/Bullet.hpp"
 #include "../Entities/AmmoPack.hpp"
@@ -9,13 +9,18 @@
 #include "../Entities/ArmoredEnemy.hpp"
 #include "../Entities/CombinedEnemy.hpp"
 #include "../Entities/Boss.hpp"
+#include "../EntityContainers/MobileEnemiesContainer.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
 #include <ctime>
 #include <SFML/Graphics.hpp>
+#define CAMPAIGN 0
+#define SUFFERING_EASY 1
+#define SUFFERING_MEDIUM 2
+#define SUFFERING_HARD 3
 
-class MainLevel : public LevelPattern{
+class MainLevel : public AbstractLevel{
     protected:
         std::vector<Bullet> bullets;
         std::vector<Bullet> enemyBullets;
@@ -23,15 +28,13 @@ class MainLevel : public LevelPattern{
         std::vector<ArmorPack> armorPacks;
         std::vector<HealthPack> healthPacks;
         std::string path;
-        std::vector<EnemyMobile> mobileEnemies;
+        MobileEnemiesContainer* mobileEnemies;
         std::vector<ArmoredEnemy> armoredEnemies;
         std::vector<CombinedEnemy> combinedEnemies;
         Boss* boss;
         float assasinSpawnInterval;
         float assasinInterval[2];
-        float mobileInterval;
         float armoredInterval;
-        std::time_t lastMobileEnemy;
         std::time_t lastArmoredEnemy;
         std::time_t lastCombinedEnemy;
         std::time_t lastAmmoPack;
@@ -53,7 +56,6 @@ class MainLevel : public LevelPattern{
         void collisionBulletBoss(int increaseScore);
         template <typename T>
         void collisionBullet(T props, int increaseScore);
-        void collisionMobile(sf::RenderWindow& window);
         template <typename T>
         void enemyFiresABullet(T it, sf::RenderWindow& window);
         void collidesBoss(sf::RenderWindow& window);

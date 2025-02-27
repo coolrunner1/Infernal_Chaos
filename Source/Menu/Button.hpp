@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-class Button{
+class Button {
     private:
         sf::Texture buttonTexture;
         sf::Sprite buttonShape;

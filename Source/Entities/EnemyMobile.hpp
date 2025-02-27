@@ -3,7 +3,7 @@
 #include "Enemy.hpp"
 #include <iostream>
 
-class EnemyMobile : public Enemy{
+class EnemyMobile : public Enemy {
     private:
         void enemyMobileInit();
     public:

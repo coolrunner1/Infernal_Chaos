@@ -1,17 +1,19 @@
 #include "MainLevel.hpp"
 
-MainLevel::MainLevel() : LevelPattern("Sprites/lvl1_bg.png"){
-    boss=new Boss();
-    lastMobileEnemy=lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;
+MainLevel::MainLevel() : AbstractLevel("Sprites/lvl1_bg.png"){
+    boss = new Boss();
+    lastAmmoPack=lastHealthPack=lastArmorPack=lastArmoredEnemy=assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;
+    mobileEnemies = new MobileEnemiesContainer(start);
 }
 
 MainLevel::~MainLevel(){
     clearVectors();
+    delete mobileEnemies;
     delete boss;
 }
 
 void MainLevel::spawnEntities(sf::RenderWindow& window){
-        if (mode==0 && player->getScore()>1000){
+        if (mode == CAMPAIGN && player->getScore() > 1000){
                 if (!bossSpawned){
                         clearVectors();
                         player->ammoIncrease(300);
@@ -22,33 +24,30 @@ void MainLevel::spawnEntities(sf::RenderWindow& window){
                         
         }
         else {
-                if (std::difftime(current, lastMobileEnemy)>mobileInterval){
-                        mobileEnemies.push_back(EnemyMobile());
-                        lastMobileEnemy=mobileEnemies.back().getTime();
-                }
+                mobileEnemies->spawnNewEntity(window, current);
                 if (std::difftime(current, lastArmoredEnemy)>armoredInterval){
                         armoredEnemies.push_back(ArmoredEnemy());
-                        lastArmoredEnemy=armoredEnemies.back().getTime();
+                        lastArmoredEnemy=armoredEnemies.back().getSpawnTime();
                         armoredEnemies.back().setFired(lastArmoredEnemy);
                 }
                 if (std::difftime(current, lastAmmoPack)>pickupSpawnInterval+15){
                         ammoPacks.push_back(AmmoPack());
                         ammoPacks.back().refresh();
-                        lastAmmoPack=ammoPacks.back().getTime();
+                        lastAmmoPack=ammoPacks.back().getSpawnTime();
                 }
                 if (std::difftime(current, lastArmorPack)>pickupSpawnInterval+25){
                         armorPacks.push_back(ArmorPack());
                         armorPacks.back().refresh();
-                        lastArmorPack=armorPacks.back().getTime();
+                        lastArmorPack=armorPacks.back().getSpawnTime();
                 }
                 if (std::difftime(current, lastHealthPack)>pickupSpawnInterval+20){
                         healthPacks.push_back(HealthPack());
                         healthPacks.back().refresh();
-                        lastHealthPack=healthPacks.back().getTime();
+                        lastHealthPack=healthPacks.back().getSpawnTime();
                 }
                 if (std::difftime(current, lastCombinedEnemy)>assasinSpawnInterval){
                         combinedEnemies.push_back(CombinedEnemy());
-                        lastCombinedEnemy=combinedEnemies.back().getTime();
+                        lastCombinedEnemy=combinedEnemies.back().getSpawnTime();
                         combinedEnemies.back().setFired(lastCombinedEnemy);
                 }
         }
@@ -62,7 +61,7 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
                 bulletPosition=it->getPosition();
                 it->bulletMove();
                 it->entityDraw(window);
-                collisionBullet(&mobileEnemies, 15);
+                collisionBullet(mobileEnemies->getMobileEnemies(), 15);
                 collisionBullet(&armoredEnemies, 30);
                 collisionBullet(&combinedEnemies, 60);
                 collisionBulletBoss(1000);
@@ -71,7 +70,7 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
 
 void MainLevel::collision(sf::RenderWindow& window){
         playerPosition=player->getPosition();
-        collisionMobile(window);
+        mobileEnemies->collides(window, *player, current);
         collisionArmored(window);
         collisionAssasin(window);
         collisionAmmo(window);
@@ -84,7 +83,7 @@ void MainLevel::collision(sf::RenderWindow& window){
 void MainLevel::clearVectors(){
         bullets.clear();
         enemyBullets.clear();
-        mobileEnemies.clear();
+        mobileEnemies->getMobileEnemies()->clear();
         armoredEnemies.clear();
         combinedEnemies.clear();
         ammoPacks.clear();
@@ -94,47 +93,47 @@ void MainLevel::clearVectors(){
 
 
 void MainLevel::setEasyDifficulty(){
-        mobileInterval=2;
-        pickupSpawnInterval=15;
-        armoredInterval=5;
-        enemyFireInterval=1;
-        assasinInterval[0]=5;
-        assasinInterval[1]=0.5;
-        assasinSpawnInterval=30;
-        shootingDamage=3;
-        enemyBulletDamage=1;
-        mode=1;
+        mobileEnemies->setSpawnInterval(2);
+        pickupSpawnInterval = 15;
+        armoredInterval = 5;
+        enemyFireInterval = 1;
+        assasinInterval[0] = 5;
+        assasinInterval[1] = 0.5;
+        assasinSpawnInterval = 30;
+        shootingDamage = 3;
+        enemyBulletDamage = 1;
+        mode = SUFFERING_EASY;
 }
 
 void MainLevel::setMediumDifficulty(){
-        mobileInterval=1;
-        pickupSpawnInterval=25;
-        armoredInterval=3;
-        enemyFireInterval=0.5;
-        assasinInterval[0]=4;
-        assasinInterval[1]=0.5;
-        assasinSpawnInterval=15;
-        shootingDamage=2;
-        enemyBulletDamage=2;
-        mode=2;
+        mobileEnemies->setSpawnInterval(1);
+        pickupSpawnInterval = 25;
+        armoredInterval = 3;
+        enemyFireInterval = 0.5;
+        assasinInterval[0] = 4;
+        assasinInterval[1] = 0.5;
+        assasinSpawnInterval = 15;
+        shootingDamage = 2;
+        enemyBulletDamage = 2;
+        mode = SUFFERING_MEDIUM;
 }
 
 void MainLevel::setHardDifficulty(){
-        mobileInterval=0.5;
-        pickupSpawnInterval=35;
-        armoredInterval=1;
-        enemyFireInterval=0.1;
-        assasinInterval[0]=2;
-        assasinInterval[1]=0.5;
-        assasinSpawnInterval=5;
-        shootingDamage=1;
-        enemyBulletDamage=3;
-        mode=3;
+        mobileEnemies->setSpawnInterval(0.5);
+        pickupSpawnInterval = 35;
+        armoredInterval = 1;
+        enemyFireInterval = 0.1;
+        assasinInterval[0] = 2;
+        assasinInterval[1] = 0.5;
+        assasinSpawnInterval = 5;
+        shootingDamage = 1;
+        enemyBulletDamage = 3;
+        mode = SUFFERING_HARD;
 }
 
 void MainLevel::setCampaign(){
         setEasyDifficulty();
-        mode=0;
+        mode = CAMPAIGN;
 }
 
 void MainLevel::collisionBoss(sf::RenderWindow& window){
@@ -209,12 +208,12 @@ void MainLevel::collisionBullet(T props, int increaseScore){
         }
 }
 
-void MainLevel::collisionMobile(sf::RenderWindow& window){
+/*void MainLevel::collisionMobile(sf::RenderWindow& window){
         playerPosition=player->getPosition();
         for (auto it=mobileEnemies.begin(); it!=mobileEnemies.end(); ++it){
             collides(it, window);   
         }
-}
+}*/
 
 void MainLevel::collisionArmored(sf::RenderWindow& window){
         for (auto it=armoredEnemies.begin(); it!=armoredEnemies.end(); ++it){
@@ -226,11 +225,11 @@ void MainLevel::collisionArmored(sf::RenderWindow& window){
 template <typename T>
 void MainLevel::enemyFiresABullet(T it, sf::RenderWindow& window){
         if (std::difftime(current, it->getLastFired())>enemyFireInterval){
-                        it->setFired(current);
-                        enemyBullets.push_back(Bullet());
-                        enemyBullets.back().refresh();
-                        enemyBullets.back().bulletSetFloat(window, it->getPosition(), playerPosition);
-                }
+                it->setFired(current);
+                enemyBullets.push_back(Bullet());
+                enemyBullets.back().refresh();
+                enemyBullets.back().bulletSetFloat(window, it->getPosition(), playerPosition);
+        }
 }
 
 void MainLevel::collidesBoss(sf::RenderWindow& window){
@@ -238,6 +237,7 @@ void MainLevel::collidesBoss(sf::RenderWindow& window){
     boss->entityDraw(window);
     if (boss->collidesWithPlayer(playerPosition) && std::difftime(current, boss->getDamageTime())>0.05){
         boss->setDamageTime(std::time(&prevDamage));
+        std::cout<<prevDamage;
         player->healthDamage(boss->getDamage());
     }
 }
@@ -305,7 +305,7 @@ void MainLevel::collides(T it, sf::RenderWindow& window){
 }
 
 void MainLevel::bulletFire(sf::Event& event, sf::RenderWindow& window){
-        if (event.type == sf::Event::MouseButtonPressed && player->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getTime())>0.005)){
+        if (event.type == sf::Event::MouseButtonPressed && player->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getSpawnTime())>0.005)){
                 bullets.push_back(Bullet());
                 bullets.back().refresh();
                 bullets.back().bulletSet(window, player->getPosition(), sf::Mouse::getPosition(window));

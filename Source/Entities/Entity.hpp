@@ -11,7 +11,7 @@
 #define COLLISION_RIGHT 1207.5
 #define COLLISION_BOTTOM 615 
 
-class Entity{
+class Entity {
     protected:
         int xpos;
         int ypos;
@@ -31,7 +31,7 @@ class Entity{
         void setSpawnInterval(int interval);
         bool collidesWithPlayer(sf::Vector2f playerPosition);
         sf::Vector2f getPosition();
-        std::time_t getTime();
+        std::time_t getSpawnTime();
         Entity();
         Entity(int xpos, int ypos, std::string path);
 };

@@ -1,20 +1,20 @@
-#include "LevelPattern.hpp"
+#include "AbstractLevel.hpp"
 
-LevelPattern::LevelPattern(){
+AbstractLevel::AbstractLevel(){
         levelInit();
         if (!backgroundTexture.loadFromFile("Sprites/lvl1_bg.png")) {
                 std::cerr << "Missing file: Sprites/lvl1_bg.png"<<std::endl;
         }
 }
 
-LevelPattern::LevelPattern(std::string path){
+AbstractLevel::AbstractLevel(std::string path){
         levelInit();
         if (!backgroundTexture.loadFromFile(path)) {
                 std::cerr << "Missing file: "<<path<<std::endl;
         }
 }
 
-void LevelPattern::levelInit(){
+void AbstractLevel::levelInit(){
         stillScreens=new StillScreen;
         bossDefeated=false;
         bossSpawned=false;
@@ -27,7 +27,7 @@ void LevelPattern::levelInit(){
 }
 
 
-void LevelPattern::keysCheck(sf::RenderWindow& window){
+void AbstractLevel::keysCheck(sf::RenderWindow& window){
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 stillScreens->pause(window);
                 while(true){
@@ -58,14 +58,14 @@ void LevelPattern::keysCheck(sf::RenderWindow& window){
         }
 }
 
-LevelPattern::~LevelPattern(){
+AbstractLevel::~AbstractLevel(){
         delete player;
         delete stillScreens;
         delete cursor;
         delete stats;
 }
 
-void LevelPattern::setBackground(sf::RenderWindow& window){
+void AbstractLevel::setBackground(sf::RenderWindow& window){
         backgroundShape.setTexture(backgroundTexture);
         window.draw(backgroundShape);
 }

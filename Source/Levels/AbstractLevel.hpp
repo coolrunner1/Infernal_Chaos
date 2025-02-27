@@ -1,5 +1,5 @@
-#ifndef LEVELPATTERN
-#define LEVELPATTERN
+#ifndef ABSTRACT_LEVEL
+#define ABSTRACT_LEVEL
 #include "../Entities/Player.hpp"
 #include "../Entities/Cursor.hpp"
 #include "StillScreen.hpp"
@@ -10,7 +10,7 @@
 #include <ctime>
 #include <SFML/Graphics.hpp>
 
-class LevelPattern{
+class AbstractLevel {
     protected:
         Player* player;
         Cursor* cursor;
@@ -34,9 +34,9 @@ class LevelPattern{
         void keysCheck(sf::RenderWindow& window);
         void setBackground(sf::RenderWindow& window);
         void levelInit();
-        LevelPattern();
-        LevelPattern(std::string path);
-        ~LevelPattern();
+        AbstractLevel();
+        AbstractLevel(std::string path);
+        ~AbstractLevel();
 };
 
 #endif

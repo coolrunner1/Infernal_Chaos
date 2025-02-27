@@ -7,7 +7,7 @@
 #include <ctime>
 #include <SFML/Graphics.hpp>
 
-class Cursor : public Entity{
+class Cursor : public Entity {
     private:
         sf::Texture cursorTexture;
         sf::Sprite cursorSprite;
