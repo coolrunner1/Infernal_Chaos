@@ -1,15 +1,15 @@
 #ifndef MAINLEVEL
 #define MAINLEVEL
 #include "AbstractLevel.hpp"
-#include "../Entities/EnemyMobile.hpp"
 #include "../Entities/Bullet.hpp"
 #include "../Entities/AmmoPack.hpp"
-#include "../Entities/ArmorPack.hpp"
-#include "../Entities/HealthPack.hpp"
 #include "../Entities/ArmoredEnemy.hpp"
 #include "../Entities/CombinedEnemy.hpp"
 #include "../Entities/Boss.hpp"
 #include "../EntityContainers/MobileEnemiesContainer.hpp"
+#include "../EntityContainers/AmmoPacksContainer.hpp"
+#include "../EntityContainers/ArmorPacksContainer.hpp"
+#include "../EntityContainers/HealthPacksContainer.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -24,9 +24,9 @@ class MainLevel : public AbstractLevel{
     protected:
         std::vector<Bullet> bullets;
         std::vector<Bullet> enemyBullets;
-        std::vector<AmmoPack> ammoPacks;
-        std::vector<ArmorPack> armorPacks;
-        std::vector<HealthPack> healthPacks;
+        AmmoPacksContainer* ammoPacks;
+        ArmorPacksContainer* armorPacks;
+        HealthPacksContainer* healthPacks;
         std::string path;
         MobileEnemiesContainer* mobileEnemies;
         std::vector<ArmoredEnemy> armoredEnemies;
@@ -37,7 +37,6 @@ class MainLevel : public AbstractLevel{
         float armoredInterval;
         std::time_t lastArmoredEnemy;
         std::time_t lastCombinedEnemy;
-        std::time_t lastAmmoPack;
         std::time_t lastArmorPack;
         std::time_t lastHealthPack;
         std::time_t assasinTransition[2];
@@ -62,9 +61,6 @@ class MainLevel : public AbstractLevel{
         void bulletFire(sf::Event& event, sf::RenderWindow& window);
         void clearVectors();
         void enemyBulletPoll(sf::RenderWindow& window);
-        void collisionHealth(sf::RenderWindow& window);
-        void collisionArmor(sf::RenderWindow& window);
-        void collisionAmmo(sf::RenderWindow& window);
         template <typename T>
         void collides(T it, sf::RenderWindow& window);
         MainLevel();

@@ -20,13 +20,16 @@ class AbstractLevel {
         sf::Vector2f bulletPosition;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
+        /**/
         float enemyBulletDamage;
+        /**/
         float enemyFireInterval;
         std::time_t start;
         std::time_t current;
+        /**/
         std::time_t prevDamage;
+        /**/
         int shootingDamage;
-        int pickupSpawnInterval;
         int mode;
         bool bossSpawned;
         bool bossDefeated;
