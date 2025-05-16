@@ -34,5 +34,5 @@ sf::Vector2f Bullet::bulletMove() {
 
 bool Bullet::bulletLifeCycle() {
     std::time(&current);
-    return std::difftime(current, start) > 3 ? true : false;
+    return std::difftime(current, start) > 3;
 }
