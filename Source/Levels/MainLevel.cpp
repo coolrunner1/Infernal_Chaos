@@ -261,8 +261,8 @@ void MainLevel::collides(T it, sf::RenderWindow& window){
     }
 }
 
-void MainLevel::bulletFire(sf::Event& event, sf::RenderWindow& window){
-        if (event.type == sf::Event::MouseButtonPressed && player->getAmmo()>0 && (bullets.empty() || std::difftime(current, bullets.back().getSpawnTime())>0.005)){
+void MainLevel::bulletFire(sf::Event& event, sf::RenderWindow& window) {
+        if (event.type == sf::Event::MouseButtonPressed && player->getAmmo() > 0 && (bullets.empty() || std::difftime(current, bullets.back().getSpawnTime())>0.005)) {
                 bullets.push_back(Bullet());
                 bullets.back().refresh();
                 bullets.back().bulletSet(window, player->getPosition(), sf::Mouse::getPosition(window));

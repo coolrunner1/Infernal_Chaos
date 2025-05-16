@@ -12,8 +12,8 @@ class AbstractEntityContainer {
         float spawnInterval;
         std::time_t lastSpawnedTimestamp;
     public:
-        void spawnNewEntity(sf::RenderWindow& window, time_t& current);
-        void collides(sf::RenderWindow& window, Player& player, time_t& current);
+        virtual void spawnNewEntity(sf::RenderWindow& window, time_t& current) = 0;
+        virtual void collides(sf::RenderWindow& window, Player& player, time_t& current) = 0;
         time_t getLastSpawnedTimestamp();
         void setLastSpawnedTimestamp(std::time_t& timestamp);
         void setSpawnInterval (float spawnInterval);
