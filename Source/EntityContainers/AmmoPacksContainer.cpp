@@ -30,3 +30,11 @@ void AmmoPacksContainer::spawnNewEntity(sf::RenderWindow& window) {
         setLastSpawnedTimestamp(timestamp);
     }
 }
+
+int AmmoPacksContainer::getContainerLength() {
+    return ammoPacks.size();
+}
+
+void AmmoPacksContainer::clear() {
+    ammoPacks.clear();
+}

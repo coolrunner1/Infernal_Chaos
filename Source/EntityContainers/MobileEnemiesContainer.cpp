@@ -30,19 +30,27 @@ void MobileEnemiesContainer::collides(sf::RenderWindow& window, Player& player) 
 }
 
 void MobileEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
-        for (auto it = enemies.begin(); it != enemies.end(); ++it){
-                if (it->collidesWithPlayer(bulletPosition)){
-                        it->healthDamage(shootingDamage);
-                        if (it->getHealth()<=0){
-                                enemies.erase(it);
-                                player.scoreIncrease(bonusScore);
-                                break;
-                        }
-                }
+    for (auto it = enemies.begin(); it != enemies.end(); ++it){
+        if (it->collidesWithPlayer(bulletPosition)){
+            it->healthDamage(shootingDamage);
+            if (it->getHealth()<=0){
+                enemies.erase(it);
+                player.scoreIncrease(bonusScore);
+                break;
+            }
         }
+    }
 }
 
 void MobileEnemiesContainer::collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets) {
     std::cerr << "This entity does not require enemyBullets argument!" << std::endl;
     exit(1);
+}
+
+int MobileEnemiesContainer::getContainerLength() {
+    return enemies.size();
+}
+
+void MobileEnemiesContainer::clear() {
+    enemies.clear();
 }

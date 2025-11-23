@@ -1,12 +1,12 @@
 #include "CombinedEnemy.hpp"
 
-CombinedEnemy::CombinedEnemy() : ArmoredEnemy(2, false) {
+CombinedEnemy::CombinedEnemy() : ArmoredEnemy(false) {
     speed = 0.5f;
     entitySprite.setScale(4, 4);
     combinedEnemyInit();
 }
 
-CombinedEnemy::CombinedEnemy(bool assasin) : ArmoredEnemy(2, false) {
+CombinedEnemy::CombinedEnemy(bool assasin) : ArmoredEnemy(false) {
     speed = 0.5f;
     entitySprite.setScale(4, 4);
     if (assasin) {
@@ -20,7 +20,8 @@ void CombinedEnemy::combinedEnemyInit() {
     enemyPath[1] = "Sprites/assasin_left.png";
     damage = 25;
     armor = 200;
-    transitionToSlowTimestamp = transitionToFastTimestamp = std::time(nullptr);
+    lastFired = transitionToSlowTimestamp = transitionToFastTimestamp = std::time(nullptr);
+    setFireInterval(4);
 }
 
 void CombinedEnemy::setHighSpeed() {

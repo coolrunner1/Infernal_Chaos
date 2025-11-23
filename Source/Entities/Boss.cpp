@@ -7,4 +7,6 @@ Boss::Boss() : CombinedEnemy(false) {
     damage = 50;
     health = 500;
     armor = 500;
+    lastFired = transitionToSlowTimestamp = transitionToFastTimestamp = std::time(nullptr);
+    setFireInterval(4);
 }

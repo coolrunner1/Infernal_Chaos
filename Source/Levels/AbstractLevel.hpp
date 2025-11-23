@@ -22,12 +22,8 @@ class AbstractLevel {
         sf::Sprite backgroundShape;
         /**/
         float enemyBulletDamage;
-        /**/
-        float enemyFireInterval;
         std::time_t start;
         std::time_t current;
-        /**/
-        std::time_t prevDamage;
         /**/
         int shootingDamage;
         int mode;

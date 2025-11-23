@@ -12,16 +12,6 @@ ArmoredEnemy::ArmoredEnemy(bool robot) {
     if (robot) {
         armoredInit();
     }
-    lastFired = std::time(nullptr);
-    this->fireInterval = fireInterval;
-}
-
-ArmoredEnemy::ArmoredEnemy(int fireInterval, bool robot) {
-    if (robot) {
-        armoredInit(fireInterval);
-    }
-    lastFired = std::time(nullptr);
-    this->fireInterval = fireInterval;
 }
 
 void ArmoredEnemy::armoredInit(int fireInterval) {

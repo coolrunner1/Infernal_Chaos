@@ -30,3 +30,11 @@ void ArmorPacksContainer::spawnNewEntity(sf::RenderWindow& window) {
         setLastSpawnedTimestamp(timestamp);
     }
 }
+
+int ArmorPacksContainer::getContainerLength() {
+    return armorPacks.size();
+}
+
+void ArmorPacksContainer::clear() {
+    armorPacks.clear();
+}

@@ -18,6 +18,5 @@ class ArmoredEnemy: public Enemy {
         ArmoredEnemy();
         ArmoredEnemy(int fireInterval);
         ArmoredEnemy(bool robot);
-        ArmoredEnemy(int fireInterval, bool robot);
 };
 #endif

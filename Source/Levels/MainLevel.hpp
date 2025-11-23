@@ -5,7 +5,6 @@
 #include "../Entities/AmmoPack.hpp"
 #include "../Entities/ArmoredEnemy.hpp"
 #include "../Entities/CombinedEnemy.hpp"
-#include "../Entities/Boss.hpp"
 #include "../EntityContainers/CombinedEnemiesContainer.hpp"
 #include <iostream>
 #include <vector>
@@ -27,11 +26,8 @@ class MainLevel : public AbstractLevel{
         AbstractEnemyContainer* mobileEnemies;
         AbstractEnemyContainer* armoredEnemies;
         AbstractEnemyContainer* combinedEnemies;
+        AbstractEnemyContainer* boss;
         std::string path;
-        Boss* boss;
-        float assasinInterval[2];
-        std::time_t lastCombinedEnemy;
-        std::time_t assasinTransition[2];
     public:
         int levelRender(sf::Event& event, sf::RenderWindow& window);
         void bulletPoll(sf::RenderWindow& window);
@@ -41,24 +37,16 @@ class MainLevel : public AbstractLevel{
         void setHardDifficulty();
         void setCampaign();
         void spawnEntities(sf::RenderWindow& window);
-        void collisionBoss(sf::RenderWindow& window);
-        void collisionBulletBoss(int increaseScore);
-        template <typename T>
-        void collisionBullet(T props, int increaseScore);
-        template <typename T>
-        void enemyFiresABullet(T it, sf::RenderWindow& window);
-        void collidesBoss(sf::RenderWindow& window);
         void clearVectors();
         void enemyBulletPoll(sf::RenderWindow& window);
-        template <typename T>
-        void collides(T it, sf::RenderWindow& window);
         MainLevel(
             AbstractEntityContainer* ammoPacks,
             AbstractEntityContainer* armorPacks, 
             AbstractEntityContainer* healthPacks, 
             AbstractEnemyContainer* mobileEnemies, 
             AbstractEnemyContainer* armoredEnemies,
-            AbstractEnemyContainer* combinedEnemies
+            AbstractEnemyContainer* combinedEnemies,
+            AbstractEnemyContainer* boss
         );
         ~MainLevel();
 };

@@ -30,3 +30,11 @@ void HealthPacksContainer::spawnNewEntity(sf::RenderWindow& window) {
         setLastSpawnedTimestamp(timestamp);
     }
 }
+
+int HealthPacksContainer::getContainerLength() {
+    return healthPacks.size();
+}
+
+void HealthPacksContainer::clear() {
+    healthPacks.clear();
+}

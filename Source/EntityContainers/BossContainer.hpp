@@ -1,6 +1,6 @@
-#ifndef COMBINED_ENEMIES_CONTAINER
-#define COMBINED_ENEMIES_CONTAINER
-#include "../Entities/CombinedEnemy.hpp"
+#ifndef BOSS_CONTAINER
+#define BOSS_CONTAINER
+#include "../Entities/Boss.hpp"
 #include "../EntityContainers/AbstractEnemyContainer.hpp"
 #include "../Entities/Player.hpp"
 #include <iostream>
@@ -9,9 +9,10 @@
 #include <ctime>
 #include <SFML/Graphics.hpp>
 
-class CombinedEnemiesContainer : public AbstractEnemyContainer {
+class BossContainer : public AbstractEnemyContainer {
     private:
-        std::vector<CombinedEnemy> enemies;
+        Boss* boss;
+        bool defeated;
         float assasinTransitionToSlowInterval;
         float assasinTransitionToFastInterval;
     public:
@@ -20,8 +21,8 @@ class CombinedEnemiesContainer : public AbstractEnemyContainer {
         void checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player);
         int getContainerLength();
         void clear();
-        CombinedEnemiesContainer(float assasinTransitionToSlowInterval, float assasinTransitionToFastInterval);
-        ~CombinedEnemiesContainer();
+        BossContainer(float assasinTransitionToSlowInterval, float assasinTransitionToFastInterval);
+        ~BossContainer();
 };
 
 #endif

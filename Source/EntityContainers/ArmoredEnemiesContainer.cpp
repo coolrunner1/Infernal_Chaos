@@ -42,3 +42,11 @@ void ArmoredEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulle
         }
     }
 }
+
+int ArmoredEnemiesContainer::getContainerLength() {
+    return enemies.size();
+}
+
+void ArmoredEnemiesContainer::clear() {
+    enemies.clear();
+}

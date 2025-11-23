@@ -6,6 +6,7 @@
 class CombinedEnemy : public ArmoredEnemy {
     private:
         void combinedEnemyInit();
+    protected:
         std::time_t transitionToSlowTimestamp;
         std::time_t transitionToFastTimestamp;
     public:

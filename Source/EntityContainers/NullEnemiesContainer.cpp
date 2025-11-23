@@ -23,3 +23,11 @@ void NullEnemiesContainer::collides(sf::RenderWindow& window, Player& player, st
 void NullEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
     
 }
+
+int NullEnemiesContainer::getContainerLength() {
+    return 0;
+}
+
+void NullEnemiesContainer::clear() {
+    
+}

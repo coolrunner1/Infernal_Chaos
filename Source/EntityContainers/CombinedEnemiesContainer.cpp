@@ -41,14 +41,22 @@ void CombinedEnemiesContainer::collides(sf::RenderWindow& window, Player& player
 }
 
 void CombinedEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
-        for (auto it = enemies.begin(); it != enemies.end(); ++it){
-                if (it->collidesWithPlayer(bulletPosition)){
-                        it->healthDamage(shootingDamage);
-                        if (it->getHealth()<=0){
-                                enemies.erase(it);
-                                player.scoreIncrease(bonusScore);
-                                break;
-                        }
-                }
+    for (auto it = enemies.begin(); it != enemies.end(); ++it){
+        if (it->collidesWithPlayer(bulletPosition)){
+            it->healthDamage(shootingDamage);
+            if (it->getHealth()<=0){
+                enemies.erase(it);
+                player.scoreIncrease(bonusScore);
+                break;
+            }
         }
+    }
+}
+
+int CombinedEnemiesContainer::getContainerLength() {
+    return enemies.size();
+}
+
+void CombinedEnemiesContainer::clear() {
+    enemies.clear();
 }
