@@ -13,8 +13,8 @@ class AmmoPacksContainer : public AbstractEntityContainer {
     private:
         std::vector<AmmoPack> ammoPacks;
     public:
-        void spawnNewEntity(sf::RenderWindow& window, time_t& current);
-        void collides(sf::RenderWindow& window, Player& player, time_t& current);
+        void spawnNewEntity(sf::RenderWindow& window);
+        void collides(sf::RenderWindow& window, Player& player);
         std::vector<AmmoPack>* getAmmoPacks();
         AmmoPacksContainer(std::time_t start);
         ~AmmoPacksContainer();

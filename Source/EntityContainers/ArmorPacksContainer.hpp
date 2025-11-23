@@ -13,8 +13,8 @@ class ArmorPacksContainer : public AbstractEntityContainer {
     private:
         std::vector<ArmorPack> armorPacks;
     public:
-        void spawnNewEntity(sf::RenderWindow& window, time_t& current);
-        void collides(sf::RenderWindow& window, Player& player, time_t& current);
+        void spawnNewEntity(sf::RenderWindow& window);
+        void collides(sf::RenderWindow& window, Player& player);
         std::vector<ArmorPack>* getArmorPacks();
         ArmorPacksContainer(std::time_t start);
         ~ArmorPacksContainer();

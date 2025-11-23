@@ -32,7 +32,7 @@ sf::Vector2f Bullet::bulletMove() {
     return bulletPos;
 }
 
-bool Bullet::bulletLifeCycle() {
+bool Bullet::bulletLifeCycleExpired() {
     std::time(&current);
     return std::difftime(current, start) > 3;
 }

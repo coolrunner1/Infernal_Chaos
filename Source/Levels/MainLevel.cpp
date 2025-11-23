@@ -4,6 +4,7 @@ MainLevel::MainLevel() : AbstractLevel("Sprites/lvl1_bg.png"){
     boss = new Boss();
     lastHealthPack=lastArmorPack=lastArmoredEnemy=assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;
     mobileEnemies = new MobileEnemiesContainer(start);
+    armoredEnemies = new ArmoredEnemiesContainer(start);
     ammoPacks = new AmmoPacksContainer(start);
     armorPacks = new ArmorPacksContainer(start);
     healthPacks = new HealthPacksContainer(start);
@@ -12,6 +13,7 @@ MainLevel::MainLevel() : AbstractLevel("Sprites/lvl1_bg.png"){
 MainLevel::~MainLevel(){
     clearVectors();
     delete mobileEnemies;
+    delete armoredEnemies;
     delete ammoPacks;
     delete armorPacks;
     delete healthPacks;
@@ -30,33 +32,29 @@ void MainLevel::spawnEntities(sf::RenderWindow& window){
                         
         }
         else {
-                mobileEnemies->spawnNewEntity(window, current);
-                if (std::difftime(current, lastArmoredEnemy)>armoredInterval){
-                        armoredEnemies.push_back(ArmoredEnemy());
-                        lastArmoredEnemy=armoredEnemies.back().getSpawnTime();
-                        armoredEnemies.back().setFired(lastArmoredEnemy);
-                }
+                mobileEnemies->spawnNewEntity(window);
+                armoredEnemies->spawnNewEntity(window);
                 if (std::difftime(current, lastCombinedEnemy)>assasinSpawnInterval){
                         combinedEnemies.push_back(CombinedEnemy());
                         lastCombinedEnemy=combinedEnemies.back().getSpawnTime();
                         combinedEnemies.back().setFired(lastCombinedEnemy);
                 }
-                ammoPacks->spawnNewEntity(window, current);
-                armorPacks->spawnNewEntity(window, current);
-                healthPacks->spawnNewEntity(window, current);
+                ammoPacks->spawnNewEntity(window);
+                armorPacks->spawnNewEntity(window);
+                healthPacks->spawnNewEntity(window);
         }
         
 }
 
 void MainLevel::bulletPoll(sf::RenderWindow& window){
-        if (!bullets.empty() && bullets.begin()->bulletLifeCycle())
+        if (!bullets.empty() && bullets.begin()->bulletLifeCycleExpired())
                 bullets.erase(bullets.begin());
         for (auto it=bullets.begin(); it!=bullets.end(); ++it){
                 bulletPosition=it->getPosition();
                 it->bulletMove();
                 it->entityDraw(window);
-                collisionBullet(mobileEnemies->getMobileEnemies(), 15);
-                collisionBullet(&armoredEnemies, 30);
+                collisionBullet(&mobileEnemies->getEntities(), 15);
+                collisionBullet(&armoredEnemies->getEntities(), 30);
                 collisionBullet(&combinedEnemies, 60);
                 collisionBulletBoss(1000);
         }
@@ -64,12 +62,11 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
 
 void MainLevel::collision(sf::RenderWindow& window){
         playerPosition=player->getPosition();
-        mobileEnemies->collides(window, *player, current);
-        collisionArmored(window);
-        collisionAssasin(window);
-        ammoPacks->collides(window, *player, current);
-        armorPacks->collides(window, *player, current);
-        healthPacks->collides(window, *player, current);
+        mobileEnemies->collides(window, *player);
+        armoredEnemies->collides(window, *player, enemyBullets);
+        ammoPacks->collides(window, *player);
+        armorPacks->collides(window, *player);
+        healthPacks->collides(window, *player);
         collisionBoss(window);
 
 }
@@ -77,12 +74,12 @@ void MainLevel::collision(sf::RenderWindow& window){
 void MainLevel::clearVectors(){
         bullets.clear();
         enemyBullets.clear();
-        mobileEnemies->getMobileEnemies()->clear();
-        armoredEnemies.clear();
+        mobileEnemies->getEntities().clear();
+        armoredEnemies->getEntities().clear();
         combinedEnemies.clear();
-        ammoPacks->getAmmoPacks()->clear();
+        /*ammoPacks->getAmmoPacks()->clear();
         armorPacks->getArmorPacks()->clear();
-        healthPacks->getHealthPacks()->clear();
+        healthPacks->getHealthPacks()->clear();*/
 }
 
 
@@ -92,7 +89,7 @@ void MainLevel::setEasyDifficulty(){
         ammoPacks->setSpawnInterval(pickupSpawnInterval);
         armorPacks->setSpawnInterval(pickupSpawnInterval);
         healthPacks->setSpawnInterval(pickupSpawnInterval);
-        armoredInterval = 5;
+        armoredEnemies->setSpawnInterval(5);
         enemyFireInterval = 1;
         assasinInterval[0] = 5;
         assasinInterval[1] = 0.5;
@@ -108,7 +105,7 @@ void MainLevel::setMediumDifficulty(){
         ammoPacks->setSpawnInterval(pickupSpawnInterval);
         armorPacks->setSpawnInterval(pickupSpawnInterval);
         healthPacks->setSpawnInterval(pickupSpawnInterval);
-        armoredInterval = 3;
+        armoredEnemies->setSpawnInterval(3);
         enemyFireInterval = 0.5;
         assasinInterval[0] = 4;
         assasinInterval[1] = 0.5;
@@ -124,7 +121,7 @@ void MainLevel::setHardDifficulty(){
         ammoPacks->setSpawnInterval(pickupSpawnInterval);
         armorPacks->setSpawnInterval(pickupSpawnInterval);
         healthPacks->setSpawnInterval(pickupSpawnInterval);
-        armoredInterval = 1;
+        armoredEnemies->setSpawnInterval(1);
         enemyFireInterval = 0.1;
         assasinInterval[0] = 2;
         assasinInterval[1] = 0.5;
@@ -211,13 +208,6 @@ void MainLevel::collisionBullet(T props, int increaseScore){
         }
 }
 
-void MainLevel::collisionArmored(sf::RenderWindow& window){
-        for (auto it=armoredEnemies.begin(); it!=armoredEnemies.end(); ++it){
-                enemyFiresABullet(it, window);
-                collides(it, window);  
-        }
-}
-
 template <typename T>
 void MainLevel::enemyFiresABullet(T it, sf::RenderWindow& window){
         if (std::difftime(current, it->getLastFired())>enemyFireInterval){
@@ -240,7 +230,7 @@ void MainLevel::collidesBoss(sf::RenderWindow& window){
 
 void MainLevel::enemyBulletPoll(sf::RenderWindow& window){
         playerPosition=player->getPosition();
-        if (!enemyBullets.empty() && enemyBullets.begin()->bulletLifeCycle())
+        if (!enemyBullets.empty() && enemyBullets.begin()->bulletLifeCycleExpired())
                 enemyBullets.erase(enemyBullets.begin());
         for (auto it=enemyBullets.begin(); it!=enemyBullets.end(); ++it){
                 it->bulletMove();

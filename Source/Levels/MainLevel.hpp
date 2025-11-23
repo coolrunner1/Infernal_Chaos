@@ -6,6 +6,11 @@
 #include "../Entities/ArmoredEnemy.hpp"
 #include "../Entities/CombinedEnemy.hpp"
 #include "../Entities/Boss.hpp"
+#include "../EntityContainers/AbstractEntityContainer.hpp"
+#include "../EntityContainers/MobileEnemiesContainer.hpp"
+
+#include "../EntityContainers/ArmoredEnemiesContainer.hpp"
+
 #include "../EntityContainers/MobileEnemiesContainer.hpp"
 #include "../EntityContainers/AmmoPacksContainer.hpp"
 #include "../EntityContainers/ArmorPacksContainer.hpp"
@@ -24,17 +29,16 @@ class MainLevel : public AbstractLevel{
     protected:
         std::vector<Bullet> bullets;
         std::vector<Bullet> enemyBullets;
-        AmmoPacksContainer* ammoPacks;
+        AbstractEntityContainer* ammoPacks;
         ArmorPacksContainer* armorPacks;
         HealthPacksContainer* healthPacks;
         std::string path;
         MobileEnemiesContainer* mobileEnemies;
-        std::vector<ArmoredEnemy> armoredEnemies;
+        ArmoredEnemiesContainer* armoredEnemies;
         std::vector<CombinedEnemy> combinedEnemies;
         Boss* boss;
         float assasinSpawnInterval;
         float assasinInterval[2];
-        float armoredInterval;
         std::time_t lastArmoredEnemy;
         std::time_t lastCombinedEnemy;
         std::time_t lastArmorPack;
@@ -50,7 +54,6 @@ class MainLevel : public AbstractLevel{
         void setCampaign();
         void spawnEntities(sf::RenderWindow& window);
         void collisionAssasin(sf::RenderWindow& window);
-        void collisionArmored(sf::RenderWindow& window);
         void collisionBoss(sf::RenderWindow& window);
         void collisionBulletBoss(int increaseScore);
         template <typename T>

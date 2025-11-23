@@ -8,7 +8,7 @@ ArmorPacksContainer::~ArmorPacksContainer() {
     armorPacks.clear();
 }
 
-void ArmorPacksContainer::collides(sf::RenderWindow& window, Player& player, time_t& current) {
+void ArmorPacksContainer::collides(sf::RenderWindow& window, Player& player) {
     sf::Vector2f playerPosition = player.getPosition();
     for (auto it=armorPacks.begin(); it!=armorPacks.end(); ++it){
         it->refresh();
@@ -22,8 +22,8 @@ void ArmorPacksContainer::collides(sf::RenderWindow& window, Player& player, tim
     }
 }
 
-void ArmorPacksContainer::spawnNewEntity(sf::RenderWindow& window, time_t& current) {
-    if (std::difftime(current, getLastSpawnedTimestamp()) > getSpawnInterval() + 25){
+void ArmorPacksContainer::spawnNewEntity(sf::RenderWindow& window) {
+    if (std::difftime(std::time(nullptr), getLastSpawnedTimestamp()) > getSpawnInterval() + 25){
         armorPacks.push_back(ArmorPack());
         armorPacks.back().refresh();
         time_t timestamp = armorPacks.back().getSpawnTime();

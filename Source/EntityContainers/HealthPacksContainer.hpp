@@ -13,8 +13,8 @@ class HealthPacksContainer : public AbstractEntityContainer {
     private:
         std::vector<HealthPack> healthPacks;
     public:
-        void spawnNewEntity(sf::RenderWindow& window, time_t& current);
-        void collides(sf::RenderWindow& window, Player& player, time_t& current);
+        void spawnNewEntity(sf::RenderWindow& window);
+        void collides(sf::RenderWindow& window, Player& player);
         std::vector<HealthPack>* getHealthPacks();
         HealthPacksContainer(std::time_t start);
         ~HealthPacksContainer();

@@ -11,11 +11,11 @@
 
 class MobileEnemiesContainer : public AbstractEntityContainer {
     private:
-        std::vector<EnemyMobile> mobileEnemies;
+        std::vector<EnemyMobile> enemies;
     public:
-        void spawnNewEntity(sf::RenderWindow& window, time_t& current);
-        void collides(sf::RenderWindow& window, Player& player, time_t& current);
-        std::vector<EnemyMobile>* getMobileEnemies();
+        void spawnNewEntity(sf::RenderWindow& window);
+        void collides(sf::RenderWindow& window, Player& player);
+        std::vector<EnemyMobile>& getEntities();
         MobileEnemiesContainer(std::time_t start);
         ~MobileEnemiesContainer();
 };

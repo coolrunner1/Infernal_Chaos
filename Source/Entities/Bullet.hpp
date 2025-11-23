@@ -19,7 +19,7 @@ class Bullet : public AliveEntity {
         void setupBullet(sf::RenderWindow& window, sf::Vector2f playerPos);
         sf::Vector2f bulletMove();
         void bulletSetFloat(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2f endPos);
-        bool bulletLifeCycle();
+        bool bulletLifeCycleExpired();
         Bullet();
 };
 

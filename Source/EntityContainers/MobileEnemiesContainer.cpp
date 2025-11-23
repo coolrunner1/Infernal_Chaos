@@ -1,32 +1,32 @@
 #include "MobileEnemiesContainer.hpp"
 
-MobileEnemiesContainer::MobileEnemiesContainer(std::time_t start) : AbstractEntityContainer(start){
-    setLastSpawnedTimestamp(start);
+MobileEnemiesContainer::MobileEnemiesContainer(std::time_t start) : AbstractEntityContainer(start) {
+
 }
 
 MobileEnemiesContainer::~MobileEnemiesContainer() {
-    mobileEnemies.clear();
+    enemies.clear();
 }
 
-void MobileEnemiesContainer::spawnNewEntity(sf::RenderWindow& window, time_t& current) {
-    if (std::difftime(current, getLastSpawnedTimestamp()) > getSpawnInterval()){
-        mobileEnemies.push_back(EnemyMobile());
-        time_t spawnTime = mobileEnemies.back().getSpawnTime();
+void MobileEnemiesContainer::spawnNewEntity(sf::RenderWindow& window) {
+    if (std::difftime(std::time(nullptr), getLastSpawnedTimestamp()) > getSpawnInterval()){
+        enemies.push_back(EnemyMobile());
+        time_t spawnTime = enemies.back().getSpawnTime();
         setLastSpawnedTimestamp(spawnTime);
     }
 }
 
-std::vector<EnemyMobile>* MobileEnemiesContainer::getMobileEnemies() {
-    return &mobileEnemies;
+std::vector<EnemyMobile>& MobileEnemiesContainer::getEntities() {
+    return enemies;
 }
 
-void MobileEnemiesContainer::collides(sf::RenderWindow& window, Player& player, time_t& current){
+void MobileEnemiesContainer::collides(sf::RenderWindow& window, Player& player) {
     time_t prevDamage;
     sf::Vector2f playerPosition = player.getPosition();
-    for (auto it=mobileEnemies.begin(); it!=mobileEnemies.end(); ++it){
+    for (auto it=enemies.begin(); it!=enemies.end(); ++it){
         it->enemyMove(window, playerPosition);
         it->entityDraw(window);
-        if (it->collidesWithPlayer(playerPosition) && std::difftime(current, it->getDamageTime()) > 0.05){
+        if (it->collidesWithPlayer(playerPosition) && std::difftime(std::time(nullptr), it->getDamageTime()) > DAMAGE_INTERVAL){
             it->setDamageTime(std::time(&prevDamage));
             player.healthDamage(it->getDamage());
         }   

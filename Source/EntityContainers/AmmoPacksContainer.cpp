@@ -8,7 +8,7 @@ AmmoPacksContainer::~AmmoPacksContainer() {
     ammoPacks.clear();
 }
 
-void AmmoPacksContainer::collides(sf::RenderWindow& window, Player& player, time_t& current) {
+void AmmoPacksContainer::collides(sf::RenderWindow& window, Player& player) {
     sf::Vector2f playerPosition = player.getPosition();
     for (auto it=ammoPacks.begin(); it!=ammoPacks.end(); ++it){
         it->refresh();
@@ -22,8 +22,8 @@ void AmmoPacksContainer::collides(sf::RenderWindow& window, Player& player, time
     }
 }
 
-void AmmoPacksContainer::spawnNewEntity(sf::RenderWindow& window, time_t& current) {
-    if (std::difftime(current, getLastSpawnedTimestamp()) > getSpawnInterval() + 15){
+void AmmoPacksContainer::spawnNewEntity(sf::RenderWindow& window) {
+    if (std::difftime(std::time(nullptr), getLastSpawnedTimestamp()) > getSpawnInterval() + 15){
         ammoPacks.push_back(AmmoPack());
         ammoPacks.back().refresh();
         time_t timestamp = ammoPacks.back().getSpawnTime();
