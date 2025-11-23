@@ -6,7 +6,7 @@
 #include "../Entities/ArmoredEnemy.hpp"
 #include "../Entities/CombinedEnemy.hpp"
 #include "../Entities/Boss.hpp"
-#include "../EntityContainers/AbstractEnemyContainer.hpp"
+#include "../EntityContainers/CombinedEnemiesContainer.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -24,12 +24,11 @@ class MainLevel : public AbstractLevel{
         AbstractEntityContainer* ammoPacks;
         AbstractEntityContainer* armorPacks;
         AbstractEntityContainer* healthPacks;
-        std::string path;
         AbstractEnemyContainer* mobileEnemies;
         AbstractEnemyContainer* armoredEnemies;
-        std::vector<CombinedEnemy> combinedEnemies;
+        AbstractEnemyContainer* combinedEnemies;
+        std::string path;
         Boss* boss;
-        float assasinSpawnInterval;
         float assasinInterval[2];
         std::time_t lastCombinedEnemy;
         std::time_t assasinTransition[2];
@@ -42,7 +41,6 @@ class MainLevel : public AbstractLevel{
         void setHardDifficulty();
         void setCampaign();
         void spawnEntities(sf::RenderWindow& window);
-        void collisionAssasin(sf::RenderWindow& window);
         void collisionBoss(sf::RenderWindow& window);
         void collisionBulletBoss(int increaseScore);
         template <typename T>
@@ -59,7 +57,8 @@ class MainLevel : public AbstractLevel{
             AbstractEntityContainer* armorPacks, 
             AbstractEntityContainer* healthPacks, 
             AbstractEnemyContainer* mobileEnemies, 
-            AbstractEnemyContainer* armoredEnemies
+            AbstractEnemyContainer* armoredEnemies,
+            AbstractEnemyContainer* combinedEnemies
         );
         ~MainLevel();
 };

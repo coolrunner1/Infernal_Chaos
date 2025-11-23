@@ -12,12 +12,16 @@ ArmoredEnemy::ArmoredEnemy(bool robot) {
     if (robot) {
         armoredInit();
     }
+    lastFired = std::time(nullptr);
+    this->fireInterval = fireInterval;
 }
 
 ArmoredEnemy::ArmoredEnemy(int fireInterval, bool robot) {
     if (robot) {
         armoredInit(fireInterval);
     }
+    lastFired = std::time(nullptr);
+    this->fireInterval = fireInterval;
 }
 
 void ArmoredEnemy::armoredInit(int fireInterval) {
@@ -49,7 +53,7 @@ int ArmoredEnemy::getFireInterval() {
 
 void ArmoredEnemy::fireABullet(std::vector<Bullet>& bullets, sf::RenderWindow& window, sf::Vector2f playerPosition) {
     std::time_t current = std::time(nullptr);
-    if (std::difftime(current, getLastFired())>fireInterval){
+    if (std::difftime(current, getLastFired()) > fireInterval){
         setFired(current);
         bullets.push_back(Bullet());
         bullets.back().refresh();

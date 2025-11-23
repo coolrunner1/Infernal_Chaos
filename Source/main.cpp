@@ -6,6 +6,8 @@
 #include "EntityContainers/HealthPacksContainer.hpp"
 #include "EntityContainers/MobileEnemiesContainer.hpp"
 #include "EntityContainers/ArmoredEnemiesContainer.hpp"
+#include "EntityContainers/CombinedEnemiesContainer.hpp"
+#include "EntityContainers/NullEnemiesContainer.hpp"
 
 int main()
 {
@@ -19,7 +21,8 @@ int main()
         new ArmorPacksContainer, 
         new HealthPacksContainer, 
         new MobileEnemiesContainer, 
-        new ArmoredEnemiesContainer
+        new ArmoredEnemiesContainer,
+        new CombinedEnemiesContainer(0.5, 5)
     );
     int menuChoice=MAIN_MENU;
     while (window.isOpen())

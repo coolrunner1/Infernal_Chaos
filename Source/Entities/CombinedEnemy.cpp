@@ -1,12 +1,12 @@
 #include "CombinedEnemy.hpp"
 
-CombinedEnemy::CombinedEnemy() : ArmoredEnemy(false) {
+CombinedEnemy::CombinedEnemy() : ArmoredEnemy(2, false) {
     speed = 0.5f;
     entitySprite.setScale(4, 4);
     combinedEnemyInit();
 }
 
-CombinedEnemy::CombinedEnemy(bool assasin) : ArmoredEnemy(false) {
+CombinedEnemy::CombinedEnemy(bool assasin) : ArmoredEnemy(2, false) {
     speed = 0.5f;
     entitySprite.setScale(4, 4);
     if (assasin) {
@@ -20,16 +20,30 @@ void CombinedEnemy::combinedEnemyInit() {
     enemyPath[1] = "Sprites/assasin_left.png";
     damage = 25;
     armor = 200;
+    transitionToSlowTimestamp = transitionToFastTimestamp = std::time(nullptr);
 }
 
-std::time_t CombinedEnemy::setHighSpeed() {
+void CombinedEnemy::setHighSpeed() {
     speed = 4.0f;
-    time(&transition);
-    return transition;
 }
 
-std::time_t CombinedEnemy::setLowSpeed() {
+void CombinedEnemy::setLowSpeed() {
     speed = 0.5f;
-    time(&transition);
-    return transition;
+}
+
+std::time_t CombinedEnemy::getTransitionToSlowTimestamp() {
+    return transitionToSlowTimestamp;
+}
+
+std::time_t CombinedEnemy::getTransitionToFastTimestamp() {
+    return transitionToFastTimestamp;
+}
+
+
+void CombinedEnemy::updateTransitionToSlowTimestamp() {
+    transitionToSlowTimestamp = std::time(nullptr);
+}
+
+void CombinedEnemy::updateTransitionToFastTimestamp() {
+    transitionToFastTimestamp = std::time(nullptr);
 }
