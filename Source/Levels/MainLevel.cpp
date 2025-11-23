@@ -31,19 +31,16 @@ void MainLevel::spawnEntities(sf::RenderWindow& window){
                 }
                         
         }
-        else {
-                mobileEnemies->spawnNewEntity(window);
-                armoredEnemies->spawnNewEntity(window);
-                if (std::difftime(current, lastCombinedEnemy)>assasinSpawnInterval){
-                        combinedEnemies.push_back(CombinedEnemy());
-                        lastCombinedEnemy=combinedEnemies.back().getSpawnTime();
-                        combinedEnemies.back().setFired(lastCombinedEnemy);
-                }
-                ammoPacks->spawnNewEntity(window);
-                armorPacks->spawnNewEntity(window);
-                healthPacks->spawnNewEntity(window);
+        mobileEnemies->spawnNewEntity(window);
+        armoredEnemies->spawnNewEntity(window);
+        if (std::difftime(current, lastCombinedEnemy)>assasinSpawnInterval){
+                combinedEnemies.push_back(CombinedEnemy());
+                lastCombinedEnemy=combinedEnemies.back().getSpawnTime();
+                combinedEnemies.back().setFired(lastCombinedEnemy);
         }
-        
+        ammoPacks->spawnNewEntity(window);
+        armorPacks->spawnNewEntity(window);
+        healthPacks->spawnNewEntity(window);
 }
 
 void MainLevel::bulletPoll(sf::RenderWindow& window){
@@ -181,7 +178,7 @@ int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
         std::time(&current);
         setBackground(window);
         window.setMouseCursorVisible(false);
-        bulletFire(event, window);
+        player->fireABullet(event, window, bullets);
         spawnEntities(window);
         bulletPoll(window);
         enemyBulletPoll(window);
@@ -249,13 +246,4 @@ void MainLevel::collides(T it, sf::RenderWindow& window){
         it->setDamageTime(std::time(&prevDamage));
         player->healthDamage(it->getDamage());
     }
-}
-
-void MainLevel::bulletFire(sf::Event& event, sf::RenderWindow& window) {
-        if (event.type == sf::Event::MouseButtonPressed && player->getAmmo() > 0 && (bullets.empty() || std::difftime(current, bullets.back().getSpawnTime())>0.005)) {
-                bullets.push_back(Bullet());
-                bullets.back().refresh();
-                bullets.back().bulletSet(window, player->getPosition(), sf::Mouse::getPosition(window));
-                player->ammoDecrement();
-        }
 }

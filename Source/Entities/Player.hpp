@@ -2,6 +2,8 @@
 #define PLAYER
 #include <iostream>
 #include "AliveEntity.hpp"
+#include "Bullet.hpp"
+#define BULLET_FIRE_INTERVAL 0.005
 
 class Player : public AliveEntity {
     private:
@@ -19,6 +21,7 @@ class Player : public AliveEntity {
         void scoreIncrease(int newScore);
         int getScore();
         int getAmmo();
+        void fireABullet(sf::Event& event, sf::RenderWindow& window, std::vector<Bullet>& bullets);
         Player();
 };
 #endif

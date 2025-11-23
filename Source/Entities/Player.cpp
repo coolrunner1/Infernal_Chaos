@@ -80,3 +80,12 @@ void Player::scoreIncrease(int newScore) {
 int Player::getScore() {
     return score;
 }
+
+void Player::fireABullet(sf::Event& event, sf::RenderWindow& window, std::vector<Bullet>& bullets) {
+        if (event.type == sf::Event::MouseButtonPressed && getAmmo() > 0 && (bullets.empty() || std::difftime(std::time(nullptr), bullets.back().getSpawnTime()) > BULLET_FIRE_INTERVAL)) {
+                bullets.push_back(Bullet());
+                bullets.back().refresh();
+                bullets.back().bulletSet(window, getPosition(), sf::Mouse::getPosition(window));
+                ammoDecrement();
+        }
+}

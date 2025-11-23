@@ -61,7 +61,6 @@ class MainLevel : public AbstractLevel{
         template <typename T>
         void enemyFiresABullet(T it, sf::RenderWindow& window);
         void collidesBoss(sf::RenderWindow& window);
-        void bulletFire(sf::Event& event, sf::RenderWindow& window);
         void clearVectors();
         void enemyBulletPoll(sf::RenderWindow& window);
         template <typename T>
