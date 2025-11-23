@@ -1,11 +1,7 @@
 #include "AbstractEnemyContainer.hpp"
 
-AbstractEnemyContainer::AbstractEnemyContainer(std::time_t start) : AbstractEntityContainer(start) {
+AbstractEnemyContainer::AbstractEnemyContainer() : AbstractEntityContainer() {
 
-}
-
-std::vector<Enemy>* AbstractEnemyContainer::getEntities() {
-    return &entities;
 }
 
 void AbstractEnemyContainer::collides(sf::RenderWindow& window, Player& player) {

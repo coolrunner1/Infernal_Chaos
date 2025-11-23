@@ -1,6 +1,6 @@
 #include "ArmoredEnemiesContainer.hpp"
 
-ArmoredEnemiesContainer::ArmoredEnemiesContainer(std::time_t start) : AbstractEnemyContainer(start) {
+ArmoredEnemiesContainer::ArmoredEnemiesContainer() : AbstractEnemyContainer() {
 
 }
 
@@ -20,11 +20,6 @@ std::vector<ArmoredEnemy>& ArmoredEnemiesContainer::getEntities() {
     return enemies;
 }
 
-void ArmoredEnemiesContainer::collides(sf::RenderWindow& window, Player& player){
-    std::cerr << "You can't use this function! This enemy type must fire bullets!" << std::endl;
-    exit(1);
-}
-
 void ArmoredEnemiesContainer::collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){
     time_t prevDamage;
     sf::Vector2f playerPosition = player.getPosition();
@@ -37,4 +32,17 @@ void ArmoredEnemiesContainer::collides(sf::RenderWindow& window, Player& player,
             player.healthDamage(it->getDamage());
         }   
     }  
+}
+
+void ArmoredEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
+        for (auto it = enemies.begin(); it != enemies.end(); ++it){
+                if (it->collidesWithPlayer(bulletPosition)){
+                        it->healthDamage(shootingDamage);
+                        if (it->getHealth()<=0){
+                                enemies.erase(it);
+                                player.scoreIncrease(bonusScore);
+                                break;
+                        }
+                }
+        }
 }

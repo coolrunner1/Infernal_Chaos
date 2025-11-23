@@ -1,6 +1,6 @@
 #include "AmmoPacksContainer.hpp"
 
-AmmoPacksContainer::AmmoPacksContainer(std::time_t start) : AbstractEntityContainer(start) {
+AmmoPacksContainer::AmmoPacksContainer() : AbstractEntityContainer() {
 
 }
 
@@ -29,8 +29,4 @@ void AmmoPacksContainer::spawnNewEntity(sf::RenderWindow& window) {
         time_t timestamp = ammoPacks.back().getSpawnTime();
         setLastSpawnedTimestamp(timestamp);
     }
-}
-
-std::vector<AmmoPack>* AmmoPacksContainer::getAmmoPacks() {
-    return &ammoPacks;
 }

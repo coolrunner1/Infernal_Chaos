@@ -1,6 +1,6 @@
 #include "ArmorPacksContainer.hpp"
 
-ArmorPacksContainer::ArmorPacksContainer(std::time_t start) : AbstractEntityContainer(start) {
+ArmorPacksContainer::ArmorPacksContainer() : AbstractEntityContainer() {
 
 }
 
@@ -29,8 +29,4 @@ void ArmorPacksContainer::spawnNewEntity(sf::RenderWindow& window) {
         time_t timestamp = armorPacks.back().getSpawnTime();
         setLastSpawnedTimestamp(timestamp);
     }
-}
-
-std::vector<ArmorPack>* ArmorPacksContainer::getArmorPacks() {
-    return &armorPacks;
 }

@@ -6,15 +6,7 @@
 #include "../Entities/ArmoredEnemy.hpp"
 #include "../Entities/CombinedEnemy.hpp"
 #include "../Entities/Boss.hpp"
-#include "../EntityContainers/AbstractEntityContainer.hpp"
-#include "../EntityContainers/MobileEnemiesContainer.hpp"
-
-#include "../EntityContainers/ArmoredEnemiesContainer.hpp"
-
-#include "../EntityContainers/MobileEnemiesContainer.hpp"
-#include "../EntityContainers/AmmoPacksContainer.hpp"
-#include "../EntityContainers/ArmorPacksContainer.hpp"
-#include "../EntityContainers/HealthPacksContainer.hpp"
+#include "../EntityContainers/AbstractEnemyContainer.hpp"
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -30,19 +22,16 @@ class MainLevel : public AbstractLevel{
         std::vector<Bullet> bullets;
         std::vector<Bullet> enemyBullets;
         AbstractEntityContainer* ammoPacks;
-        ArmorPacksContainer* armorPacks;
-        HealthPacksContainer* healthPacks;
+        AbstractEntityContainer* armorPacks;
+        AbstractEntityContainer* healthPacks;
         std::string path;
-        MobileEnemiesContainer* mobileEnemies;
-        ArmoredEnemiesContainer* armoredEnemies;
+        AbstractEnemyContainer* mobileEnemies;
+        AbstractEnemyContainer* armoredEnemies;
         std::vector<CombinedEnemy> combinedEnemies;
         Boss* boss;
         float assasinSpawnInterval;
         float assasinInterval[2];
-        std::time_t lastArmoredEnemy;
         std::time_t lastCombinedEnemy;
-        std::time_t lastArmorPack;
-        std::time_t lastHealthPack;
         std::time_t assasinTransition[2];
     public:
         int levelRender(sf::Event& event, sf::RenderWindow& window);
@@ -65,7 +54,13 @@ class MainLevel : public AbstractLevel{
         void enemyBulletPoll(sf::RenderWindow& window);
         template <typename T>
         void collides(T it, sf::RenderWindow& window);
-        MainLevel();
+        MainLevel(
+            AbstractEntityContainer* ammoPacks,
+            AbstractEntityContainer* armorPacks, 
+            AbstractEntityContainer* healthPacks, 
+            AbstractEnemyContainer* mobileEnemies, 
+            AbstractEnemyContainer* armoredEnemies
+        );
         ~MainLevel();
 };
 

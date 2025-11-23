@@ -1,7 +1,11 @@
 #include "AbstractEntityContainer.hpp"
 
-AbstractEntityContainer::AbstractEntityContainer(std::time_t start) {
-    setLastSpawnedTimestamp(start);
+AbstractEntityContainer::AbstractEntityContainer() {
+    lastSpawnedTimestamp = std::time(nullptr);
+}
+
+AbstractEntityContainer::~AbstractEntityContainer() {
+    
 }
 
 time_t AbstractEntityContainer::getLastSpawnedTimestamp() {
@@ -18,8 +22,4 @@ void AbstractEntityContainer::setSpawnInterval(float spawnInterval) {
 
 float AbstractEntityContainer::getSpawnInterval() {
     return spawnInterval;
-}
-
-std::vector<Entity>& AbstractEntityContainer::getEntities() {
-    return entities;
 }

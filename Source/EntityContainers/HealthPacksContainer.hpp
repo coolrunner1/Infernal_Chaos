@@ -15,8 +15,7 @@ class HealthPacksContainer : public AbstractEntityContainer {
     public:
         void spawnNewEntity(sf::RenderWindow& window);
         void collides(sf::RenderWindow& window, Player& player);
-        std::vector<HealthPack>* getHealthPacks();
-        HealthPacksContainer(std::time_t start);
+        HealthPacksContainer();
         ~HealthPacksContainer();
 };
 

@@ -15,8 +15,7 @@ class AmmoPacksContainer : public AbstractEntityContainer {
     public:
         void spawnNewEntity(sf::RenderWindow& window);
         void collides(sf::RenderWindow& window, Player& player);
-        std::vector<AmmoPack>* getAmmoPacks();
-        AmmoPacksContainer(std::time_t start);
+        AmmoPacksContainer();
         ~AmmoPacksContainer();
 };
 

@@ -1,6 +1,6 @@
 #include "MobileEnemiesContainer.hpp"
 
-MobileEnemiesContainer::MobileEnemiesContainer(std::time_t start) : AbstractEntityContainer(start) {
+MobileEnemiesContainer::MobileEnemiesContainer() : AbstractEnemyContainer() {
 
 }
 
@@ -16,10 +16,6 @@ void MobileEnemiesContainer::spawnNewEntity(sf::RenderWindow& window) {
     }
 }
 
-std::vector<EnemyMobile>& MobileEnemiesContainer::getEntities() {
-    return enemies;
-}
-
 void MobileEnemiesContainer::collides(sf::RenderWindow& window, Player& player) {
     time_t prevDamage;
     sf::Vector2f playerPosition = player.getPosition();
@@ -31,4 +27,22 @@ void MobileEnemiesContainer::collides(sf::RenderWindow& window, Player& player) 
             player.healthDamage(it->getDamage());
         }   
     }  
+}
+
+void MobileEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
+        for (auto it = enemies.begin(); it != enemies.end(); ++it){
+                if (it->collidesWithPlayer(bulletPosition)){
+                        it->healthDamage(shootingDamage);
+                        if (it->getHealth()<=0){
+                                enemies.erase(it);
+                                player.scoreIncrease(bonusScore);
+                                break;
+                        }
+                }
+        }
+}
+
+void MobileEnemiesContainer::collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets) {
+    std::cerr << "This entity does not require enemyBullets argument!" << std::endl;
+    exit(1);
 }

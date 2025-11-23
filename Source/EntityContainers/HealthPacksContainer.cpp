@@ -1,6 +1,6 @@
 #include "HealthPacksContainer.hpp"
 
-HealthPacksContainer::HealthPacksContainer(std::time_t start) : AbstractEntityContainer(start) {
+HealthPacksContainer::HealthPacksContainer() : AbstractEntityContainer() {
 
 }
 
@@ -28,9 +28,5 @@ void HealthPacksContainer::spawnNewEntity(sf::RenderWindow& window) {
         healthPacks.back().refresh();
         time_t timestamp = healthPacks.back().getSpawnTime();
         setLastSpawnedTimestamp(timestamp);
-}
-}
-
-std::vector<HealthPack>* HealthPacksContainer::getHealthPacks() {
-    return &healthPacks;
+    }
 }

@@ -1,13 +1,19 @@
 #include "MainLevel.hpp"
 
-MainLevel::MainLevel() : AbstractLevel("Sprites/lvl1_bg.png"){
+MainLevel::MainLevel(
+        AbstractEntityContainer* ammoPacks, 
+        AbstractEntityContainer* armorPacks, 
+        AbstractEntityContainer* healthPacks, 
+        AbstractEnemyContainer* mobileEnemies, 
+        AbstractEnemyContainer* armoredEnemies
+) : AbstractLevel("Sprites/lvl1_bg.png"){
     boss = new Boss();
-    lastHealthPack=lastArmorPack=lastArmoredEnemy=assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;
-    mobileEnemies = new MobileEnemiesContainer(start);
-    armoredEnemies = new ArmoredEnemiesContainer(start);
-    ammoPacks = new AmmoPacksContainer(start);
-    armorPacks = new ArmorPacksContainer(start);
-    healthPacks = new HealthPacksContainer(start);
+    assasinTransition[0]=assasinTransition[1]=lastCombinedEnemy=start;
+    this->mobileEnemies = mobileEnemies;
+    this->armoredEnemies = armoredEnemies;
+    this->ammoPacks = ammoPacks;
+    this->armorPacks = armorPacks;
+    this->healthPacks = healthPacks;
 }
 
 MainLevel::~MainLevel(){
@@ -50,8 +56,8 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
                 bulletPosition=it->getPosition();
                 it->bulletMove();
                 it->entityDraw(window);
-                collisionBullet(&mobileEnemies->getEntities(), 15);
-                collisionBullet(&armoredEnemies->getEntities(), 30);
+                mobileEnemies->checkCollisionWithPlayersBullet(bulletPosition, shootingDamage, 15, *player);
+                armoredEnemies->checkCollisionWithPlayersBullet(bulletPosition, shootingDamage, 30, *player);
                 collisionBullet(&combinedEnemies, 60);
                 collisionBulletBoss(1000);
         }
@@ -71,8 +77,6 @@ void MainLevel::collision(sf::RenderWindow& window){
 void MainLevel::clearVectors(){
         bullets.clear();
         enemyBullets.clear();
-        mobileEnemies->getEntities().clear();
-        armoredEnemies->getEntities().clear();
         combinedEnemies.clear();
         /*ammoPacks->getAmmoPacks()->clear();
         armorPacks->getArmorPacks()->clear();

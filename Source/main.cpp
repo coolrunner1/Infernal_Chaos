@@ -1,6 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Menu/MainMenu.hpp"
+#include "EntityContainers/AmmoPacksContainer.hpp"
+#include "EntityContainers/ArmorPacksContainer.hpp"
+#include "EntityContainers/HealthPacksContainer.hpp"
+#include "EntityContainers/MobileEnemiesContainer.hpp"
+#include "EntityContainers/ArmoredEnemiesContainer.hpp"
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Infernal Chaos");
@@ -8,7 +14,13 @@ int main()
     icon.loadFromFile("Sprites/logo.png");
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     MainMenu* mainMenu = new MainMenu;
-    MainLevel* mainLevel = new MainLevel;
+    MainLevel* mainLevel = new MainLevel(
+        new AmmoPacksContainer, 
+        new ArmorPacksContainer, 
+        new HealthPacksContainer, 
+        new MobileEnemiesContainer, 
+        new ArmoredEnemiesContainer
+    );
     int menuChoice=MAIN_MENU;
     while (window.isOpen())
     {
