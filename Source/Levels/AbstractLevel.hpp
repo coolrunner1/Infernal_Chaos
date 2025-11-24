@@ -35,7 +35,7 @@ class AbstractLevel {
         virtual void enemyBulletPoll(sf::RenderWindow& window) = 0;
         AbstractLevel();
         AbstractLevel(std::string path);
-        ~AbstractLevel();
+        virtual ~AbstractLevel() = default;
 };
 
 #endif

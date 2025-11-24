@@ -26,7 +26,7 @@ class AbstractEntityContainer {
         float getSpawnInterval();
         AbstractEntityContainer();
         AbstractEntityContainer(float spawnInterval);
-        ~AbstractEntityContainer();
+        virtual ~AbstractEntityContainer() = default;
 };
 
 #endif

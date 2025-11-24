@@ -18,6 +18,7 @@ class AbstractEnemyContainer : public AbstractEntityContainer {
         virtual void checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, Player& player) = 0;
         AbstractEnemyContainer();
         AbstractEnemyContainer(float spawnInterval);
+        virtual ~AbstractEnemyContainer() = default;
 };
 
 #endif

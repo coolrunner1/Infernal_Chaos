@@ -12,10 +12,6 @@ AbstractEntityContainer::AbstractEntityContainer(float spawnInterval) {
     bonusScore = 0;
 }
 
-AbstractEntityContainer::~AbstractEntityContainer() {
-    
-}
-
 time_t AbstractEntityContainer::getLastSpawnedTimestamp() {
     return lastSpawnedTimestamp;
 }
