@@ -19,9 +19,10 @@ class AbstractEntityContainer {
         virtual void clear() = 0;
         time_t getLastSpawnedTimestamp();
         void setLastSpawnedTimestamp(std::time_t& timestamp);
-        void setSpawnInterval (float spawnInterval);
+        void setSpawnInterval(float spawnInterval);
         float getSpawnInterval();
         AbstractEntityContainer();
+        AbstractEntityContainer(float spawnInterval);
         ~AbstractEntityContainer();
 };
 

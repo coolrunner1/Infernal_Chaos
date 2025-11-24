@@ -1,6 +1,6 @@
 #include "CombinedEnemiesContainer.hpp"
 
-CombinedEnemiesContainer::CombinedEnemiesContainer(float assasinTransitionToSlowInterval, float assasinTransitionToFastInterval) : AbstractEnemyContainer() {
+CombinedEnemiesContainer::CombinedEnemiesContainer(float spawnInterval, float assasinTransitionToSlowInterval, float assasinTransitionToFastInterval) : AbstractEnemyContainer(spawnInterval) {
     this->assasinTransitionToSlowInterval = assasinTransitionToSlowInterval;
     this->assasinTransitionToFastInterval = assasinTransitionToFastInterval;
 }

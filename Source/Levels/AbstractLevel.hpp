@@ -18,12 +18,7 @@ class AbstractLevel {
         StillScreen* stillScreens;
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
-        /**/
-        float enemyBulletDamage;
-        /**/
-        int shootingDamage;
-        bool bossSpawned;
-        bool bossDefeated;
+        bool endGame;
     public:
         void keysCheck(sf::RenderWindow& window);
         void setBackground(std::string background);

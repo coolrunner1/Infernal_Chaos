@@ -18,7 +18,7 @@ class MobileEnemiesContainer : public AbstractEnemyContainer {
         void checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player);
         int getContainerLength();
         void clear();
-        MobileEnemiesContainer();
+        MobileEnemiesContainer(float spawnInterval);
         ~MobileEnemiesContainer();
 };
 

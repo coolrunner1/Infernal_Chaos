@@ -1,7 +1,7 @@
 #include "ArmoredEnemiesContainer.hpp"
 
-ArmoredEnemiesContainer::ArmoredEnemiesContainer() : AbstractEnemyContainer() {
-
+ArmoredEnemiesContainer::ArmoredEnemiesContainer(float spawnInterval) : AbstractEnemyContainer(spawnInterval) {
+    
 }
 
 ArmoredEnemiesContainer::~ArmoredEnemiesContainer() {

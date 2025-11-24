@@ -17,7 +17,7 @@ class HealthPacksContainer : public AbstractEntityContainer {
         void update(sf::RenderWindow& window, Player& player);
         int getContainerLength();
         void clear();
-        HealthPacksContainer();
+        HealthPacksContainer(float spawnInterval);
         ~HealthPacksContainer();
 };
 

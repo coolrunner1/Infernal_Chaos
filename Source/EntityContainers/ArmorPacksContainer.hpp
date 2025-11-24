@@ -17,7 +17,7 @@ class ArmorPacksContainer : public AbstractEntityContainer {
         void update(sf::RenderWindow& window, Player& player);
         int getContainerLength();
         void clear();
-        ArmorPacksContainer();
+        ArmorPacksContainer(float spawnInterval);
         ~ArmorPacksContainer();
 };
 

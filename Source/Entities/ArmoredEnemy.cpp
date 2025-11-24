@@ -22,6 +22,7 @@ void ArmoredEnemy::armoredInit(int fireInterval) {
     entitySprite.setScale(4, 4);
     lastFired = std::time(nullptr);
     this->fireInterval = fireInterval;
+    bulletDamage = 2;
 }
 
 void ArmoredEnemy::setFired(std::time_t fired) {
@@ -45,7 +46,7 @@ void ArmoredEnemy::fireABullet(std::vector<Bullet>& bullets, sf::RenderWindow& w
     std::time_t current = std::time(nullptr);
     if (std::difftime(current, getLastFired()) > fireInterval){
         setFired(current);
-        bullets.push_back(Bullet());
+        bullets.push_back(Bullet(bulletDamage));
         bullets.back().refreshSprite();
         bullets.back().bulletSetFloat(window, getPosition(), playerPosition);
     }

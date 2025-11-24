@@ -13,6 +13,7 @@ class Bullet : public AliveEntity {
         sf::Vector2f bulletPos;
         float angle;
         float bulletAngle;
+        float damage;
         std::time_t current;
     public:
         void bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos);
@@ -20,7 +21,10 @@ class Bullet : public AliveEntity {
         sf::Vector2f bulletMove();
         void bulletSetFloat(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2f endPos);
         bool bulletLifeCycleExpired();
+        void setDamage(float damage);
+        float getDamage();
         Bullet();
+        Bullet(float damage);
 };
 
 #endif

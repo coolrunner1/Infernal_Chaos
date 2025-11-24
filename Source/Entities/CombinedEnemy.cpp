@@ -37,6 +37,7 @@ void CombinedEnemy::combinedEnemyInit() {
     path = "Sprites/assasin.png";
     enemyPath[0] = path;
     enemyPath[1] = "Sprites/assasin_left.png";
+    bulletDamage = 4;
     damage = 25;
     armor = 200;
     lastFired = transitionToSlowTimestamp = transitionToFastTimestamp = std::time(nullptr);

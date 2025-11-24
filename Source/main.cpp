@@ -42,12 +42,12 @@ int main()
                         mainLevel = new MainLevel(
                             CAMPAIGN,
                             "Sprites/lvl1_bg.png",
-                            new AmmoPacksContainer, 
-                            new ArmorPacksContainer, 
-                            new HealthPacksContainer, 
-                            new MobileEnemiesContainer, 
-                            new ArmoredEnemiesContainer,
-                            new CombinedEnemiesContainer(0.5, 5),
+                            new AmmoPacksContainer(15), 
+                            new ArmorPacksContainer(15), 
+                            new HealthPacksContainer(15), 
+                            new MobileEnemiesContainer(2), 
+                            new ArmoredEnemiesContainer(5),
+                            new CombinedEnemiesContainer(30, 0.5, 5),
                             new BossContainer(1, 4)
                         );
                     }
@@ -55,13 +55,13 @@ int main()
                 case PS_LVL_1:
                     if (!mainLevel) {
                         mainLevel = new MainLevel(
-                            SUFFERING_EASY,
+                            ETERNAL,
                             "Sprites/lvl3_bg.png",
-                            new AmmoPacksContainer, 
-                            new ArmorPacksContainer, 
-                            new HealthPacksContainer, 
-                            new MobileEnemiesContainer, 
-                            new ArmoredEnemiesContainer,
+                            new AmmoPacksContainer(15), 
+                            new ArmorPacksContainer(15), 
+                            new HealthPacksContainer(15), 
+                            new MobileEnemiesContainer(2), 
+                            new ArmoredEnemiesContainer(5),
                             new NullEnemiesContainer(),
                             new NullEnemiesContainer()
                         );
@@ -70,14 +70,14 @@ int main()
                 case PS_LVL_2:
                     if (!mainLevel) {
                         mainLevel = new MainLevel(
-                            SUFFERING_MEDIUM,
+                            ETERNAL,
                             "Sprites/lvl1_bg.png",
-                            new AmmoPacksContainer, 
-                            new ArmorPacksContainer, 
-                            new HealthPacksContainer,
-                            new MobileEnemiesContainer,  
-                            new ArmoredEnemiesContainer,
-                            new CombinedEnemiesContainer(0.7, 3),
+                            new AmmoPacksContainer(25), 
+                            new ArmorPacksContainer(25), 
+                            new HealthPacksContainer(25),
+                            new MobileEnemiesContainer(1),  
+                            new ArmoredEnemiesContainer(5),
+                            new CombinedEnemiesContainer(15, 0.7, 3),
                             new NullEnemiesContainer()
                         );
                     }
@@ -85,13 +85,13 @@ int main()
                 case PS_LVL_3:
                     if (!mainLevel) {
                         mainLevel = new MainLevel(
-                            SUFFERING_HARD,
+                            ETERNAL,
                             "Sprites/lvl2_bg.png",
-                            new AmmoPacksContainer, 
+                            new AmmoPacksContainer(35), 
                             new NullEntitiesContainer, 
-                            new HealthPacksContainer, 
-                            new ArmoredEnemiesContainer,
-                            new CombinedEnemiesContainer(0.7, 3), 
+                            new HealthPacksContainer(35), 
+                            new ArmoredEnemiesContainer(0.5),
+                            new CombinedEnemiesContainer(1, 0.7, 3), 
                             new BossContainer(0.7, 2),
                             new NullEnemiesContainer()
                         );

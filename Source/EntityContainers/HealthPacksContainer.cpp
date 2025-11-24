@@ -1,6 +1,6 @@
 #include "HealthPacksContainer.hpp"
 
-HealthPacksContainer::HealthPacksContainer() : AbstractEntityContainer() {
+HealthPacksContainer::HealthPacksContainer(float spawnInterval) : AbstractEntityContainer(spawnInterval) {
 
 }
 

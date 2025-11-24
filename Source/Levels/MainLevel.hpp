@@ -12,9 +12,8 @@
 #include <ctime>
 #include <SFML/Graphics.hpp>
 #define CAMPAIGN 0
-#define SUFFERING_EASY 1
-#define SUFFERING_MEDIUM 2
-#define SUFFERING_HARD 3
+#define ETERNAL 1
+#define BOSS_BONUS 1000
 
 class MainLevel : public AbstractLevel{
     protected:
@@ -29,10 +28,7 @@ class MainLevel : public AbstractLevel{
         AbstractEnemyContainer* boss;
         std::string path;
         int mode;
-        void setEasyDifficulty();
-        void setMediumDifficulty();
-        void setHardDifficulty();
-        void setCampaign();
+        bool bossSpawned;
     public:
         int levelRender(sf::Event& event, sf::RenderWindow& window);
         void bulletPoll(sf::RenderWindow& window);

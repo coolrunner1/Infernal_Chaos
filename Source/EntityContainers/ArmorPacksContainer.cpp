@@ -1,6 +1,6 @@
 #include "ArmorPacksContainer.hpp"
 
-ArmorPacksContainer::ArmorPacksContainer() : AbstractEntityContainer() {
+ArmorPacksContainer::ArmorPacksContainer(float spawnInterval) : AbstractEntityContainer(spawnInterval) {
 
 }
 

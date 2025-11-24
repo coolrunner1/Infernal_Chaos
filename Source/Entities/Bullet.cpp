@@ -4,6 +4,14 @@ Bullet::Bullet() : AliveEntity() {
     path = "Sprites/bullet.png";
     setSprite(path);
     speed = 4.4f;
+    this->damage = 2;
+}
+
+Bullet::Bullet(float damage) : AliveEntity() {
+    path = "Sprites/bullet.png";
+    setSprite(path);
+    speed = 4.4f;
+    this->damage = damage;
 }
 
 void Bullet::bulletSet(sf::RenderWindow& window, sf::Vector2f playerPos, sf::Vector2i cursorPos) {
@@ -35,4 +43,12 @@ sf::Vector2f Bullet::bulletMove() {
 bool Bullet::bulletLifeCycleExpired() {
     std::time(&current);
     return std::difftime(current, start) > 3;
+}
+
+void Bullet::setDamage(float damage) {
+    this->damage = damage;
+}
+
+float Bullet::getDamage() {
+    return damage;
 }

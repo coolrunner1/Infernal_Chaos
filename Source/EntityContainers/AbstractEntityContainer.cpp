@@ -2,6 +2,12 @@
 
 AbstractEntityContainer::AbstractEntityContainer() {
     lastSpawnedTimestamp = std::time(nullptr);
+    this->spawnInterval = 15;
+}
+
+AbstractEntityContainer::AbstractEntityContainer(float spawnInterval) {
+    lastSpawnedTimestamp = std::time(nullptr);
+    this->spawnInterval = spawnInterval;
 }
 
 AbstractEntityContainer::~AbstractEntityContainer() {

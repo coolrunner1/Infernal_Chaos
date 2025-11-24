@@ -20,7 +20,7 @@ class CombinedEnemiesContainer : public AbstractEnemyContainer {
         void checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player);
         int getContainerLength();
         void clear();
-        CombinedEnemiesContainer(float assasinTransitionToSlowInterval, float assasinTransitionToFastInterval);
+        CombinedEnemiesContainer(float spawnInterval, float assasinTransitionToSlowInterval, float assasinTransitionToFastInterval);
         ~CombinedEnemiesContainer();
 };
 

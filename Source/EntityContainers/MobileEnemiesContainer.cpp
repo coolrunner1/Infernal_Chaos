@@ -1,6 +1,6 @@
 #include "MobileEnemiesContainer.hpp"
 
-MobileEnemiesContainer::MobileEnemiesContainer() : AbstractEnemyContainer() {
+MobileEnemiesContainer::MobileEnemiesContainer(float spawnInterval) : AbstractEnemyContainer(spawnInterval) {
 
 }
 

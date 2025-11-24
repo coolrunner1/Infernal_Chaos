@@ -12,10 +12,8 @@ AbstractLevel::AbstractLevel(std::string path){
 
 void AbstractLevel::levelInit(){
         stillScreens = new StillScreen;
-        bossDefeated = false;
-        bossSpawned = false;
+        endGame = false;
         std::cout << "Level created\n";
-        enemyBulletDamage = 1;
         player = new Player;
         cursor = new Cursor;
         stats = new Stats;
@@ -41,7 +39,7 @@ void AbstractLevel::keysCheck(sf::RenderWindow& window){
                 delete player;
                 window.close();
         }
-        if (bossDefeated){
+        if (endGame){
                 stillScreens->youWin(window);
                 while(true){
                         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){

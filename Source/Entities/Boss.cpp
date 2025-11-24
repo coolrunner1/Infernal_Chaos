@@ -7,6 +7,7 @@ Boss::Boss(float transitionToSlowInterval, float transitionToFastInterval) : Com
     damage = 50;
     health = 500;
     armor = 500;
+    bulletDamage = 10;
     lastFired = transitionToSlowTimestamp = transitionToFastTimestamp = std::time(nullptr);
     setFireInterval(4);
 }

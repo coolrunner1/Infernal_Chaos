@@ -9,6 +9,7 @@ class ArmoredEnemy: public Enemy {
         int fireInterval;
     protected:
         std::time_t lastFired;
+        float bulletDamage;
     public:
         void setFired(std::time_t fired);
         std::time_t getLastFired();

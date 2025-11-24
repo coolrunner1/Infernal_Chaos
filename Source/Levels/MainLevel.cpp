@@ -1,7 +1,7 @@
 #include "MainLevel.hpp"
 
 MainLevel::MainLevel(
-        int difficulty,
+        int mode,
         std::string background,
         AbstractEntityContainer* ammoPacks, 
         AbstractEntityContainer* armorPacks, 
@@ -18,25 +18,8 @@ MainLevel::MainLevel(
     this->ammoPacks = ammoPacks;
     this->armorPacks = armorPacks;
     this->healthPacks = healthPacks;
-    mode = difficulty;
-    switch (mode) {
-        case SUFFERING_EASY:
-                setEasyDifficulty();
-                break;
-        case SUFFERING_MEDIUM:
-                setMediumDifficulty();
-                break;
-        case SUFFERING_HARD:
-                setHardDifficulty();
-                break;
-        case CAMPAIGN:
-                setCampaign();
-                break;
-        default:
-                mode = CAMPAIGN;
-                setCampaign();
-                break;
-    }
+    this->mode = mode;
+    bossSpawned = false;
 }
 
 MainLevel::~MainLevel(){
@@ -79,11 +62,11 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
                 sf::Vector2f bulletPosition=it->getPosition();
                 it->bulletMove();
                 it->entityDraw(window);
-                mobileEnemies->checkCollisionWithPlayersBullet(bulletPosition, shootingDamage, 15, *player);
-                armoredEnemies->checkCollisionWithPlayersBullet(bulletPosition, shootingDamage, 30, *player);
-                combinedEnemies->checkCollisionWithPlayersBullet(bulletPosition, shootingDamage, 60, *player);
+                mobileEnemies->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), 15, *player);
+                armoredEnemies->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), 30, *player);
+                combinedEnemies->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), 60, *player);
                 if (bossSpawned) {
-                        boss->checkCollisionWithPlayersBullet(bulletPosition, shootingDamage, 1000, *player);
+                        boss->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), 1000, *player);
                 }
         }
 }
@@ -98,7 +81,7 @@ void MainLevel::update(sf::RenderWindow& window){
         healthPacks->update(window, *player);
         if (bossSpawned) {
                 if (!boss->getContainerLength()) {
-                        bossDefeated = true;
+                        endGame = true;
                         return;
                 }
                 boss->update(window, *player, enemyBullets);
@@ -115,46 +98,6 @@ void MainLevel::clearVectors(){
         ammoPacks->clear();
         armorPacks->clear();
         healthPacks->clear();
-}
-
-
-void MainLevel::setEasyDifficulty(){
-        mobileEnemies->setSpawnInterval(2);
-        int pickupSpawnInterval = 15;
-        ammoPacks->setSpawnInterval(pickupSpawnInterval);
-        armorPacks->setSpawnInterval(pickupSpawnInterval);
-        healthPacks->setSpawnInterval(pickupSpawnInterval);
-        armoredEnemies->setSpawnInterval(5);
-        combinedEnemies->setSpawnInterval(30);
-        shootingDamage = 3;
-}
-
-void MainLevel::setMediumDifficulty(){
-        mobileEnemies->setSpawnInterval(1);
-        int pickupSpawnInterval = 25;
-        ammoPacks->setSpawnInterval(pickupSpawnInterval);
-        armorPacks->setSpawnInterval(pickupSpawnInterval);
-        healthPacks->setSpawnInterval(pickupSpawnInterval);
-        armoredEnemies->setSpawnInterval(3);
-        combinedEnemies->setSpawnInterval(15);
-        shootingDamage = 2;
-        enemyBulletDamage = 2;
-}
-
-void MainLevel::setHardDifficulty(){
-        mobileEnemies->setSpawnInterval(0.5);
-        int pickupSpawnInterval = 35;
-        ammoPacks->setSpawnInterval(pickupSpawnInterval);
-        armorPacks->setSpawnInterval(pickupSpawnInterval);
-        healthPacks->setSpawnInterval(pickupSpawnInterval);
-        armoredEnemies->setSpawnInterval(1);
-        combinedEnemies->setSpawnInterval(5);
-        shootingDamage = 2;
-        enemyBulletDamage = 2;
-}
-
-void MainLevel::setCampaign(){
-        setEasyDifficulty();
 }
 
 int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
@@ -187,7 +130,7 @@ void MainLevel::enemyBulletPoll(sf::RenderWindow& window){
                 it->bulletMove();
                 it->entityDraw(window);
                 if (it->collidesWithPlayer(playerPosition)){
-                        player->healthDamage(enemyBulletDamage);
+                        player->healthDamage(it->getDamage());
                 }
         }
 }
