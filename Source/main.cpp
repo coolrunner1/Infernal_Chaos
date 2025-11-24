@@ -39,81 +39,79 @@ int main()
             switch(menuChoice){
                 case INFERNAL_CAMPAIGN:
                     if (!mainLevel) {
-                        mainLevel = new MainLevel(
-                            "Sprites/lvl1_bg.png",
-                            10,
-                            "Sprites/lvl3_bg.png",
-                            0,
+                        std::vector<AbstractEntityContainer*> entityContainers = {
                             new AmmoPacksContainer(15), 
                             new ArmorPacksContainer(15), 
                             new HealthPacksContainer(15), 
-                            new NullEntitiesContainer,
-                            new NullEntitiesContainer,
-                            new NullEntitiesContainer,
+                        };
+                        std::vector<AbstractEnemyContainer*> enemyContainers = {
                             new MobileEnemiesContainer(2), 
                             new ArmoredEnemiesContainer(5),
                             new CombinedEnemiesContainer(30, 0.5, 5),
-                            new NullEnemiesContainer,
-                            new NullEnemiesContainer,
-                            new NullEnemiesContainer,
+                        };
+                        mainLevel = new MainLevel(
+                            "Sprites/lvl1_bg.png",
+                            entityContainers,
+                            enemyContainers,
+                            10,
+                            "Sprites/lvl3_bg.png",
+                            0,
                             new BossContainer(1, 4)
                         );
                     }
                     break;
                 case PS_LVL_1:
                     if (!mainLevel) {
-                        mainLevel = new MainLevel(
-                            "Sprites/lvl3_bg.png",
+                        std::vector<AbstractEntityContainer*> entityContainers = {
                             new AmmoPacksContainer(15), 
                             new ArmorPacksContainer(15), 
                             new HealthPacksContainer(15), 
-                            new NullEntitiesContainer,
-                            new NullEntitiesContainer,
-                            new NullEntitiesContainer,
+                        };
+                        std::vector<AbstractEnemyContainer*> enemyContainers = {
                             new MobileEnemiesContainer(2), 
                             new ArmoredEnemiesContainer(5),
-                            new NullEnemiesContainer(),
-                            new NullEnemiesContainer,
-                            new NullEnemiesContainer,
-                            new NullEnemiesContainer
+                        };
+                        mainLevel = new MainLevel(
+                            "Sprites/lvl3_bg.png",
+                            entityContainers,
+                            enemyContainers
                         );
                     }
                     break;
                 case PS_LVL_2:
                     if (!mainLevel) {
-                        mainLevel = new MainLevel(
-                            "Sprites/lvl1_bg.png",
+                        std::vector<AbstractEntityContainer*> entityContainers = {
                             new AmmoPacksContainer(25), 
                             new ArmorPacksContainer(25), 
-                            new HealthPacksContainer(25),
-                            new NullEntitiesContainer,
-                            new NullEntitiesContainer,
-                            new NullEntitiesContainer,
+                            new HealthPacksContainer(25), 
+                        };
+                        std::vector<AbstractEnemyContainer*> enemyContainers = {
                             new MobileEnemiesContainer(1),  
                             new ArmoredEnemiesContainer(5),
                             new CombinedEnemiesContainer(15, 0.7, 3),
-                            new NullEnemiesContainer,
-                            new NullEnemiesContainer,
-                            new NullEnemiesContainer
+                        };
+                        mainLevel = new MainLevel(
+                            "Sprites/lvl3_bg.png",
+                            entityContainers,
+                            enemyContainers
                         );
                     }
                     break;
                 case PS_LVL_3:
                     if (!mainLevel) {
-                        mainLevel = new MainLevel(
-                            "Sprites/lvl2_bg.png",
-                            new AmmoPacksContainer(35), 
-                            new NullEntitiesContainer, 
-                            new HealthPacksContainer(35),
-                            new NullEntitiesContainer,
-                            new NullEntitiesContainer,
-                            new NullEntitiesContainer, 
+                        std::vector<AbstractEntityContainer*> entityContainers = {
+                            new AmmoPacksContainer(35),
+                            new HealthPacksContainer(35), 
+                        };
+                        std::vector<AbstractEnemyContainer*> enemyContainers = {
                             new ArmoredEnemiesContainer(0.5),
                             new CombinedEnemiesContainer(1, 0.7, 3), 
                             new BossContainer(0.7, 2),
-                            new NullEnemiesContainer,
-                            new NullEnemiesContainer,
-                            new NullEnemiesContainer
+                        };
+                        mainLevel = new MainLevel(
+                            "Sprites/lvl3_bg.png",
+                            entityContainers,
+                            enemyContainers
                         );
                     }
                     break;

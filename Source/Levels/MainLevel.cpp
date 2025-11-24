@@ -2,93 +2,53 @@
 
 MainLevel::MainLevel(
         std::string background,
+        std::vector<AbstractEntityContainer*>& entitiesContainers,
+        std::vector<AbstractEnemyContainer*>& enemyContainers,
         int bossReachScore,
         std::string bossBackground,
         int nextLevelCode,
-        AbstractEntityContainer* entitySlot1, 
-        AbstractEntityContainer* entitySlot2, 
-        AbstractEntityContainer* entitySlot3, 
-        AbstractEntityContainer* entitySlot4, 
-        AbstractEntityContainer* entitySlot5, 
-        AbstractEntityContainer* entitySlot6,  
-        AbstractEnemyContainer* enemySlot1, 
-        AbstractEnemyContainer* enemySlot2, 
-        AbstractEnemyContainer* enemySlot3, 
-        AbstractEnemyContainer* enemySlot4, 
-        AbstractEnemyContainer* enemySlot5, 
-        AbstractEnemyContainer* enemySlot6, 
         AbstractEnemyContainer* boss
 ) : AbstractLevel(background) {
-    this->enemySlot1 = enemySlot1;
-    this->enemySlot2 = enemySlot2;
-    this->enemySlot3 = enemySlot3;
-    this->enemySlot4 = enemySlot4;
-    this->enemySlot5 = enemySlot5;
-    this->enemySlot6 = enemySlot6;
     this->boss = boss;
-    this->entitySlot1 = entitySlot1;
-    this->entitySlot2 = entitySlot2;
-    this->entitySlot3 = entitySlot3;
-    this->entitySlot4 = entitySlot4;
-    this->entitySlot5 = entitySlot5;
-    this->entitySlot6 = entitySlot6;
     this->mode = CAMPAIGN;
     this->bossReachScore = bossReachScore;
     this->bossBackground = bossBackground;
     this->nextLevelCode = nextLevelCode;
     bossSpawned = false;
+    this->entityContainers = entitiesContainers;
+    this->enemyContainers = enemyContainers;
 }
 
 MainLevel::MainLevel(
         std::string background,
-        AbstractEntityContainer* entitySlot1, 
-        AbstractEntityContainer* entitySlot2, 
-        AbstractEntityContainer* entitySlot3, 
-        AbstractEntityContainer* entitySlot4, 
-        AbstractEntityContainer* entitySlot5, 
-        AbstractEntityContainer* entitySlot6,  
-        AbstractEnemyContainer* enemySlot1, 
-        AbstractEnemyContainer* enemySlot2, 
-        AbstractEnemyContainer* enemySlot3, 
-        AbstractEnemyContainer* enemySlot4, 
-        AbstractEnemyContainer* enemySlot5, 
-        AbstractEnemyContainer* enemySlot6
+        std::vector<AbstractEntityContainer*>& entitiesContainers,
+        std::vector<AbstractEnemyContainer*>& enemyContainers
 ) : AbstractLevel(background) {
-    this->enemySlot1 = enemySlot1;
-    this->enemySlot2 = enemySlot2;
-    this->enemySlot3 = enemySlot3;
-    this->enemySlot4 = enemySlot4;
-    this->enemySlot5 = enemySlot5;
-    this->enemySlot6 = enemySlot6;
     this->boss = nullptr;
-    this->entitySlot1 = entitySlot1;
-    this->entitySlot2 = entitySlot2;
-    this->entitySlot3 = entitySlot3;
-    this->entitySlot4 = entitySlot4;
-    this->entitySlot5 = entitySlot5;
-    this->entitySlot6 = entitySlot6;
     this->mode = ETERNAL;
     this->bossReachScore = 0;
     this->bossBackground = "";
     this->nextLevelCode = 0;
     bossSpawned = false;
+    this->entityContainers = entitiesContainers;
+    this->enemyContainers = enemyContainers;
 }
 
 MainLevel::~MainLevel(){
-    clearVectors();
-    delete enemySlot1;
-    delete enemySlot2;
-    delete enemySlot3;
-    delete entitySlot1;
-    delete entitySlot2;
-    delete entitySlot3;
+    clearEntities();
+    for (auto it = entityContainers.begin(); it != entityContainers.end(); ++it) {
+        delete (*it);
+    }
+    for (auto it = enemyContainers.begin(); it != enemyContainers.end(); ++it) {
+        delete (*it);
+    }
     delete boss;
 }
 
 void MainLevel::spawnEntities(sf::RenderWindow& window){
         if (mode == CAMPAIGN && player->getScore() >= bossReachScore){
                 if (!bossSpawned){
-                        clearVectors();
+                        clearEntities();
                         boss->spawnNewEntity(window);
                         player->ammoIncrease(300);
                         player->armorIncrease(100);
@@ -101,18 +61,14 @@ void MainLevel::spawnEntities(sf::RenderWindow& window){
                 return;
                         
         }
-        enemySlot1->spawnNewEntity(window);
-        enemySlot2->spawnNewEntity(window);
-        enemySlot3->spawnNewEntity(window);
-        enemySlot4->spawnNewEntity(window);
-        enemySlot5->spawnNewEntity(window);
-        enemySlot6->spawnNewEntity(window);
-        entitySlot1->spawnNewEntity(window);
-        entitySlot2->spawnNewEntity(window);
-        entitySlot3->spawnNewEntity(window);
-        entitySlot4->spawnNewEntity(window);
-        entitySlot5->spawnNewEntity(window);
-        entitySlot6->spawnNewEntity(window);
+
+        for (auto it = entityContainers.begin(); it != entityContainers.end(); ++it) {
+                (*it)->spawnNewEntity(window);
+        }
+
+        for (auto it = enemyContainers.begin(); it != enemyContainers.end(); ++it) {
+                (*it)->spawnNewEntity(window);
+        }
 }
 
 void MainLevel::bulletPoll(sf::RenderWindow& window){
@@ -122,12 +78,9 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
                 sf::Vector2f bulletPosition=it->getPosition();
                 it->bulletMove();
                 it->entityDraw(window);
-                enemySlot1->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
-                enemySlot2->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
-                enemySlot3->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
-                enemySlot4->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
-                enemySlot5->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
-                enemySlot6->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
+                for (auto enemyIt = enemyContainers.begin(); enemyIt != enemyContainers.end(); ++enemyIt) {
+                        (*enemyIt)->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
+                }
                 if (bossSpawned) {
                         boss->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
                 }
@@ -136,18 +89,14 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
 
 void MainLevel::update(sf::RenderWindow& window){
         sf::Vector2f playerPosition = player->getPosition();
-        enemySlot1->update(window, *player, enemyBullets);
-        enemySlot2->update(window, *player, enemyBullets);
-        enemySlot3->update(window, *player, enemyBullets);
-        enemySlot4->update(window, *player, enemyBullets);
-        enemySlot5->update(window, *player, enemyBullets);
-        enemySlot6->update(window, *player, enemyBullets);
-        entitySlot1->update(window, *player);
-        entitySlot2->update(window, *player);
-        entitySlot3->update(window, *player);
-        entitySlot4->update(window, *player);
-        entitySlot5->update(window, *player);
-        entitySlot6->update(window, *player);
+        for (auto it = entityContainers.begin(); it != entityContainers.end(); ++it) {
+                (*it)->update(window, *player);
+        }
+
+        for (auto it = enemyContainers.begin(); it != enemyContainers.end(); ++it) {
+                (*it)->update(window, *player, enemyBullets);
+        }
+
         if (bossSpawned) {
                 if (!boss->getContainerLength()) {
                         endGame = true;
@@ -158,21 +107,16 @@ void MainLevel::update(sf::RenderWindow& window){
 
 }
 
-void MainLevel::clearVectors(){
+void MainLevel::clearEntities(){
         bullets.clear();
         enemyBullets.clear();
-        enemySlot1->clear();
-        enemySlot2->clear();
-        enemySlot3->clear();
-        enemySlot4->clear();
-        enemySlot5->clear();
-        enemySlot6->clear();
-        entitySlot1->clear();
-        entitySlot2->clear();
-        entitySlot3->clear();
-        entitySlot4->clear();
-        entitySlot5->clear();
-        entitySlot6->clear();
+        for (auto it = entityContainers.begin(); it != entityContainers.end(); ++it) {
+                (*it)->clear();
+        }
+
+        for (auto it = enemyContainers.begin(); it != enemyContainers.end(); ++it) {
+                (*it)->clear();
+        }
 }
 
 int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){

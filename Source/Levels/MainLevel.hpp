@@ -6,6 +6,7 @@
 #include "../Entities/ArmoredEnemy.hpp"
 #include "../Entities/CombinedEnemy.hpp"
 #include "../EntityContainers/CombinedEnemiesContainer.hpp"
+#include <memory>
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -13,24 +14,13 @@
 #include <SFML/Graphics.hpp>
 #define CAMPAIGN 0
 #define ETERNAL 1
-#define BOSS_BONUS 1000
 
 class MainLevel : public AbstractLevel{
     protected:
         std::vector<Bullet> bullets;
         std::vector<Bullet> enemyBullets;
-        AbstractEntityContainer* entitySlot1;
-        AbstractEntityContainer* entitySlot2; 
-        AbstractEntityContainer* entitySlot3; 
-        AbstractEntityContainer* entitySlot4; 
-        AbstractEntityContainer* entitySlot5; 
-        AbstractEntityContainer* entitySlot6;  
-        AbstractEnemyContainer* enemySlot1; 
-        AbstractEnemyContainer* enemySlot2; 
-        AbstractEnemyContainer* enemySlot3; 
-        AbstractEnemyContainer* enemySlot4; 
-        AbstractEnemyContainer* enemySlot5; 
-        AbstractEnemyContainer* enemySlot6; 
+        std::vector<AbstractEntityContainer*> entityContainers;
+        std::vector<AbstractEnemyContainer*> enemyContainers;
         AbstractEnemyContainer* boss;
         std::string path;
         int mode;
@@ -38,45 +28,49 @@ class MainLevel : public AbstractLevel{
         int bossReachScore;
         std::string bossBackground;
     public:
+        /*
+        * Calls methods necessary for level rendering and returns a value that signals to either create the next level or to continue running the current level
+        */
         int levelRender(sf::Event& event, sf::RenderWindow& window);
+        /*
+        * Calls methods of containers to check if bullets fired by the player collide with enemies
+        */
         void bulletPoll(sf::RenderWindow& window);
+        /*
+        * Calls methods of containers that are responsible for updating entity states
+        */
         void update(sf::RenderWindow& window);
+        /*
+        * Calls methods of containers that are responsible for entity spawning
+        */
         void spawnEntities(sf::RenderWindow& window);
-        void clearVectors();
+        /*
+        * Deletes all entities
+        */
+        void clearEntities();
+        /*
+        * Checks if bullets fired by enemies collide with the player
+        */
         void enemyBulletPoll(sf::RenderWindow& window);
+        /*
+        * This constructor initializes level with the "campaign" mode
+        */
         MainLevel(
             std::string background,
+            std::vector<AbstractEntityContainer*>& entitiesContainers,
+            std::vector<AbstractEnemyContainer*>& enemyContainers,
             int bossReachScore,
             std::string bossBackground,
             int nextLevelCode,
-            AbstractEntityContainer* entitySlot1, 
-            AbstractEntityContainer* entitySlot2, 
-            AbstractEntityContainer* entitySlot3, 
-            AbstractEntityContainer* entitySlot4, 
-            AbstractEntityContainer* entitySlot5, 
-            AbstractEntityContainer* entitySlot6,  
-            AbstractEnemyContainer* enemySlot1, 
-            AbstractEnemyContainer* enemySlot2, 
-            AbstractEnemyContainer* enemySlot3, 
-            AbstractEnemyContainer* enemySlot4, 
-            AbstractEnemyContainer* enemySlot5, 
-            AbstractEnemyContainer* enemySlot6,
             AbstractEnemyContainer* boss
         );
+        /*
+        * This constructor initializes level with the "perpetual" mode
+        */
         MainLevel(
             std::string background,
-            AbstractEntityContainer* entitySlot1, 
-            AbstractEntityContainer* entitySlot2, 
-            AbstractEntityContainer* entitySlot3, 
-            AbstractEntityContainer* entitySlot4, 
-            AbstractEntityContainer* entitySlot5, 
-            AbstractEntityContainer* entitySlot6,  
-            AbstractEnemyContainer* enemySlot1, 
-            AbstractEnemyContainer* enemySlot2, 
-            AbstractEnemyContainer* enemySlot3, 
-            AbstractEnemyContainer* enemySlot4, 
-            AbstractEnemyContainer* enemySlot5, 
-            AbstractEnemyContainer* enemySlot6
+            std::vector<AbstractEntityContainer*>& entitiesContainers,
+            std::vector<AbstractEnemyContainer*>& enemyContainers
         );
         ~MainLevel();
 };

@@ -12,6 +12,8 @@
 #define CONTINUE_LEVEL_EXECUTION 7
 
 class AbstractLevel {
+    private:
+        void levelInit();
     protected:
         Player* player;
         Cursor* cursor;
@@ -21,16 +23,15 @@ class AbstractLevel {
         sf::Sprite backgroundShape;
         bool endGame;
         int nextLevelCode;
-    public:
         void keysCheck(sf::RenderWindow& window);
-        void setBackground(std::string background);
         void refreshBackground(sf::RenderWindow& window);
-        void levelInit();
+    public:
+        void setBackground(std::string background);
         virtual int levelRender(sf::Event& event, sf::RenderWindow& window) = 0;
         virtual void bulletPoll(sf::RenderWindow& window) = 0;
         virtual void update(sf::RenderWindow& window) = 0;
         virtual void spawnEntities(sf::RenderWindow& window) = 0;
-        virtual void clearVectors() = 0;
+        virtual void clearEntities() = 0;
         virtual void enemyBulletPoll(sf::RenderWindow& window) = 0;
         AbstractLevel();
         AbstractLevel(std::string path);
