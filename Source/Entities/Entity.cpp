@@ -44,7 +44,7 @@ sf::Vector2f Entity::getPosition() {
     return entitySprite.getPosition();
 }
 
-void Entity::refresh() {
+void Entity::refreshSprite() {
     setSprite(path);
 }
 

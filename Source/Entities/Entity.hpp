@@ -25,7 +25,7 @@ class Entity {
         void entityDraw(sf::RenderWindow& window);
         void entityInit();
         void entityMove(int xpos, int ypos);
-        void refresh();
+        void refreshSprite();
         void setSprite(std::string path);
         int getSpawnInterval();
         void setSpawnInterval(int interval);

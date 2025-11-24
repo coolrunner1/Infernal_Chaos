@@ -11,7 +11,7 @@ HealthPacksContainer::~HealthPacksContainer() {
 void HealthPacksContainer::update(sf::RenderWindow& window, Player& player) {
     sf::Vector2f playerPosition = player.getPosition();
     for (auto it=healthPacks.begin(); it!=healthPacks.end(); ++it){
-        it->refresh();
+        it->refreshSprite();
         it->entityDraw(window);
         if (it->collidesWithPlayer(playerPosition)){
                 player.healthIncrease(it->getHealth());
@@ -25,7 +25,7 @@ void HealthPacksContainer::update(sf::RenderWindow& window, Player& player) {
 void HealthPacksContainer::spawnNewEntity(sf::RenderWindow& window) {
     if (std::difftime(std::time(nullptr), getLastSpawnedTimestamp()) > getSpawnInterval() + 20){
         healthPacks.push_back(HealthPack());
-        healthPacks.back().refresh();
+        healthPacks.back().refreshSprite();
         time_t timestamp = healthPacks.back().getSpawnTime();
         setLastSpawnedTimestamp(timestamp);
     }

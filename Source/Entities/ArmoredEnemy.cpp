@@ -46,7 +46,7 @@ void ArmoredEnemy::fireABullet(std::vector<Bullet>& bullets, sf::RenderWindow& w
     if (std::difftime(current, getLastFired()) > fireInterval){
         setFired(current);
         bullets.push_back(Bullet());
-        bullets.back().refresh();
+        bullets.back().refreshSprite();
         bullets.back().bulletSetFloat(window, getPosition(), playerPosition);
     }
 }
