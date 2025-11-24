@@ -1,7 +1,7 @@
 #include "HealthPacksContainer.hpp"
 
 HealthPacksContainer::HealthPacksContainer(float spawnInterval) : AbstractEntityContainer(spawnInterval) {
-
+    setBonusScore(5);
 }
 
 HealthPacksContainer::~HealthPacksContainer() {
@@ -16,7 +16,7 @@ void HealthPacksContainer::update(sf::RenderWindow& window, Player& player) {
         if (it->collidesWithPlayer(playerPosition)){
                 player.healthIncrease(it->getHealth());
                 healthPacks.erase(it);
-                player.scoreIncrease(5);
+                player.scoreIncrease(getBonusScore());
                 break;
         }
     }

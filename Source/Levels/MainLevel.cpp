@@ -1,58 +1,118 @@
 #include "MainLevel.hpp"
 
 MainLevel::MainLevel(
-        int mode,
         std::string background,
-        AbstractEntityContainer* ammoPacks, 
-        AbstractEntityContainer* armorPacks, 
-        AbstractEntityContainer* healthPacks, 
-        AbstractEnemyContainer* mobileEnemies, 
-        AbstractEnemyContainer* armoredEnemies,
-        AbstractEnemyContainer* combinedEnemies,
+        int bossReachScore,
+        std::string bossBackground,
+        int nextLevelCode,
+        AbstractEntityContainer* entitySlot1, 
+        AbstractEntityContainer* entitySlot2, 
+        AbstractEntityContainer* entitySlot3, 
+        AbstractEntityContainer* entitySlot4, 
+        AbstractEntityContainer* entitySlot5, 
+        AbstractEntityContainer* entitySlot6,  
+        AbstractEnemyContainer* enemySlot1, 
+        AbstractEnemyContainer* enemySlot2, 
+        AbstractEnemyContainer* enemySlot3, 
+        AbstractEnemyContainer* enemySlot4, 
+        AbstractEnemyContainer* enemySlot5, 
+        AbstractEnemyContainer* enemySlot6, 
         AbstractEnemyContainer* boss
 ) : AbstractLevel(background) {
-    this->mobileEnemies = mobileEnemies;
-    this->armoredEnemies = armoredEnemies;
-    this->combinedEnemies = combinedEnemies;
+    this->enemySlot1 = enemySlot1;
+    this->enemySlot2 = enemySlot2;
+    this->enemySlot3 = enemySlot3;
+    this->enemySlot4 = enemySlot4;
+    this->enemySlot5 = enemySlot5;
+    this->enemySlot6 = enemySlot6;
     this->boss = boss;
-    this->ammoPacks = ammoPacks;
-    this->armorPacks = armorPacks;
-    this->healthPacks = healthPacks;
-    this->mode = mode;
+    this->entitySlot1 = entitySlot1;
+    this->entitySlot2 = entitySlot2;
+    this->entitySlot3 = entitySlot3;
+    this->entitySlot4 = entitySlot4;
+    this->entitySlot5 = entitySlot5;
+    this->entitySlot6 = entitySlot6;
+    this->mode = CAMPAIGN;
+    this->bossReachScore = bossReachScore;
+    this->bossBackground = bossBackground;
+    this->nextLevelCode = nextLevelCode;
+    bossSpawned = false;
+}
+
+MainLevel::MainLevel(
+        std::string background,
+        AbstractEntityContainer* entitySlot1, 
+        AbstractEntityContainer* entitySlot2, 
+        AbstractEntityContainer* entitySlot3, 
+        AbstractEntityContainer* entitySlot4, 
+        AbstractEntityContainer* entitySlot5, 
+        AbstractEntityContainer* entitySlot6,  
+        AbstractEnemyContainer* enemySlot1, 
+        AbstractEnemyContainer* enemySlot2, 
+        AbstractEnemyContainer* enemySlot3, 
+        AbstractEnemyContainer* enemySlot4, 
+        AbstractEnemyContainer* enemySlot5, 
+        AbstractEnemyContainer* enemySlot6
+) : AbstractLevel(background) {
+    this->enemySlot1 = enemySlot1;
+    this->enemySlot2 = enemySlot2;
+    this->enemySlot3 = enemySlot3;
+    this->enemySlot4 = enemySlot4;
+    this->enemySlot5 = enemySlot5;
+    this->enemySlot6 = enemySlot6;
+    this->boss = nullptr;
+    this->entitySlot1 = entitySlot1;
+    this->entitySlot2 = entitySlot2;
+    this->entitySlot3 = entitySlot3;
+    this->entitySlot4 = entitySlot4;
+    this->entitySlot5 = entitySlot5;
+    this->entitySlot6 = entitySlot6;
+    this->mode = ETERNAL;
+    this->bossReachScore = 0;
+    this->bossBackground = "";
+    this->nextLevelCode = 0;
     bossSpawned = false;
 }
 
 MainLevel::~MainLevel(){
     clearVectors();
-    delete mobileEnemies;
-    delete armoredEnemies;
-    delete combinedEnemies;
-    delete ammoPacks;
-    delete armorPacks;
-    delete healthPacks;
+    delete enemySlot1;
+    delete enemySlot2;
+    delete enemySlot3;
+    delete entitySlot1;
+    delete entitySlot2;
+    delete entitySlot3;
     delete boss;
 }
 
 void MainLevel::spawnEntities(sf::RenderWindow& window){
-        if (mode == CAMPAIGN && player->getScore() >= 1000){
+        if (mode == CAMPAIGN && player->getScore() >= bossReachScore){
                 if (!bossSpawned){
                         clearVectors();
                         boss->spawnNewEntity(window);
                         player->ammoIncrease(300);
                         player->armorIncrease(100);
                         player->healthIncrease(100);
-                        setBackground("Sprites/lvl3_bg.png");
-                        bossSpawned=true;
+                        if (bossBackground.length()) {
+                                setBackground(bossBackground);
+                        }
+                        bossSpawned = true;
                 }
                 return;
                         
         }
-        mobileEnemies->spawnNewEntity(window);
-        armoredEnemies->spawnNewEntity(window);
-        combinedEnemies->spawnNewEntity(window);
-        ammoPacks->spawnNewEntity(window);
-        armorPacks->spawnNewEntity(window);
-        healthPacks->spawnNewEntity(window);
+        enemySlot1->spawnNewEntity(window);
+        enemySlot2->spawnNewEntity(window);
+        enemySlot3->spawnNewEntity(window);
+        enemySlot4->spawnNewEntity(window);
+        enemySlot5->spawnNewEntity(window);
+        enemySlot6->spawnNewEntity(window);
+        entitySlot1->spawnNewEntity(window);
+        entitySlot2->spawnNewEntity(window);
+        entitySlot3->spawnNewEntity(window);
+        entitySlot4->spawnNewEntity(window);
+        entitySlot5->spawnNewEntity(window);
+        entitySlot6->spawnNewEntity(window);
 }
 
 void MainLevel::bulletPoll(sf::RenderWindow& window){
@@ -62,23 +122,32 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
                 sf::Vector2f bulletPosition=it->getPosition();
                 it->bulletMove();
                 it->entityDraw(window);
-                mobileEnemies->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), 15, *player);
-                armoredEnemies->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), 30, *player);
-                combinedEnemies->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), 60, *player);
+                enemySlot1->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
+                enemySlot2->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
+                enemySlot3->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
+                enemySlot4->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
+                enemySlot5->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
+                enemySlot6->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
                 if (bossSpawned) {
-                        boss->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), 1000, *player);
+                        boss->checkCollisionWithPlayersBullet(bulletPosition, it->getDamage(), *player);
                 }
         }
 }
 
 void MainLevel::update(sf::RenderWindow& window){
         sf::Vector2f playerPosition = player->getPosition();
-        mobileEnemies->update(window, *player, enemyBullets);
-        armoredEnemies->update(window, *player, enemyBullets);
-        combinedEnemies->update(window, *player, enemyBullets);
-        ammoPacks->update(window, *player);
-        armorPacks->update(window, *player);
-        healthPacks->update(window, *player);
+        enemySlot1->update(window, *player, enemyBullets);
+        enemySlot2->update(window, *player, enemyBullets);
+        enemySlot3->update(window, *player, enemyBullets);
+        enemySlot4->update(window, *player, enemyBullets);
+        enemySlot5->update(window, *player, enemyBullets);
+        enemySlot6->update(window, *player, enemyBullets);
+        entitySlot1->update(window, *player);
+        entitySlot2->update(window, *player);
+        entitySlot3->update(window, *player);
+        entitySlot4->update(window, *player);
+        entitySlot5->update(window, *player);
+        entitySlot6->update(window, *player);
         if (bossSpawned) {
                 if (!boss->getContainerLength()) {
                         endGame = true;
@@ -92,15 +161,24 @@ void MainLevel::update(sf::RenderWindow& window){
 void MainLevel::clearVectors(){
         bullets.clear();
         enemyBullets.clear();
-        mobileEnemies->clear();
-        armoredEnemies->clear();
-        combinedEnemies->clear();
-        ammoPacks->clear();
-        armorPacks->clear();
-        healthPacks->clear();
+        enemySlot1->clear();
+        enemySlot2->clear();
+        enemySlot3->clear();
+        enemySlot4->clear();
+        enemySlot5->clear();
+        enemySlot6->clear();
+        entitySlot1->clear();
+        entitySlot2->clear();
+        entitySlot3->clear();
+        entitySlot4->clear();
+        entitySlot5->clear();
+        entitySlot6->clear();
 }
 
 int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
+        if (endGame && nextLevelCode) {
+                return nextLevelCode;
+        }
         refreshBackground(window);
         window.setMouseCursorVisible(false);
         player->fireABullet(event, window, bullets);
@@ -119,7 +197,7 @@ int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
                 player->getScore()
         );
         keysCheck(window);
-        return 7;
+        return CONTINUE_LEVEL_EXECUTION;
 }
 
 void MainLevel::enemyBulletPoll(sf::RenderWindow& window){

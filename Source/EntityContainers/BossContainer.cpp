@@ -5,6 +5,7 @@ BossContainer::BossContainer(float assasinTransitionToSlowInterval, float assasi
     this->assasinTransitionToFastInterval = assasinTransitionToFastInterval;
     defeated = false;
     boss = nullptr;
+    setBonusScore(1000);
 }
 
 BossContainer::~BossContainer() {
@@ -28,13 +29,13 @@ void BossContainer::update(sf::RenderWindow& window, Player& player, std::vector
     if (damage) player.healthDamage(damage);  
 }
 
-void BossContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
+void BossContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, Player& player) {
     if (!boss || defeated) return;
     if (boss->collidesWithPlayer(bulletPosition)){
         boss->healthDamage(shootingDamage);
         if (boss->getHealth() <= 0){
             defeated = true;
-            player.scoreIncrease(bonusScore);
+            player.scoreIncrease(getBonusScore());
         }
     }
 }

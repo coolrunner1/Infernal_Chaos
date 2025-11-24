@@ -12,11 +12,14 @@ class AbstractEntityContainer {
     private:
         float spawnInterval;
         std::time_t lastSpawnedTimestamp;
+        int bonusScore;
     public:
         virtual void spawnNewEntity(sf::RenderWindow& window) = 0;
         virtual void update(sf::RenderWindow& window, Player& player) = 0;
         virtual int getContainerLength() = 0;
         virtual void clear() = 0;
+        int getBonusScore();
+        void setBonusScore(int bonusScore);
         time_t getLastSpawnedTimestamp();
         void setLastSpawnedTimestamp(std::time_t& timestamp);
         void setSpawnInterval(float spawnInterval);

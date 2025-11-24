@@ -16,7 +16,7 @@ void NullEnemiesContainer::update(sf::RenderWindow& window, Player& player, std:
  
 }
 
-void NullEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
+void NullEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, Player& player) {
     
 }
 

@@ -46,8 +46,10 @@ void AbstractLevel::keysCheck(sf::RenderWindow& window){
                                 break;
                         }
                 }
-                delete player;
-                window.close();
+                if (!nextLevelCode) {
+                        delete player;
+                        window.close();
+                }   
         }
 }
 

@@ -1,7 +1,7 @@
 #include "AmmoPacksContainer.hpp"
 
 AmmoPacksContainer::AmmoPacksContainer(float spawnInterval) : AbstractEntityContainer(spawnInterval) {
-
+    setBonusScore(5);
 }
 
 AmmoPacksContainer::~AmmoPacksContainer() {
@@ -16,7 +16,7 @@ void AmmoPacksContainer::update(sf::RenderWindow& window, Player& player) {
         if (it->collidesWithPlayer(playerPosition)){
                 player.ammoIncrease(it->getAmmo());
                 ammoPacks.erase(it);
-                player.scoreIncrease(5);
+                player.scoreIncrease(getBonusScore());
                 break;
         }
     }

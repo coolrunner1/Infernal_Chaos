@@ -9,6 +9,7 @@
 #include <chrono>
 #include <ctime>
 #include <SFML/Graphics.hpp>
+#define CONTINUE_LEVEL_EXECUTION 7
 
 class AbstractLevel {
     protected:
@@ -19,6 +20,7 @@ class AbstractLevel {
         sf::Texture backgroundTexture;
         sf::Sprite backgroundShape;
         bool endGame;
+        int nextLevelCode;
     public:
         void keysCheck(sf::RenderWindow& window);
         void setBackground(std::string background);

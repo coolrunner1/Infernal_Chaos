@@ -1,7 +1,7 @@
 #include "ArmorPacksContainer.hpp"
 
 ArmorPacksContainer::ArmorPacksContainer(float spawnInterval) : AbstractEntityContainer(spawnInterval) {
-
+    setBonusScore(5);
 }
 
 ArmorPacksContainer::~ArmorPacksContainer() {
@@ -16,7 +16,7 @@ void ArmorPacksContainer::update(sf::RenderWindow& window, Player& player) {
         if (it->collidesWithPlayer(playerPosition)){
                 player.armorIncrease(it->getArmor());
                 armorPacks.erase(it);
-                player.scoreIncrease(5);
+                player.scoreIncrease(getBonusScore());
                 break;
         }
     }

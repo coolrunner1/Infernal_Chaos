@@ -1,7 +1,7 @@
 #include "ArmoredEnemiesContainer.hpp"
 
 ArmoredEnemiesContainer::ArmoredEnemiesContainer(float spawnInterval) : AbstractEnemyContainer(spawnInterval) {
-    
+    setBonusScore(30);
 }
 
 ArmoredEnemiesContainer::~ArmoredEnemiesContainer() {
@@ -27,13 +27,13 @@ void ArmoredEnemiesContainer::update(sf::RenderWindow& window, Player& player, s
     }  
 }
 
-void ArmoredEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
+void ArmoredEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, Player& player) {
     for (auto it = enemies.begin(); it != enemies.end(); ++it){
         if (it->collidesWithPlayer(bulletPosition)){
             it->healthDamage(shootingDamage);
             if (it->getHealth() <= 0){
                 enemies.erase(it);
-                player.scoreIncrease(bonusScore);
+                player.scoreIncrease(getBonusScore());
                 break;
             }
         }

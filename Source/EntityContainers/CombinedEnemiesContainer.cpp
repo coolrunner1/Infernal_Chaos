@@ -3,6 +3,7 @@
 CombinedEnemiesContainer::CombinedEnemiesContainer(float spawnInterval, float assasinTransitionToSlowInterval, float assasinTransitionToFastInterval) : AbstractEnemyContainer(spawnInterval) {
     this->assasinTransitionToSlowInterval = assasinTransitionToSlowInterval;
     this->assasinTransitionToFastInterval = assasinTransitionToFastInterval;
+    setBonusScore(45);
 }
 
 CombinedEnemiesContainer::~CombinedEnemiesContainer() {
@@ -29,13 +30,13 @@ void CombinedEnemiesContainer::update(sf::RenderWindow& window, Player& player, 
     }  
 }
 
-void CombinedEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
+void CombinedEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, Player& player) {
     for (auto it = enemies.begin(); it != enemies.end(); ++it){
         if (it->collidesWithPlayer(bulletPosition)){
             it->healthDamage(shootingDamage);
             if (it->getHealth()<=0){
                 enemies.erase(it);
-                player.scoreIncrease(bonusScore);
+                player.scoreIncrease(getBonusScore());
                 break;
             }
         }
