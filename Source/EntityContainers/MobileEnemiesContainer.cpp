@@ -16,19 +16,6 @@ void MobileEnemiesContainer::spawnNewEntity(sf::RenderWindow& window) {
     }
 }
 
-void MobileEnemiesContainer::collides(sf::RenderWindow& window, Player& player) {
-    time_t prevDamage;
-    sf::Vector2f playerPosition = player.getPosition();
-    for (auto it=enemies.begin(); it!=enemies.end(); ++it){
-        it->enemyMove(window, playerPosition);
-        it->entityDraw(window);
-        if (it->collidesWithPlayer(playerPosition) && std::difftime(std::time(nullptr), it->getDamageTime()) > DAMAGE_INTERVAL){
-            it->setDamageTime(std::time(&prevDamage));
-            player.healthDamage(it->getDamage());
-        }   
-    }  
-}
-
 void MobileEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {
     for (auto it = enemies.begin(); it != enemies.end(); ++it){
         if (it->collidesWithPlayer(bulletPosition)){
@@ -43,8 +30,16 @@ void MobileEnemiesContainer::checkCollisionWithPlayersBullet(sf::Vector2f bullet
 }
 
 void MobileEnemiesContainer::collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets) {
-    std::cerr << "This entity does not require enemyBullets argument!" << std::endl;
-    exit(1);
+    time_t prevDamage;
+    sf::Vector2f playerPosition = player.getPosition();
+    for (auto it=enemies.begin(); it!=enemies.end(); ++it){
+        it->enemyMove(window, playerPosition);
+        it->entityDraw(window);
+        if (it->collidesWithPlayer(playerPosition) && std::difftime(std::time(nullptr), it->getDamageTime()) > DAMAGE_INTERVAL){
+            it->setDamageTime(std::time(&prevDamage));
+            player.healthDamage(it->getDamage());
+        }   
+    }  
 }
 
 int MobileEnemiesContainer::getContainerLength() {

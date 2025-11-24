@@ -33,6 +33,12 @@ class AbstractLevel {
         void keysCheck(sf::RenderWindow& window);
         void setBackground(sf::RenderWindow& window);
         void levelInit();
+        virtual int levelRender(sf::Event& event, sf::RenderWindow& window) = 0;
+        virtual void bulletPoll(sf::RenderWindow& window) = 0;
+        virtual void collision(sf::RenderWindow& window) = 0;
+        virtual void spawnEntities(sf::RenderWindow& window) = 0;
+        virtual void clearVectors() = 0;
+        virtual void enemyBulletPoll(sf::RenderWindow& window) = 0;
         AbstractLevel();
         AbstractLevel(std::string path);
         ~AbstractLevel();

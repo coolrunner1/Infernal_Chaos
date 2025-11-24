@@ -4,6 +4,7 @@ BossContainer::BossContainer(float assasinTransitionToSlowInterval, float assasi
     this->assasinTransitionToSlowInterval = assasinTransitionToSlowInterval;
     this->assasinTransitionToFastInterval = assasinTransitionToFastInterval;
     defeated = false;
+    boss = nullptr;
 }
 
 BossContainer::~BossContainer() {
@@ -11,7 +12,9 @@ BossContainer::~BossContainer() {
 }
 
 void BossContainer::spawnNewEntity(sf::RenderWindow& window) {
-    boss = new Boss();
+    if (!boss) {
+        boss = new Boss();
+    }
 }
 
 void BossContainer::collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){

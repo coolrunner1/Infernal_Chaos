@@ -18,15 +18,7 @@ int main()
     icon.loadFromFile("Sprites/logo.png");
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     MainMenu* mainMenu = new MainMenu;
-    MainLevel* mainLevel = new MainLevel(
-        new AmmoPacksContainer, 
-        new ArmorPacksContainer, 
-        new HealthPacksContainer, 
-        new MobileEnemiesContainer, 
-        new ArmoredEnemiesContainer,
-        new CombinedEnemiesContainer(0.5, 5),
-        new BossContainer(1, 4)
-    );
+    MainLevel* mainLevel = nullptr;
     int menuChoice=MAIN_MENU;
     while (window.isOpen())
     {
@@ -46,22 +38,68 @@ int main()
             window.setFramerateLimit(60);
             switch(menuChoice){
                 case INFERNAL_CAMPAIGN:
-                    mainLevel->setCampaign();
+                    if (!mainLevel) {
+                        mainLevel = new MainLevel(
+                            CAMPAIGN,
+                            new AmmoPacksContainer, 
+                            new ArmorPacksContainer, 
+                            new HealthPacksContainer, 
+                            new MobileEnemiesContainer, 
+                            new ArmoredEnemiesContainer,
+                            new CombinedEnemiesContainer(0.5, 5),
+                            new BossContainer(1, 4)
+                        );
+                    }
                     break;
                 case PS_LVL_1:
-                    mainLevel->setEasyDifficulty();
+                    if (!mainLevel) {
+                        mainLevel = new MainLevel(
+                            SUFFERING_EASY,
+                            new AmmoPacksContainer, 
+                            new ArmorPacksContainer, 
+                            new HealthPacksContainer, 
+                            new MobileEnemiesContainer, 
+                            new ArmoredEnemiesContainer,
+                            new NullEnemiesContainer(),
+                            new NullEnemiesContainer()
+                        );
+                    }
                     break;
                 case PS_LVL_2:
-                    mainLevel->setMediumDifficulty();
+                    if (!mainLevel) {
+                        mainLevel = new MainLevel(
+                            SUFFERING_MEDIUM,
+                            new AmmoPacksContainer, 
+                            new ArmorPacksContainer, 
+                            new HealthPacksContainer,
+                            new MobileEnemiesContainer,  
+                            new ArmoredEnemiesContainer,
+                            new CombinedEnemiesContainer(0.7, 3),
+                            new NullEnemiesContainer()
+                        );
+                    }
                     break;
                 case PS_LVL_3:
-                    mainLevel->setHardDifficulty();
+                    if (!mainLevel) {
+                        mainLevel = new MainLevel(
+                            SUFFERING_HARD,
+                            new AmmoPacksContainer, 
+                            new NullEntitiesContainer, 
+                            new HealthPacksContainer, 
+                            new ArmoredEnemiesContainer,
+                            new CombinedEnemiesContainer(0.7, 3), 
+                            new BossContainer(0.7, 2),
+                            new NullEnemiesContainer()
+                        );
+                    }
                     break;
             }
             menuChoice=7;
         }
         else{
-            menuChoice=mainLevel->levelRender(event, window);
+            if (mainLevel) {
+                menuChoice=mainLevel->levelRender(event, window);
+            }
         }
         window.display();
     }

@@ -1,6 +1,7 @@
 #include "MainLevel.hpp"
 
 MainLevel::MainLevel(
+        int difficulty,
         AbstractEntityContainer* ammoPacks, 
         AbstractEntityContainer* armorPacks, 
         AbstractEntityContainer* healthPacks, 
@@ -16,6 +17,25 @@ MainLevel::MainLevel(
     this->ammoPacks = ammoPacks;
     this->armorPacks = armorPacks;
     this->healthPacks = healthPacks;
+    mode = difficulty;
+    switch (mode) {
+        case SUFFERING_EASY:
+                setEasyDifficulty();
+                break;
+        case SUFFERING_MEDIUM:
+                setMediumDifficulty();
+                break;
+        case SUFFERING_HARD:
+                setHardDifficulty();
+                break;
+        case CAMPAIGN:
+                setCampaign();
+                break;
+        default:
+                mode = CAMPAIGN;
+                setCampaign();
+                break;
+    }
 }
 
 MainLevel::~MainLevel(){
@@ -68,7 +88,7 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
 
 void MainLevel::collision(sf::RenderWindow& window){
         playerPosition=player->getPosition();
-        mobileEnemies->collides(window, *player);
+        mobileEnemies->collides(window, *player, enemyBullets);
         armoredEnemies->collides(window, *player, enemyBullets);
         combinedEnemies->collides(window, *player, enemyBullets);
         ammoPacks->collides(window, *player);
@@ -105,7 +125,6 @@ void MainLevel::setEasyDifficulty(){
         armoredEnemies->setSpawnInterval(5);
         combinedEnemies->setSpawnInterval(30);
         shootingDamage = 3;
-        mode = SUFFERING_EASY;
 }
 
 void MainLevel::setMediumDifficulty(){
@@ -118,7 +137,6 @@ void MainLevel::setMediumDifficulty(){
         combinedEnemies->setSpawnInterval(15);
         shootingDamage = 2;
         enemyBulletDamage = 2;
-        mode = SUFFERING_MEDIUM;
 }
 
 void MainLevel::setHardDifficulty(){
@@ -129,14 +147,12 @@ void MainLevel::setHardDifficulty(){
         healthPacks->setSpawnInterval(pickupSpawnInterval);
         armoredEnemies->setSpawnInterval(1);
         combinedEnemies->setSpawnInterval(5);
-        shootingDamage = 1;
-        enemyBulletDamage = 3;
-        mode = SUFFERING_HARD;
+        shootingDamage = 2;
+        enemyBulletDamage = 2;
 }
 
 void MainLevel::setCampaign(){
         setEasyDifficulty();
-        mode = CAMPAIGN;
 }
 
 int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
