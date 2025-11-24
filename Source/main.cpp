@@ -41,6 +41,7 @@ int main()
                     if (!mainLevel) {
                         mainLevel = new MainLevel(
                             CAMPAIGN,
+                            "Sprites/lvl1_bg.png",
                             new AmmoPacksContainer, 
                             new ArmorPacksContainer, 
                             new HealthPacksContainer, 
@@ -55,6 +56,7 @@ int main()
                     if (!mainLevel) {
                         mainLevel = new MainLevel(
                             SUFFERING_EASY,
+                            "Sprites/lvl3_bg.png",
                             new AmmoPacksContainer, 
                             new ArmorPacksContainer, 
                             new HealthPacksContainer, 
@@ -69,6 +71,7 @@ int main()
                     if (!mainLevel) {
                         mainLevel = new MainLevel(
                             SUFFERING_MEDIUM,
+                            "Sprites/lvl1_bg.png",
                             new AmmoPacksContainer, 
                             new ArmorPacksContainer, 
                             new HealthPacksContainer,
@@ -83,6 +86,7 @@ int main()
                     if (!mainLevel) {
                         mainLevel = new MainLevel(
                             SUFFERING_HARD,
+                            "Sprites/lvl2_bg.png",
                             new AmmoPacksContainer, 
                             new NullEntitiesContainer, 
                             new HealthPacksContainer, 

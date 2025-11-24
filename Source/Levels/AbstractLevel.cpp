@@ -10,20 +10,19 @@ AbstractLevel::AbstractLevel(){
 AbstractLevel::AbstractLevel(std::string path){
         levelInit();
         if (!backgroundTexture.loadFromFile(path)) {
-                std::cerr << "Missing file: "<<path<<std::endl;
+                std::cerr << "Missing file: " << path << std::endl;
         }
 }
 
 void AbstractLevel::levelInit(){
-        stillScreens=new StillScreen;
-        bossDefeated=false;
-        bossSpawned=false;
-        std::cout<<"Level created\n";
-        time(&start);
-        enemyBulletDamage=1;
+        stillScreens = new StillScreen;
+        bossDefeated = false;
+        bossSpawned = false;
+        std::cout << "Level created\n";
+        enemyBulletDamage = 1;
         player = new Player;
-        cursor=new Cursor;
-        stats=new Stats;
+        cursor = new Cursor;
+        stats = new Stats;
 }
 
 
@@ -65,7 +64,13 @@ AbstractLevel::~AbstractLevel(){
         delete stats;
 }
 
-void AbstractLevel::setBackground(sf::RenderWindow& window){
+void AbstractLevel::setBackground(std::string background) {
+        if (!backgroundTexture.loadFromFile(background)) {
+                std::cerr << "Missing file: " << background <<std::endl;
+        }
+}
+
+void AbstractLevel::refreshBackground(sf::RenderWindow& window){
         backgroundShape.setTexture(backgroundTexture);
         window.draw(backgroundShape);
 }

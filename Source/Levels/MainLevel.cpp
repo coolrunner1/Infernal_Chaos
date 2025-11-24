@@ -2,6 +2,7 @@
 
 MainLevel::MainLevel(
         int difficulty,
+        std::string background,
         AbstractEntityContainer* ammoPacks, 
         AbstractEntityContainer* armorPacks, 
         AbstractEntityContainer* healthPacks, 
@@ -9,7 +10,7 @@ MainLevel::MainLevel(
         AbstractEnemyContainer* armoredEnemies,
         AbstractEnemyContainer* combinedEnemies,
         AbstractEnemyContainer* boss
-) : AbstractLevel("Sprites/lvl1_bg.png") {
+) : AbstractLevel(background) {
     this->mobileEnemies = mobileEnemies;
     this->armoredEnemies = armoredEnemies;
     this->combinedEnemies = combinedEnemies;
@@ -57,6 +58,7 @@ void MainLevel::spawnEntities(sf::RenderWindow& window){
                         player->ammoIncrease(300);
                         player->armorIncrease(100);
                         player->healthIncrease(100);
+                        setBackground("Sprites/lvl3_bg.png");
                         bossSpawned=true;
                 }
                 return;
@@ -74,7 +76,7 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
         if (!bullets.empty() && bullets.begin()->bulletLifeCycleExpired())
                 bullets.erase(bullets.begin());
         for (auto it=bullets.begin(); it!=bullets.end(); ++it){
-                bulletPosition=it->getPosition();
+                sf::Vector2f bulletPosition=it->getPosition();
                 it->bulletMove();
                 it->entityDraw(window);
                 mobileEnemies->checkCollisionWithPlayersBullet(bulletPosition, shootingDamage, 15, *player);
@@ -86,8 +88,8 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
         }
 }
 
-void MainLevel::collision(sf::RenderWindow& window){
-        playerPosition=player->getPosition();
+void MainLevel::update(sf::RenderWindow& window){
+        sf::Vector2f playerPosition = player->getPosition();
         mobileEnemies->update(window, *player, enemyBullets);
         armoredEnemies->update(window, *player, enemyBullets);
         combinedEnemies->update(window, *player, enemyBullets);
@@ -156,14 +158,13 @@ void MainLevel::setCampaign(){
 }
 
 int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
-        std::time(&current);
-        setBackground(window);
+        refreshBackground(window);
         window.setMouseCursorVisible(false);
         player->fireABullet(event, window, bullets);
         spawnEntities(window);
         bulletPoll(window);
         enemyBulletPoll(window);
-        collision(window);
+        update(window);
         player->playerRender(window);
         player->playerMove(event, window);
         cursor->cursorUpdate(window);
@@ -179,7 +180,7 @@ int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
 }
 
 void MainLevel::enemyBulletPoll(sf::RenderWindow& window){
-        playerPosition=player->getPosition();
+        sf::Vector2f playerPosition=player->getPosition();
         if (!enemyBullets.empty() && enemyBullets.begin()->bulletLifeCycleExpired())
                 enemyBullets.erase(enemyBullets.begin());
         for (auto it=enemyBullets.begin(); it!=enemyBullets.end(); ++it){

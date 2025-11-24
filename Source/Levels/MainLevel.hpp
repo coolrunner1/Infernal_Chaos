@@ -28,6 +28,7 @@ class MainLevel : public AbstractLevel{
         AbstractEnemyContainer* combinedEnemies;
         AbstractEnemyContainer* boss;
         std::string path;
+        int mode;
         void setEasyDifficulty();
         void setMediumDifficulty();
         void setHardDifficulty();
@@ -35,12 +36,13 @@ class MainLevel : public AbstractLevel{
     public:
         int levelRender(sf::Event& event, sf::RenderWindow& window);
         void bulletPoll(sf::RenderWindow& window);
-        void collision(sf::RenderWindow& window);
+        void update(sf::RenderWindow& window);
         void spawnEntities(sf::RenderWindow& window);
         void clearVectors();
         void enemyBulletPoll(sf::RenderWindow& window);
         MainLevel(
             int difficulty,
+            std::string background,
             AbstractEntityContainer* ammoPacks,
             AbstractEntityContainer* armorPacks, 
             AbstractEntityContainer* healthPacks, 
