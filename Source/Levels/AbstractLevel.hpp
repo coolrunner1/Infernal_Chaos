@@ -14,6 +14,11 @@
 class AbstractLevel {
     private:
         void levelInit();
+        virtual void bulletPoll(sf::RenderWindow& window) = 0;
+        virtual void update(sf::RenderWindow& window) = 0;
+        virtual void spawnEntities(sf::RenderWindow& window) = 0;
+        virtual void clearEntities() = 0;
+        virtual void enemyBulletPoll(sf::RenderWindow& window) = 0;
     protected:
         Player* player;
         Cursor* cursor;
@@ -27,15 +32,10 @@ class AbstractLevel {
         void refreshBackground(sf::RenderWindow& window);
     public:
         void setBackground(std::string background);
-        virtual int levelRender(sf::Event& event, sf::RenderWindow& window) = 0;
-        virtual void bulletPoll(sf::RenderWindow& window) = 0;
-        virtual void update(sf::RenderWindow& window) = 0;
-        virtual void spawnEntities(sf::RenderWindow& window) = 0;
-        virtual void clearEntities() = 0;
-        virtual void enemyBulletPoll(sf::RenderWindow& window) = 0;
+        virtual int render(sf::Event& event, sf::RenderWindow& window) = 0;
         AbstractLevel();
         AbstractLevel(std::string path);
-        virtual ~AbstractLevel() = default;
+        ~AbstractLevel();
 };
 
 #endif

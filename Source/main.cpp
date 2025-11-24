@@ -32,7 +32,7 @@ int main()
         window.clear();
         if (menuChoice<INFERNAL_CAMPAIGN){
             window.setFramerateLimit(5);
-            menuChoice=mainMenu->mainButtons(event, window, menuChoice);
+            menuChoice=mainMenu->render(event, window, menuChoice);
         }
         else if (menuChoice<7){
             window.setFramerateLimit(60);
@@ -104,9 +104,12 @@ int main()
                             new HealthPacksContainer(35), 
                         };
                         std::vector<AbstractEnemyContainer*> enemyContainers = {
-                            new ArmoredEnemiesContainer(0.5),
-                            new CombinedEnemiesContainer(1, 0.7, 3), 
-                            new BossContainer(0.7, 2),
+                            new ArmoredEnemiesContainer(1),
+                            new CombinedEnemiesContainer(12, 0.7, 3), 
+                            new MobileEnemiesContainer(2), 
+                            new MobileEnemiesContainer(2), 
+                            new MobileEnemiesContainer(2), 
+                            new MobileEnemiesContainer(2), 
                         };
                         mainLevel = new MainLevel(
                             "Sprites/lvl3_bg.png",
@@ -120,7 +123,7 @@ int main()
         }
         else{
             if (mainLevel) {
-                menuChoice=mainLevel->levelRender(event, window);
+                menuChoice=mainLevel->render(event, window);
             }
         }
         window.display();

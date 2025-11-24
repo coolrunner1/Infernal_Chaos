@@ -16,7 +16,7 @@
 #define ETERNAL 1
 
 class MainLevel : public AbstractLevel{
-    protected:
+    private:
         std::vector<Bullet> bullets;
         std::vector<Bullet> enemyBullets;
         std::vector<AbstractEntityContainer*> entityContainers;
@@ -27,11 +27,6 @@ class MainLevel : public AbstractLevel{
         bool bossSpawned;
         int bossReachScore;
         std::string bossBackground;
-    public:
-        /*
-        * Calls methods necessary for level rendering and returns a value that signals to either create the next level or to continue running the current level
-        */
-        int levelRender(sf::Event& event, sf::RenderWindow& window);
         /*
         * Calls methods of containers to check if bullets fired by the player collide with enemies
         */
@@ -52,6 +47,11 @@ class MainLevel : public AbstractLevel{
         * Checks if bullets fired by enemies collide with the player
         */
         void enemyBulletPoll(sf::RenderWindow& window);
+    public:
+        /*
+        * Calls methods necessary for level rendering and returns a value that signals to either create the next level or to continue running the current level
+        */
+        int render(sf::Event& event, sf::RenderWindow& window);
         /*
         * This constructor initializes level with the "campaign" mode
         */

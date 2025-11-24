@@ -69,7 +69,7 @@ void MainMenu::mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& eve
 }
 
 
-int MainMenu::mainButtons(sf::Event& event, sf::RenderWindow& window, int screen){
+int MainMenu::render(sf::Event& event, sf::RenderWindow& window, int screen){
     mainMenuDraw(screen, window, event);
         if (event.type == sf::Event::MouseButtonPressed) {
             switch (screen){

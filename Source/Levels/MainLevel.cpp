@@ -119,7 +119,7 @@ void MainLevel::clearEntities(){
         }
 }
 
-int MainLevel::levelRender(sf::Event& event, sf::RenderWindow& window){
+int MainLevel::render(sf::Event& event, sf::RenderWindow& window){
         if (endGame && nextLevelCode) {
                 return nextLevelCode;
         }

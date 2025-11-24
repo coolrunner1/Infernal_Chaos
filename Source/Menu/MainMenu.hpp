@@ -30,12 +30,12 @@ class MainMenu {
         sf::Sprite backgroundShape;
         std::string path[numOfButtons];
         Button* buttons[numOfButtons];
-    public:
-        void mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& event);
-        int mainButtons(sf::Event& event, sf::RenderWindow& window, int screen);
         void menuButtons(sf::RenderWindow& window);
+        void mainMenuDraw(int screen, sf::RenderWindow& window, sf::Event& event);
         void secondScrButtons(sf::RenderWindow& window);
         void thirdScrButtons(sf::RenderWindow& window);
+    public:
+        int render(sf::Event& event, sf::RenderWindow& window, int screen);
         MainMenu();
         ~MainMenu();
 };
