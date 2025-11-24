@@ -17,7 +17,7 @@ class BossContainer : public AbstractEnemyContainer {
         float assasinTransitionToFastInterval;
     public:
         void spawnNewEntity(sf::RenderWindow& window);
-        void collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets);
+        void update(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets);
         void checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player);
         int getContainerLength();
         void clear();

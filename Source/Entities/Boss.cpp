@@ -1,6 +1,6 @@
 #include "Boss.hpp"
 
-Boss::Boss() : CombinedEnemy(false) {
+Boss::Boss(float transitionToSlowInterval, float transitionToFastInterval) : CombinedEnemy(transitionToSlowInterval, transitionToFastInterval, false) {
     path = "Sprites/zombie.png";
     enemyPath[0] = path;
     enemyPath[1] = "Sprites/zombie_left.png";

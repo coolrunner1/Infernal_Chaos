@@ -8,7 +8,7 @@ HealthPacksContainer::~HealthPacksContainer() {
     healthPacks.clear();
 }
 
-void HealthPacksContainer::collides(sf::RenderWindow& window, Player& player) {
+void HealthPacksContainer::update(sf::RenderWindow& window, Player& player) {
     sf::Vector2f playerPosition = player.getPosition();
     for (auto it=healthPacks.begin(); it!=healthPacks.end(); ++it){
         it->refresh();

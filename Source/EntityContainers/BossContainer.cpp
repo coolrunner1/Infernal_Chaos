@@ -13,30 +13,19 @@ BossContainer::~BossContainer() {
 
 void BossContainer::spawnNewEntity(sf::RenderWindow& window) {
     if (!boss) {
-        boss = new Boss();
+        boss = new Boss(assasinTransitionToSlowInterval, assasinTransitionToFastInterval);
     }
 }
 
-void BossContainer::collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){
+void BossContainer::update(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){
     if (!boss || defeated) return;
-    time_t prevDamage;
     time_t current = std::time(nullptr);
     sf::Vector2f playerPosition = player.getPosition();
-    if (std::difftime(current, boss->getTransitionToSlowTimestamp()) > assasinTransitionToSlowInterval){
-        boss->setLowSpeed();
-        boss->updateTransitionToSlowTimestamp();
-    }
-    if (std::difftime(current, boss->getTransitionToFastTimestamp()) > assasinTransitionToFastInterval){
-        boss->setHighSpeed();
-        boss->updateTransitionToFastTimestamp();
-    }
     boss->enemyMove(window, playerPosition);
     boss->entityDraw(window);
     boss->fireABullet(enemyBullets, window, playerPosition);
-    if (boss->collidesWithPlayer(playerPosition) && std::difftime(current, boss->getDamageTime()) > DAMAGE_INTERVAL){
-        boss->setDamageTime(std::time(&prevDamage));
-        player.healthDamage(boss->getDamage());
-    }     
+    int damage = boss->getDamageFromCollisionWithPlayer(window, playerPosition);
+    if (damage) player.healthDamage(damage);  
 }
 
 void BossContainer::checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) {

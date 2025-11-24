@@ -7,7 +7,6 @@
 #include <chrono>
 #include <ctime>
 #include <SFML/Graphics.hpp>
-#define DAMAGE_INTERVAL 0.05
 
 class AbstractEntityContainer {
     private:
@@ -15,7 +14,7 @@ class AbstractEntityContainer {
         std::time_t lastSpawnedTimestamp;
     public:
         virtual void spawnNewEntity(sf::RenderWindow& window) = 0;
-        virtual void collides(sf::RenderWindow& window, Player& player) = 0;
+        virtual void update(sf::RenderWindow& window, Player& player) = 0;
         virtual int getContainerLength() = 0;
         virtual void clear() = 0;
         time_t getLastSpawnedTimestamp();

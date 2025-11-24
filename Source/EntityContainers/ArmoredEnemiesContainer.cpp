@@ -16,17 +16,14 @@ void ArmoredEnemiesContainer::spawnNewEntity(sf::RenderWindow& window) {
     }
 }
 
-void ArmoredEnemiesContainer::collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){
-    time_t prevDamage;
+void ArmoredEnemiesContainer::update(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){
     sf::Vector2f playerPosition = player.getPosition();
     for (auto it=enemies.begin(); it!=enemies.end(); ++it){
         it->enemyMove(window, playerPosition);
         it->entityDraw(window);
         it->fireABullet(enemyBullets, window, playerPosition);
-        if (it->collidesWithPlayer(playerPosition) && std::difftime(std::time(nullptr), it->getDamageTime()) > DAMAGE_INTERVAL){
-            it->setDamageTime(std::time(&prevDamage));
-            player.healthDamage(it->getDamage());
-        }   
+        int damage = it->getDamageFromCollisionWithPlayer(window, playerPosition);
+        if (damage) player.healthDamage(damage);
     }  
 }
 

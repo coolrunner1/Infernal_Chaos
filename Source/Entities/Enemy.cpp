@@ -37,3 +37,12 @@ void Enemy::setDamageTime(std::time_t damageTime) {
 std::time_t Enemy::getDamageTime() {
     return damageTime;
 }
+
+int Enemy::getDamageFromCollisionWithPlayer(sf::RenderWindow& window, sf::Vector2f playerPos) {
+    if (collidesWithPlayer(playerPos) && std::difftime(std::time(nullptr), getDamageTime()) > DAMAGE_INTERVAL){
+        setDamageTime(std::time(nullptr));
+        return getDamage();
+    }   
+
+    return 0;
+}

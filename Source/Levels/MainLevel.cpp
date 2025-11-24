@@ -88,18 +88,18 @@ void MainLevel::bulletPoll(sf::RenderWindow& window){
 
 void MainLevel::collision(sf::RenderWindow& window){
         playerPosition=player->getPosition();
-        mobileEnemies->collides(window, *player, enemyBullets);
-        armoredEnemies->collides(window, *player, enemyBullets);
-        combinedEnemies->collides(window, *player, enemyBullets);
-        ammoPacks->collides(window, *player);
-        armorPacks->collides(window, *player);
-        healthPacks->collides(window, *player);
+        mobileEnemies->update(window, *player, enemyBullets);
+        armoredEnemies->update(window, *player, enemyBullets);
+        combinedEnemies->update(window, *player, enemyBullets);
+        ammoPacks->update(window, *player);
+        armorPacks->update(window, *player);
+        healthPacks->update(window, *player);
         if (bossSpawned) {
                 if (!boss->getContainerLength()) {
                         bossDefeated = true;
                         return;
                 }
-                boss->collides(window, *player, enemyBullets);
+                boss->update(window, *player, enemyBullets);
         }
 
 }

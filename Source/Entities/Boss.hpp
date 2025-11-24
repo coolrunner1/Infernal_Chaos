@@ -5,6 +5,6 @@
 
 class Boss : public CombinedEnemy {
     public:
-        Boss();
+        Boss(float transitionToSlowInterval, float transitionToFastInterval);
 };
 #endif

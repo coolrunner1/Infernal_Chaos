@@ -12,11 +12,7 @@ void NullEnemiesContainer::spawnNewEntity(sf::RenderWindow& window) {
 
 }
 
-void NullEnemiesContainer::collides(sf::RenderWindow& window, Player& player){
- 
-}
-
-void NullEnemiesContainer::collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){
+void NullEnemiesContainer::update(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){
  
 }
 
@@ -29,5 +25,5 @@ int NullEnemiesContainer::getContainerLength() {
 }
 
 void NullEnemiesContainer::clear() {
-    
+
 }

@@ -1,17 +1,36 @@
 #include "CombinedEnemy.hpp"
 
-CombinedEnemy::CombinedEnemy() : ArmoredEnemy(false) {
+CombinedEnemy::CombinedEnemy(float transitionToSlowInterval, float transitionToFastInterval) : ArmoredEnemy(false) {
     speed = 0.5f;
     entitySprite.setScale(4, 4);
+    this->transitionToSlowInterval = transitionToSlowInterval;
+    this->transitionToFastInterval = transitionToFastInterval;
     combinedEnemyInit();
 }
 
-CombinedEnemy::CombinedEnemy(bool assasin) : ArmoredEnemy(false) {
+CombinedEnemy::CombinedEnemy(float transitionToSlowInterval, float transitionToFastInterval, bool assasin) : ArmoredEnemy(false) {
     speed = 0.5f;
     entitySprite.setScale(4, 4);
+    this->transitionToSlowInterval = transitionToSlowInterval;
+    this->transitionToFastInterval = transitionToFastInterval;
     if (assasin) {
         combinedEnemyInit();
     }
+}
+
+void CombinedEnemy::enemyMove(sf::RenderWindow& window, sf::Vector2f playerPos) {
+    time_t current = std::time(nullptr);
+
+    if (std::difftime(current, getTransitionToSlowTimestamp()) > transitionToSlowInterval){
+        setLowSpeed();
+        updateTransitionToSlowTimestamp();
+    }
+    if (std::difftime(current, getTransitionToFastTimestamp()) > transitionToFastInterval){
+        setHighSpeed();
+        updateTransitionToFastTimestamp();
+    }
+
+    Enemy::enemyMove(window, playerPos);
 }
 
 void CombinedEnemy::combinedEnemyInit() {

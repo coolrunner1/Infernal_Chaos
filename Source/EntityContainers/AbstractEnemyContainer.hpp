@@ -12,9 +12,9 @@
 
 class AbstractEnemyContainer : public AbstractEntityContainer {
     private:
-        void collides(sf::RenderWindow& window, Player& player);
+        void update(sf::RenderWindow& window, Player& player);
     public:
-        virtual void collides(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets) = 0;
+        virtual void update(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets) = 0;
         virtual void checkCollisionWithPlayersBullet(sf::Vector2f bulletPosition, int shootingDamage, int bonusScore, Player& player) = 0;
         AbstractEnemyContainer();
 };

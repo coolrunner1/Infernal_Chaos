@@ -11,7 +11,7 @@
 class NullEntitiesContainer : public AbstractEntityContainer {
     public:
         void spawnNewEntity(sf::RenderWindow& window);
-        void collides(sf::RenderWindow& window, Player& player);
+        void update(sf::RenderWindow& window, Player& player);
         int getContainerLength();
         void clear();
         NullEntitiesContainer();

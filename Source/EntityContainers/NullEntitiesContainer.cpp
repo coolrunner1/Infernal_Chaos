@@ -8,7 +8,7 @@ NullEntitiesContainer::~NullEntitiesContainer() {
 
 }
 
-void NullEntitiesContainer::collides(sf::RenderWindow& window, Player& player) {
+void NullEntitiesContainer::update(sf::RenderWindow& window, Player& player) {
     
 }
 

@@ -8,7 +8,7 @@ ArmorPacksContainer::~ArmorPacksContainer() {
     armorPacks.clear();
 }
 
-void ArmorPacksContainer::collides(sf::RenderWindow& window, Player& player) {
+void ArmorPacksContainer::update(sf::RenderWindow& window, Player& player) {
     sf::Vector2f playerPosition = player.getPosition();
     for (auto it=armorPacks.begin(); it!=armorPacks.end(); ++it){
         it->refresh();

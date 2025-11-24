@@ -8,7 +8,7 @@ AmmoPacksContainer::~AmmoPacksContainer() {
     ammoPacks.clear();
 }
 
-void AmmoPacksContainer::collides(sf::RenderWindow& window, Player& player) {
+void AmmoPacksContainer::update(sf::RenderWindow& window, Player& player) {
     sf::Vector2f playerPosition = player.getPosition();
     for (auto it=ammoPacks.begin(); it!=ammoPacks.end(); ++it){
         it->refresh();
