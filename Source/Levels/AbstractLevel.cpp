@@ -2,16 +2,12 @@
 
 AbstractLevel::AbstractLevel(){
         levelInit();
-        if (!backgroundTexture.loadFromFile("Sprites/lvl1_bg.png")) {
-                std::cerr << "Missing file: Sprites/lvl1_bg.png"<<std::endl;
-        }
+        setBackground("Sprites/lvl1_bg.png");
 }
 
 AbstractLevel::AbstractLevel(std::string path){
         levelInit();
-        if (!backgroundTexture.loadFromFile(path)) {
-                std::cerr << "Missing file: " << path << std::endl;
-        }
+        setBackground(path);
 }
 
 void AbstractLevel::levelInit(){
