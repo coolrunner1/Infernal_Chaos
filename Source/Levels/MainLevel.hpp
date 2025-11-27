@@ -2,10 +2,7 @@
 #define MAINLEVEL
 #include "AbstractLevel.hpp"
 #include "../Entities/Bullet.hpp"
-#include "../Entities/AmmoPack.hpp"
-#include "../Entities/ArmoredEnemy.hpp"
-#include "../Entities/CombinedEnemy.hpp"
-#include "../EntityContainers/CombinedEnemiesContainer.hpp"
+#include "../EntityContainers/AbstractEnemyContainer.hpp"
 #include <memory>
 #include <iostream>
 #include <vector>
@@ -22,11 +19,11 @@ class MainLevel : public AbstractLevel{
         std::vector<AbstractEntityContainer*> entityContainers;
         std::vector<AbstractEnemyContainer*> enemyContainers;
         AbstractEnemyContainer* boss;
-        std::string path;
+        std::string backgroundPath;
         int mode;
         bool bossSpawned;
         int bossReachScore;
-        std::string bossBackground;
+        std::string bossBackgroundPath;
         /*
         * Calls methods of containers to check if bullets fired by the player collide with enemies
         */
@@ -56,11 +53,11 @@ class MainLevel : public AbstractLevel{
         * This constructor initializes level with the "campaign" mode
         */
         MainLevel(
-            std::string background,
+            std::string backgroundPath,
             std::vector<AbstractEntityContainer*>& entitiesContainers,
             std::vector<AbstractEnemyContainer*>& enemyContainers,
             int bossReachScore,
-            std::string bossBackground,
+            std::string bossBackgroundPath,
             int nextLevelCode,
             AbstractEnemyContainer* boss
         );
@@ -68,7 +65,7 @@ class MainLevel : public AbstractLevel{
         * This constructor initializes level with the "perpetual" mode
         */
         MainLevel(
-            std::string background,
+            std::string backgroundPath,
             std::vector<AbstractEntityContainer*>& entitiesContainers,
             std::vector<AbstractEnemyContainer*>& enemyContainers
         );

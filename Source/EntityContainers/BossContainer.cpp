@@ -20,7 +20,6 @@ void BossContainer::spawnNewEntity(sf::RenderWindow& window) {
 
 void BossContainer::update(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){
     if (!boss || defeated) return;
-    time_t current = std::time(nullptr);
     sf::Vector2f playerPosition = player.getPosition();
     boss->enemyMove(window, playerPosition);
     boss->entityDraw(window);

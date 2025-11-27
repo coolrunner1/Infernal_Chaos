@@ -19,7 +19,6 @@ void CombinedEnemiesContainer::spawnNewEntity(sf::RenderWindow& window) {
 }
 
 void CombinedEnemiesContainer::update(sf::RenderWindow& window, Player& player, std::vector<Bullet>& enemyBullets){
-    time_t current = std::time(nullptr);
     sf::Vector2f playerPosition = player.getPosition();
     for (auto it=enemies.begin(); it!=enemies.end(); ++it){
         it->enemyMove(window, playerPosition);

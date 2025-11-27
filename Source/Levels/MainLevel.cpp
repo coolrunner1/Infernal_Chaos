@@ -1,18 +1,18 @@
 #include "MainLevel.hpp"
 
 MainLevel::MainLevel(
-        std::string background,
+        std::string backgroundPath,
         std::vector<AbstractEntityContainer*>& entitiesContainers,
         std::vector<AbstractEnemyContainer*>& enemyContainers,
         int bossReachScore,
-        std::string bossBackground,
+        std::string bossBackgroundPath,
         int nextLevelCode,
         AbstractEnemyContainer* boss
-) : AbstractLevel(background) {
+) : AbstractLevel(backgroundPath) {
     this->boss = boss;
     this->mode = CAMPAIGN;
     this->bossReachScore = bossReachScore;
-    this->bossBackground = bossBackground;
+    this->bossBackgroundPath = bossBackgroundPath;
     this->nextLevelCode = nextLevelCode;
     bossSpawned = false;
     this->entityContainers = entitiesContainers;
@@ -20,14 +20,14 @@ MainLevel::MainLevel(
 }
 
 MainLevel::MainLevel(
-        std::string background,
+        std::string backgroundPath,
         std::vector<AbstractEntityContainer*>& entitiesContainers,
         std::vector<AbstractEnemyContainer*>& enemyContainers
-) : AbstractLevel(background) {
+) : AbstractLevel(backgroundPath) {
     this->boss = nullptr;
     this->mode = ETERNAL;
     this->bossReachScore = 0;
-    this->bossBackground = "";
+    this->bossBackgroundPath = "";
     this->nextLevelCode = 0;
     bossSpawned = false;
     this->entityContainers = entitiesContainers;
@@ -53,8 +53,8 @@ void MainLevel::spawnEntities(sf::RenderWindow& window){
                         player->ammoIncrease(300);
                         player->armorIncrease(100);
                         player->healthIncrease(100);
-                        if (bossBackground.length()) {
-                                setBackground(bossBackground);
+                        if (bossBackgroundPath.length()) {
+                                setBackground(bossBackgroundPath);
                         }
                         bossSpawned = true;
                 }

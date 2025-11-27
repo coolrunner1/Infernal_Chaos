@@ -6,7 +6,7 @@ class AbstractCampaignLevelFactory : public AbstractPerpetualLevelFactory {
     public:
         virtual int getBossReachScore() = 0;
         virtual std::string getBossBackground() = 0;
-        virtual int getLextLevelCode() = 0;
+        virtual int getNextLevelCode() = 0;
         virtual AbstractEnemyContainer* getBoss() = 0;
 };
 
